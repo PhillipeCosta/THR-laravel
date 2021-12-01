@@ -1,11 +1,12 @@
 <template>
-<FlashMessages />
+  <FlashMessages />
   <div class="mb-4 max-w-xs">
+    <h4 class="font-semibold text-xl text-gray-800 leading-tight mb-4"> Filtros </h4>
     <input
       type="search"
-      v-model="params.beneficio"
-      aria-label="Procurar"
-      placeholder="Procurar..."
+      v-model="params.search"
+      aria-label="Empresa"
+      placeholder="Empresa..."
       class="
         block
         w-full
@@ -18,7 +19,7 @@
     />
   </div>
 
-  <div class="bg-white rounded-md shadow overflow-x-auto">
+  <div class="bg-white rounded-md shadow">
     <table class="w-full whitespace-nowrap">
       <thead>
         <tr class="text-left font-bold">
@@ -26,8 +27,14 @@
           <th class="px-6 pt-6 pb-4">Empresa</th>
           <th class="px-6 pt-6 pb-4">De</th>
           <th class="px-6 pt-6 pb-4">Até</th>
-          <th class="px-6 pt-6 pb-4">Colaboração dependente</th>
-          <th class="px-6 pt-6 pb-4">Desconto dependente</th>
+          <th class="px-6 pt-6 pb-4">
+            Colaboração <br />
+            dependente
+          </th>
+          <th class="px-6 pt-6 pb-4">
+            Desconto <br />
+            dependente
+          </th>
           <th class="px-6 pt-6 pb-4">Início</th>
           <th class="px-6 pt-6 pb-4">Fim</th>
         </tr>
@@ -75,9 +82,57 @@
           <td
             class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
           >
-            <Link @click="destroy(item.id_beneficio)" class="text-red-700"
-              >Deletar</Link
-            >
+            <Dropdown align="right" width="48">
+              <template #trigger>
+                <button
+                  type="button"
+                  class="
+                    inline-flex
+                    items-center
+                    px-3
+                    py-2
+                    border border-transparent
+                    text-sm
+                    leading-4
+                    font-medium
+                    rounded-md
+                    text-gray-500
+                    bg-white
+                    hover:text-gray-700
+                    focus:outline-none
+                    transition
+                    ease-in-out
+                    duration-150
+                  "
+                >
+                  Opções
+
+                  <svg
+                    class="ml-2 -mr-0.5 h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </template>
+
+              <template #content>
+                <DropdownLink
+                  :href="route('beneficios.edit', item.id_beneficio)"
+                >
+                  Editar
+                </DropdownLink>
+                <DropdownLink @click="destroy(item.id_beneficio)">
+                  Deletar
+                </DropdownLink>
+              </template>
+            </Dropdown>
           </td>
         </tr>
       </tbody>
@@ -93,11 +148,15 @@ import DateFormat from "@/Components/DateFormat.vue";
 import FlashMessages from "@/Components/FlashMessages";
 import MoneyFormat from "@/Components/MoneyFormat.vue";
 import Pagination from "@/Components/Pagination";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
 
 export default {
   components: {
     Link,
     DateFormat,
+    Dropdown,
+    DropdownLink,
     FlashMessages,
     MoneyFormat,
     Pagination,
@@ -109,7 +168,7 @@ export default {
   data() {
     return {
       params: {
-        beneficio: this.filters.beneficio,
+        search: this.filters.search,
       },
     };
   },
@@ -117,18 +176,18 @@ export default {
     destroy(id_beneficio) {
       this.$inertia.delete(route("beneficios.destroy", id_beneficio));
     },
+    edit(id_beneficio) {
+      this.$emit("edit", id_beneficio);
+    },
   },
 
   watch: {
     params: {
       handler: function () {
-        console.log(this.params);
-        /*
-
         this.$inertia.get(this.route("beneficios.index"), this.params, {
           replace: true,
           preserveState: true,
-        });*/
+        });
       },
       deep: true,
     },

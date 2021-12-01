@@ -30,7 +30,7 @@
             rounded
             hover:bg-red-500
             hover:text-white
-            focus:border-red-500 focus:text-white
+            focus:border-red-500
           "
           :class="{ 'bg-red-700 text-white': link.active }"
           :href="link.url"

@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Beneficio extends Model
 {
-    use HasFactory, Uuid;
+    use Uuid;
+    use HasFactory, Notifiable;
     protected $table = 'beneficio';
-
     protected $primaryKey  = 'id_beneficio';
     public $timestamps = false;
     protected $fillable = [
@@ -25,4 +26,12 @@ class Beneficio extends Model
         'inicio',
         'nome_pessoa_registro'
     ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('beneficio', 'like', '%'.$search.'%');
+        });
+    }
+
 }

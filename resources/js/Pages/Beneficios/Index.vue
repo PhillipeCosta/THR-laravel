@@ -8,23 +8,18 @@
           Benefícios
         </h2>
 
-        <BreezeButton
-          @click="showModal = !showModal"
-          data-modal-toggle="default-modal"
-          type="button"
+        <LinkButton
+          :href="route('beneficios.create')"
+          class="hover:bg-red-700 active:bg-red-900 bg-red-800"
         >
           Cadastrar Benefício
-        </BreezeButton>
+        </LinkButton>
       </div>
     </template>
 
-    <Modal v-model="showModal">
-      <Store></Store>
-    </Modal>
-
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <List :filters="filters" :items="items"></List>
+        <List :filters="filters" :items="items"></List>
       </div>
     </div>
   </BreezeAuthenticatedLayout>
@@ -32,30 +27,27 @@
 
 <script>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
-import Store from "@/Components/Beneficios/Store.vue";
 import List from "@/Components/Beneficios/List.vue";
 import Modal from "@/Components/Modal.vue";
-import BreezeButton from "@/Components/Button.vue";
+import LinkButton from "@/Components/LinkButton.vue";
+
 import { Head } from "@inertiajs/inertia-vue3";
 
 export default {
   components: {
     BreezeAuthenticatedLayout,
-    BreezeButton,
-    Store,
+    LinkButton,
     List,
     Modal,
     Head,
   },
   props: {
     items: Object,
-    filters: Object
+    filters: Object,
   },
   data() {
-    return {
-      showModal: false,
-      table: [],
-    };
+    return {};
   },
+  methods: {},
 };
 </script>

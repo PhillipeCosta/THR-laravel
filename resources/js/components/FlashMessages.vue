@@ -42,3 +42,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.fill-white{
+  fill: #fff;
+}
+</style>

@@ -1,19 +1,16 @@
 <template>
-  <button
-    :type="type"
+  <Link
     class="
       inline-flex
       items-center
       px-4
       py-2
-      bg-red-800
       border border-transparent
       rounded-md
       font-semibold
-      text-xs text-white
+      text-xs 
+      text-white
       tracking-widest
-      hover:bg-red-700
-      active:bg-red-900
       focus:outline-none focus:border-gray-900 focus:shadow-outline-gray
       transition
       ease-in-out
@@ -21,16 +18,14 @@
     "
   >
     <slot />
-  </button>
+  </Link>
 </template>
 
 <script>
+import { Link } from "@inertiajs/inertia-vue3";
 export default {
-  props: {
-    type: {
-      type: String,
-      default: "submit",
-    },
+  components: {
+    Link,
   },
 };
 </script>

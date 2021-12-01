@@ -19,11 +19,10 @@ class BeneficiosController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Beneficios', [
-            'filters' => Request::all('beneficio'),
-            'items' => QueryBuilder::for(Beneficio::class)
-                ->allowedFilters('beneficio')
-                ->allowedSorts('beneficio')
+        return Inertia::render('Beneficios/Index', [
+            'filters' => Request::all('search'),
+            'items' => Beneficio::orderBy('beneficio')
+                ->filter(Request::only('search'))
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -36,7 +35,7 @@ class BeneficiosController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Beneficios/Store');
     }
 
     /**
@@ -48,7 +47,7 @@ class BeneficiosController extends Controller
     public function store(StoreBeneficioRequest $request)
     {
         Beneficio::create($request->all());
-        return Redirect::route('beneficios.index')->with('success', 'Benefício criado.');
+        return Redirect::route('beneficios.index')->with('success', 'Benefício criado com sucesso!');
     }
 
     /**
@@ -68,9 +67,11 @@ class BeneficiosController extends Controller
      * @param  \App\Models\Beneficio  $beneficios
      * @return \Illuminate\Http\Response
      */
-    public function edit(Beneficio $beneficios)
+    public function edit(Beneficio $beneficio)
     {
-        //
+        return Inertia::render('Beneficios/Edit', [
+            'beneficio' => $beneficio
+        ]);
     }
 
     /**
@@ -82,9 +83,8 @@ class BeneficiosController extends Controller
      */
     public function update(UpdateBeneficioRequest $request, Beneficio $beneficio)
     {
-
         $beneficio->update($request->all());
-        return Redirect::route('beneficios.index');
+        return Redirect::route('beneficios.index')->with('success', 'Benefício alterado com sucesso!');
     }
 
     /**
@@ -96,6 +96,6 @@ class BeneficiosController extends Controller
     public function destroy(Beneficio $beneficio)
     {
         $beneficio->delete();
-        return Redirect::route('beneficios.index')->with('success', 'Benefício deletado.');;
+        return Redirect::route('beneficios.index')->with('success', 'Benefício deletado com sucesso!');
     }
 }
