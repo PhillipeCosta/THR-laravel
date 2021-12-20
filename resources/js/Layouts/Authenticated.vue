@@ -30,17 +30,17 @@
                 </BreezeNavLink>
                 
                 <BreezeNavLink
-                  :href="route('transporte')"
-                  :active="route().current('transporte')"
+                  :href="route('cliente.index')"
+                  :active="route().current('cliente.index')"
                 >
-                  Transporte
+                  Cliente
                 </BreezeNavLink>
 
                 <BreezeNavLink
-                  :href="route('home')"
-                  :active="route().current('vale-refeicao')"
+                  :href="route('lotacao.index')"
+                  :active="route().current('lotacao.index')"
                 >
-                  Vale refeição
+                  Lotação
                 </BreezeNavLink>
                 <BreezeNavLink
                   :href="route('home')"
