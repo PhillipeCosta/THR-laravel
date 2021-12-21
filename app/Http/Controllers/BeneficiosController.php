@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Beneficio;
-use App\Http\Requests\StoreBeneficioRequest;
-use App\Http\Requests\UpdateBeneficioRequest;
+use App\Http\Requests\{StoreBeneficioRequest, UpdateBeneficioRequest};
 use Illuminate\Support\Facades\Redirect;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Request;

@@ -1,41 +1,44 @@
 <template>
     <FlashMessages />
-    <div class="mb-4 max-w-xs">
-        <h4 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Filtros
-        </h4>
-        <input
-            type="search"
-            v-model="params.search"
-            aria-label="Lotação"
-            placeholder="Lotação..."
-            class="
-                block
-                w-full
-                rounded-md
-                border-gray-300
-                shadow-sm
-                focus:ring-indigo-500 focus:border-indigo-500
-                sm:text-sm
-            "
-        />
-    </div>
 
     <div class="bg-white rounded-md shadow">
         <table class="w-full whitespace-nowrap">
             <thead>
                 <tr class="text-left font-bold">
+                    <th class="px-6 pt-6 pb-4">Tipo</th>
+                    <th class="px-6 pt-6 pb-4">Valor</th>
+                    <th class="px-6 pt-6 pb-4">Início</th>
+                    <th class="px-6 pt-6 pb-4">Fim</th>
                     <th class="px-6 pt-6 pb-4">Lotacao</th>
                     <th class="px-6 pt-6 pb-4">Cliente</th>
-                    <th class="px-6 pt-6 pb-4">Ativo</th>
                 </tr>
             </thead>
             <tbody>
                 <tr
                     class="bg-white border-b"
                     v-for="item in items.data"
-                    :key="item.id_lotacao"
+                    :key="item.id_compras_refeicao"
                 >
+                    <td
+                        class="
+                            text-sm text-gray-500
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                        "
+                    >
+                        {{ item.tipo }}
+                    </td>
+                    <td
+                        class="
+                            text-sm text-gray-500
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                        "
+                    >
+                        <MoneyFormat :value="item.valor" />
+                    </td>
                     <td
                         class="
                             px-6
@@ -46,7 +49,19 @@
                             text-gray-900
                         "
                     >
-                        {{ item.lotacao }}
+                        <DateFormat :value="item.inicio" />
+                    </td>
+                    <td
+                        class="
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                            text-sm
+                            font-medium
+                            text-gray-900
+                        "
+                    >
+                        <DateFormat :value="item.fim" />
                     </td>
                     <td
                         class="
@@ -55,8 +70,9 @@
                             py-4
                             whitespace-nowrap
                         "
-                    >{{item.cliente.cliente}}</td>
-                    
+                    >
+                        {{ item.lotacao.lotacao }}
+                    </td>
                     <td
                         class="
                             text-sm text-gray-500
@@ -64,8 +80,10 @@
                             py-4
                             whitespace-nowrap
                         "
-                        v-html="booleanFormat(item.ativo)"
-                    ></td>
+                    >
+                        {{ item.cliente.cliente }}
+                    </td>
+
                     <td
                         class="
                             px-6
@@ -118,12 +136,17 @@
                             <template #content>
                                 <DropdownLink
                                     :href="
-                                        route('lotacao.edit', item.id_lotacao)
+                                        route(
+                                            'compras-refeicao.edit',
+                                            item.id_compras_refeicao
+                                        )
                                     "
                                 >
                                     Editar
                                 </DropdownLink>
-                                <DropdownLink @click="destroy(item.id_lotacao)">
+                                <DropdownLink
+                                    @click="destroy(item.id_compras_refeicao)"
+                                >
                                     Deletar
                                 </DropdownLink>
                             </template>
@@ -134,7 +157,7 @@
         </table>
     </div>
 
-    <pagination class="mt-6" :links="items.links" />
+    <Pagination class="mt-6" :links="items.links" />
 </template>
 
 <script>
@@ -151,6 +174,7 @@ export default {
         Link,
         DateFormat,
         Dropdown,
+        DateFormat,
         DropdownLink,
         FlashMessages,
         MoneyFormat,
@@ -158,14 +182,9 @@ export default {
     },
     props: {
         items: Object,
-        filters: Object,
     },
     data() {
-        return {
-            params: {
-                search: this.filters.search,
-            },
-        };
+        return {};
     },
     methods: {
         booleanFormat(val) {
@@ -176,23 +195,13 @@ export default {
             }
         },
         destroy(id) {
-            this.$inertia.delete(route("lotacao.destroy", id));
+            this.$inertia.delete(route("compras-refeicao.destroy", id));
         },
         edit(id) {
             this.$emit("edit", id);
         },
     },
 
-    watch: {
-        params: {
-            handler: function () {
-                this.$inertia.get(this.route("lotacao.index"), this.params, {
-                    replace: true,
-                    preserveState: true,
-                });
-            },
-            deep: true,
-        },
-    },
+    watch: {},
 };
 </script>

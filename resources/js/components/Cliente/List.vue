@@ -195,11 +195,11 @@ export default {
                 return "Sim";
             }
         },
-        destroy(id_beneficio) {
-            this.$inertia.delete(route("cliente.destroy", id_beneficio));
+        destroy(id) {
+            this.$inertia.delete(route("cliente.destroy", id));
         },
-        edit(id_beneficio) {
-            this.$emit("edit", id_beneficio);
+        edit(id) {
+            this.$emit("edit", id);
         },
     },
 

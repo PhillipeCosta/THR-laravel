@@ -2,9 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BeneficiosController;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\LotacaoController;
+use App\Http\Controllers\{BeneficiosController, ClienteController, FaixaSalarialController, LotacaoController, ComprasRefeicaoController};
 use Inertia\Inertia;
 
 /*
@@ -39,6 +37,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function ($route) {
     Route::resource('beneficios', BeneficiosController::class);
     Route::resource('cliente', ClienteController::class);
     Route::resource('lotacao', LotacaoController::class);
+    Route::resource('faixa-salarial', FaixaSalarialController::class);
+    Route::resource('compras-refeicao', ComprasRefeicaoController::class);
 });
 
 require __DIR__ . '/auth.php';

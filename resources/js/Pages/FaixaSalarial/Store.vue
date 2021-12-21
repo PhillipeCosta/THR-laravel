@@ -12,16 +12,29 @@
                 "
             >
                 <form @submit.prevent="submit">
-                    <div class="mb-4">
-                        <ThrLabel for="lotacao" value="Lotação" />
-                        <ThrInput
-                            id="lotacao"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.lotacao"
-                            required
-                            autofocus
-                        />
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <ThrLabel for="inicio" value="Início" />
+                            <ThrInput
+                                id="inicio"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.inicio"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="fim" value="Fim" />
+                            <ThrInput
+                                id="fim"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.fim"
+                                required
+                                autofocus
+                            />
+                        </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -46,7 +59,7 @@
                                 bg-gray-800
                                 mr-3
                             "
-                            :href="route('lotacao.index')"
+                            :href="route('faixa-salarial.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -84,7 +97,8 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                lotacao: "",
+                inicio: "",
+                fim: "",
                 id_cliente: "",
                 ativo: false,
             }),
@@ -107,7 +121,7 @@ export default {
     methods: {
         submit() {
             //this.form.ativo = this.form.ativo == false ? 0 : 1;
-            this.form.post(this.route("lotacao.store"));
+            this.form.post(this.route("faixa-salarial.store"));
         },
     },
 };

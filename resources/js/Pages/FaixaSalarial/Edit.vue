@@ -12,16 +12,29 @@
                 "
             >
                 <form @submit.prevent="submit">
-                    <div class="mb-4">
-                        <ThrLabel for="lotacao" value="Lotação" />
-                        <ThrInput
-                            id="lotacao"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.lotacao"
-                            required
-                            autofocus
-                        />
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <ThrLabel for="inicio" value="Início" />
+                            <ThrInput
+                                id="inicio"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.inicio"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="fim" value="Fim" />
+                            <ThrInput
+                                id="fim"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.fim"
+                                required
+                                autofocus
+                            />
+                        </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -46,7 +59,7 @@
                                 bg-gray-800
                                 mr-3
                             "
-                            :href="route('lotacao.index')"
+                            :href="route('faixa-salarial.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -54,7 +67,7 @@
                             :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing"
                         >
-                            Cadastrar
+                            Atualizar
                         </ThrButton>
                     </div>
                 </form>
@@ -70,28 +83,27 @@ import Switch from "@/Components/Switch.vue";
 import ThrLabel from "@/Components/Label.vue";
 import Select from "@/Components/Select.vue";
 import LinkButton from "@/Components/LinkButton.vue";
+import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
         Switch,
+        Select,
         LinkButton,
         ThrButton,
         ThrInput,
         ThrLabel,
-        Select,
     },
 
-    data() {
-        return {
-            form: this.$inertia.form({
-                lotacao: "",
-                id_cliente: "",
-                ativo: false,
-            }),
-        };
-    },
-    props: {
-        clientes: Array,
+    setup(props) {
+        const form = useForm({
+            inicio: new Date(props.item.inicio).toISOString().substring(0, 10),
+            fim: new Date(props.item.fim).toISOString().substring(0, 10),
+            id_cliente: props.item.id_cliente,
+            ativo: props.item.ativo == 1 ? true : false,
+        });
+
+        return { form };
     },
     computed: {
         selectClientes() {
@@ -104,10 +116,24 @@ export default {
             });
         },
     },
+    data() {
+        return {};
+    },
+    props: {
+        item: Object,
+        clientes: Array,
+    },
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
-            this.form.post(this.route("lotacao.store"));
+            this.form.put(
+                this.route(
+                    "faixa-salarial.update",
+                    this.item.id_faixa_salarial
+                ),
+                {
+                    //onFinish: () => this.form.reset("password", "password_confirmation"),
+                }
+            );
         },
     },
 };
