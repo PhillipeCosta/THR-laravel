@@ -66,7 +66,7 @@
                                         route().current('compras-refeicao.index')
                                     "
                                 >
-                                    Compras Refeição
+                                    Compra Refeição/Alimentação
                                 </BreezeNavLink>
                             </div>
                         </div>

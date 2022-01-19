@@ -6,11 +6,11 @@
             <thead>
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Tipo</th>
+                    <th class="px-6 pt-6 pb-4">Cliente</th>
+                    <th class="px-6 pt-6 pb-4">Lotacao</th>
                     <th class="px-6 pt-6 pb-4">Valor</th>
                     <th class="px-6 pt-6 pb-4">Início</th>
-                    <th class="px-6 pt-6 pb-4">Fim</th>
-                    <th class="px-6 pt-6 pb-4">Lotacao</th>
-                    <th class="px-6 pt-6 pb-4">Cliente</th>
+                    <th class="px-6 pt-6 pb-4">Fim</th>                   
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +28,26 @@
                         "
                     >
                         {{ item.tipo }}
+                    </td>
+                    <td
+                        class="
+                            text-sm text-gray-500
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                        "
+                    >
+                        {{ item.cliente.cliente }}
+                    </td>
+                    <td
+                        class="
+                            text-sm text-gray-500
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                        "
+                    >
+                        {{ item.lotacao.lotacao }}
                     </td>
                     <td
                         class="
@@ -63,27 +83,7 @@
                     >
                         <DateFormat :value="item.fim" />
                     </td>
-                    <td
-                        class="
-                            text-sm text-gray-500
-                            px-6
-                            py-4
-                            whitespace-nowrap
-                        "
-                    >
-                        {{ item.lotacao.lotacao }}
-                    </td>
-                    <td
-                        class="
-                            text-sm text-gray-500
-                            px-6
-                            py-4
-                            whitespace-nowrap
-                        "
-                    >
-                        {{ item.cliente.cliente }}
-                    </td>
-
+                    
                     <td
                         class="
                             px-6

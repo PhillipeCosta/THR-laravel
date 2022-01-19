@@ -24870,15 +24870,15 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "px-6 pt-6 pb-4"
 }, "Tipo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "px-6 pt-6 pb-4"
+}, "Cliente"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "px-6 pt-6 pb-4"
+}, "Lotacao"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "px-6 pt-6 pb-4"
 }, "Valor"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "px-6 pt-6 pb-4"
 }, "Início"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "px-6 pt-6 pb-4"
-}, "Fim"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "px-6 pt-6 pb-4"
-}, "Lotacao"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "px-6 pt-6 pb-4"
-}, "Cliente")])], -1
+}, "Fim")])], -1
 /* HOISTED */
 );
 
@@ -24889,16 +24889,16 @@ var _hoisted_5 = {
   "class": "text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
 };
 var _hoisted_6 = {
-  "class": "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+  "class": "text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
 };
 var _hoisted_7 = {
-  "class": "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+  "class": "text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
 };
 var _hoisted_8 = {
-  "class": "text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+  "class": "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
 };
 var _hoisted_9 = {
-  "class": "text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+  "class": "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
 };
 var _hoisted_10 = {
   "class": "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
@@ -24943,23 +24943,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: item.id_compras_refeicao
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.tipo), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MoneyFormat, {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.cliente.cliente), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.lotacao.lotacao), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MoneyFormat, {
       value: item.valor
     }, null, 8
     /* PROPS */
-    , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DateFormat, {
+    , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DateFormat, {
       value: item.inicio
     }, null, 8
     /* PROPS */
-    , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DateFormat, {
+    , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DateFormat, {
       value: item.fim
     }, null, 8
     /* PROPS */
-    , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.lotacao.lotacao), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.cliente.cliente), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+    , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
       align: "right",
       width: "48"
     }, {
@@ -26021,7 +26021,7 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Faixa Salarial ");
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Compras Refeição ");
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Compra Refeição/Alimentação ");
 
 var _hoisted_14 = {
   "class": "hidden sm:flex sm:items-center sm:ml-6"
