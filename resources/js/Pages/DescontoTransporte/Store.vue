@@ -2,51 +2,29 @@
     <div class="bg-gray-100">
         <div class="flex items-center container mx-auto h-screen">
             <div
-                class="
-                    rounded
-                    overflow-hidden
-                    flex-grow
-                    shadow-lg
-                    p-10
-                    bg-white
-                "
+                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
                 <form @submit.prevent="submit">
-                    <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <ThrLabel for="salario" value="Salario" />
+                            <ThrLabel for="valor" value="Valor" />
                             <currency-input
-                                id="salario"
+                                id="valor"
                                 class="mt-1 block w-full"
-                                v-model="form.salario"
+                                v-model="form.valor"
                                 required
                                 :options="moneyCurrencyOptions"
                             />
                         </div>
                         <div>
-                            <ThrLabel for="inicio" value="Início" />
-                            <ThrInput
-                                id="inicio"
-                                type="date"
+                            <ThrLabel value="Faixa Salarial" />
+                            <Select
                                 class="mt-1 block w-full"
-                                v-model="form.inicio"
+                                v-model="form.id_faixa_salarial"
                                 required
-                                autofocus
+                                :options="selectFaixaSalarial"
                             />
                         </div>
-                        <div>
-                            <ThrLabel for="fim" value="Fim" />
-                            <ThrInput
-                                id="fim"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.fim"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
                         <div>
                             <ThrLabel value="Cliente" />
                             <Select
@@ -61,15 +39,11 @@
                             <Switch v-model:checked="form.ativo" />
                         </div>
                     </div>
+
                     <div class="text-center mt-4">
                         <LinkButton
-                            class="
-                                hover:bg-gray-700
-                                active:bg-gray-900
-                                bg-gray-800
-                                mr-3
-                            "
-                            :href="route('faixa-salarial.index')"
+                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
+                            :href="route('desconto-transporte.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -89,21 +63,21 @@
 <script>
 import ThrButton from "@/Components/Button.vue";
 import ThrInput from "@/Components/Input.vue";
-import Switch from "@/Components/Switch.vue";
+import CurrencyInput from "@/Components/CurrencyInput";
 import ThrLabel from "@/Components/Label.vue";
 import Select from "@/Components/Select.vue";
 import LinkButton from "@/Components/LinkButton.vue";
-import CurrencyInput from "@/Components/CurrencyInput";
+import Switch from "@/Components/Switch.vue";
 
 export default {
     components: {
-        Switch,
         LinkButton,
-        CurrencyInput,
         ThrButton,
         ThrInput,
         ThrLabel,
         Select,
+        CurrencyInput,
+        Switch,
     },
 
     data() {
@@ -123,16 +97,16 @@ export default {
                 useGrouping: true,
             },
             form: this.$inertia.form({
-                salario: "",
-                inicio: "",
-                fim: "",
-                id_cliente: "",
                 ativo: false,
+                valor: "",
+                id_cliente: "",
+                id_faixa_salarial: "",
             }),
         };
     },
     props: {
         clientes: Array,
+        faixa: Array,
     },
     computed: {
         selectClientes() {
@@ -144,11 +118,19 @@ export default {
                 return obj;
             });
         },
+        selectFaixaSalarial() {
+            return this.faixa.map((item) => {
+                const obj = {
+                    value: item.id_faixa_salarial,
+                    label: item.salario,
+                };
+                return obj;
+            });
+        },
     },
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
-            this.form.post(this.route("faixa-salarial.store"));
+            this.form.post(this.route("desconto-transporte.store"));
         },
     },
 };

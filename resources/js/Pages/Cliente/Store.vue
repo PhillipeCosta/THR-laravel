@@ -104,7 +104,6 @@ export default {
 
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
             this.form.post(this.route("cliente.store"));
         },
     },

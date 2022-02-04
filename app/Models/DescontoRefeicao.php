@@ -7,19 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class FaixaSalarial extends Model
+class DescontoRefeicao extends Model
 {
     use Uuid;
     use HasFactory, Notifiable;
-    protected $table = 'faixa_salarial';
-    protected $primaryKey  = 'id_faixa_salarial';
+    protected $table = 'desconto_refeicao';
+    protected $primaryKey  = 'id_desconto_refeicao';
     public $timestamps = false;
     protected $fillable = [
+        'id_faixa_salarial',
         'id_cliente',
-        'inicio',
-        'fim',
+        'valor',
         'ativo',
-        'salario',
         'data_hora_registro',
         'nome_pessoa_registro'
     ];
@@ -27,5 +26,10 @@ class FaixaSalarial extends Model
     public function cliente()
     {
         return $this->hasOne(Cliente::class, 'id_cliente', 'id_cliente');
+    }
+
+    public function faixa()
+    {
+        return $this->hasOne(FaixaSalarial::class, 'id_faixa_salarial', 'id_faixa_salarial');
     }
 }

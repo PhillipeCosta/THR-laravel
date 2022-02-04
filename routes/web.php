@@ -2,7 +2,9 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{BeneficiosController, ClienteController, FaixaSalarialController, LotacaoController, ComprasRefeicaoController};
+use App\Http\Controllers\{BeneficiosController, ClienteController, 
+    FaixaSalarialController, LotacaoController, ComprasRefeicaoController, 
+    DescontoRefeicaoController, DescontoAlimentacaoController, DescontoTransporteController};
 use Inertia\Inertia;
 
 /*
@@ -29,16 +31,15 @@ Route::get('/home', function () {
     return Inertia::render('Home');
 })->middleware(['auth', 'verified'])->name('home');
 
-Route::get('/transporte', function () {
-    return Inertia::render('Transporte');
-})->middleware(['auth', 'verified'])->name('transporte');
-
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function ($route) {
     Route::resource('beneficios', BeneficiosController::class);
     Route::resource('cliente', ClienteController::class);
     Route::resource('lotacao', LotacaoController::class);
     Route::resource('faixa-salarial', FaixaSalarialController::class);
     Route::resource('compras-refeicao', ComprasRefeicaoController::class);
+    Route::resource('desconto-alimentacao', DescontoAlimentacaoController::class);
+    Route::resource('desconto-refeicao', DescontoRefeicaoController::class);
+    Route::resource('desconto-transporte', DescontoTransporteController::class);
 });
 
 require __DIR__ . '/auth.php';

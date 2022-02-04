@@ -2,17 +2,20 @@
     <div class="bg-gray-100">
         <div class="flex items-center container mx-auto h-screen">
             <div
-                class="
-                    rounded
-                    overflow-hidden
-                    flex-grow
-                    shadow-lg
-                    p-10
-                    bg-white
-                "
+                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
                 <form @submit.prevent="submit">
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <ThrLabel for="salario" value="Salario" />
+                            <currency-input
+                                id="salario"
+                                class="mt-1 block w-full"
+                                v-model="form.salario"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
                         <div>
                             <ThrLabel for="inicio" value="Início" />
                             <ThrInput
@@ -53,12 +56,7 @@
                     </div>
                     <div class="text-center mt-4">
                         <LinkButton
-                            class="
-                                hover:bg-gray-700
-                                active:bg-gray-900
-                                bg-gray-800
-                                mr-3
-                            "
+                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
                             :href="route('faixa-salarial.index')"
                         >
                             Voltar
@@ -83,6 +81,7 @@ import Switch from "@/Components/Switch.vue";
 import ThrLabel from "@/Components/Label.vue";
 import Select from "@/Components/Select.vue";
 import LinkButton from "@/Components/LinkButton.vue";
+import CurrencyInput from "@/Components/CurrencyInput";
 import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -90,6 +89,7 @@ export default {
         Switch,
         Select,
         LinkButton,
+        CurrencyInput,
         ThrButton,
         ThrInput,
         ThrLabel,
@@ -97,6 +97,7 @@ export default {
 
     setup(props) {
         const form = useForm({
+            salario: props.item.salario,
             inicio: new Date(props.item.inicio).toISOString().substring(0, 10),
             fim: new Date(props.item.fim).toISOString().substring(0, 10),
             id_cliente: props.item.id_cliente,
@@ -117,7 +118,22 @@ export default {
         },
     },
     data() {
-        return {};
+        return {
+            moneyCurrencyOptions: {
+                locale: "pt-BR",
+                currency: "BRL",
+                currencyDisplay: "hidden",
+                valueRange: undefined,
+                precision: 2,
+                hideCurrencySymbolOnFocus: false,
+                hideGroupingSeparatorOnFocus: false,
+                hideNegligibleDecimalDigitsOnFocus: false,
+                autoDecimalDigits: true,
+                exportValueAsInteger: false,
+                autoSign: true,
+                useGrouping: true,
+            },
+        };
     },
     props: {
         item: Object,

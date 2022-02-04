@@ -14,11 +14,11 @@
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <ThrLabel for="salario" value="Salario" />
+                            <ThrLabel for="valor" value="Valor" />
                             <currency-input
-                                id="salario"
+                                id="valor"
                                 class="mt-1 block w-full"
-                                v-model="form.salario"
+                                v-model="form.valor"
                                 required
                                 :options="moneyCurrencyOptions"
                             />
@@ -48,6 +48,15 @@
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
+                            <ThrLabel value="Lotacao" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_lotacao"
+                                required
+                                :options="selectLotacao"
+                            />
+                        </div>
+                        <div>
                             <ThrLabel value="Cliente" />
                             <Select
                                 class="mt-1 block w-full"
@@ -55,10 +64,6 @@
                                 required
                                 :options="selectClientes"
                             />
-                        </div>
-                        <div>
-                            <ThrLabel value="Status" />
-                            <Switch v-model:checked="form.ativo" />
                         </div>
                     </div>
                     <div class="text-center mt-4">
@@ -69,7 +74,7 @@
                                 bg-gray-800
                                 mr-3
                             "
-                            :href="route('faixa-salarial.index')"
+                            :href="route('compras-refeicao.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -77,7 +82,7 @@
                             :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing"
                         >
-                            Cadastrar
+                            Atualizar
                         </ThrButton>
                     </div>
                 </form>
@@ -89,23 +94,53 @@
 <script>
 import ThrButton from "@/Components/Button.vue";
 import ThrInput from "@/Components/Input.vue";
-import Switch from "@/Components/Switch.vue";
 import ThrLabel from "@/Components/Label.vue";
 import Select from "@/Components/Select.vue";
 import LinkButton from "@/Components/LinkButton.vue";
 import CurrencyInput from "@/Components/CurrencyInput";
+import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
-        Switch,
+        Select,
         LinkButton,
-        CurrencyInput,
         ThrButton,
         ThrInput,
         ThrLabel,
-        Select,
+        CurrencyInput,
     },
 
+    setup(props) {
+        const form = useForm({
+            inicio: new Date(props.item.inicio).toISOString().substring(0, 10),
+            fim: new Date(props.item.fim).toISOString().substring(0, 10),
+            id_cliente: props.item.id_cliente,
+            valor: props.item.valor,
+            id_lotacao: props.item.id_lotacao
+        });
+
+        return { form };
+    },
+    computed: {
+        selectClientes() {
+            return this.clientes.map((item) => {
+                const obj = {
+                    value: item.id_cliente,
+                    label: item.cliente,
+                };
+                return obj;
+            });
+        },
+        selectLotacao() {
+            return this.lotacao.map((item) => {
+                const obj = {
+                    value: item.id_lotacao,
+                    label: item.lotacao,
+                };
+                return obj;
+            });
+        },
+    },
     data() {
         return {
             moneyCurrencyOptions: {
@@ -122,33 +157,21 @@ export default {
                 autoSign: true,
                 useGrouping: true,
             },
-            form: this.$inertia.form({
-                salario: "",
-                inicio: "",
-                fim: "",
-                id_cliente: "",
-                ativo: false,
-            }),
         };
     },
     props: {
+        item: Object,
         clientes: Array,
-    },
-    computed: {
-        selectClientes() {
-            return this.clientes.map((item) => {
-                const obj = {
-                    value: item.id_cliente,
-                    label: item.cliente,
-                };
-                return obj;
-            });
-        },
+        lotacao: Array,
     },
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
-            this.form.post(this.route("faixa-salarial.store"));
+            this.form.put(
+                this.route(
+                    "desconto-alimentacao.update",
+                    this.item.id_desconto_alimentacao
+                )
+            );
         },
     },
 };

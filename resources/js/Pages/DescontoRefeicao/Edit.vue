@@ -12,41 +12,26 @@
                 "
             >
                 <form @submit.prevent="submit">
-                    <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <ThrLabel for="salario" value="Salario" />
+                            <ThrLabel for="valor" value="Valor" />
                             <currency-input
-                                id="salario"
+                                id="valor"
                                 class="mt-1 block w-full"
-                                v-model="form.salario"
+                                v-model="form.valor"
                                 required
                                 :options="moneyCurrencyOptions"
                             />
                         </div>
                         <div>
-                            <ThrLabel for="inicio" value="Início" />
-                            <ThrInput
-                                id="inicio"
-                                type="date"
+                            <ThrLabel value="Faixa Salarial" />
+                            <Select
                                 class="mt-1 block w-full"
-                                v-model="form.inicio"
+                                v-model="form.id_faixa_salarial"
                                 required
-                                autofocus
+                                :options="selectFaixaSalarial"
                             />
                         </div>
-                        <div>
-                            <ThrLabel for="fim" value="Fim" />
-                            <ThrInput
-                                id="fim"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.fim"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
                         <div>
                             <ThrLabel value="Cliente" />
                             <Select
@@ -69,7 +54,7 @@
                                 bg-gray-800
                                 mr-3
                             "
-                            :href="route('faixa-salarial.index')"
+                            :href="route('desconto-refeicao.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -77,7 +62,7 @@
                             :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing"
                         >
-                            Cadastrar
+                            Atualizar
                         </ThrButton>
                     </div>
                 </form>
@@ -89,23 +74,54 @@
 <script>
 import ThrButton from "@/Components/Button.vue";
 import ThrInput from "@/Components/Input.vue";
-import Switch from "@/Components/Switch.vue";
 import ThrLabel from "@/Components/Label.vue";
 import Select from "@/Components/Select.vue";
 import LinkButton from "@/Components/LinkButton.vue";
 import CurrencyInput from "@/Components/CurrencyInput";
+import { useForm } from "@inertiajs/inertia-vue3";
+import Switch from "@/Components/Switch.vue";
 
 export default {
     components: {
+        Select,
         Switch,
         LinkButton,
-        CurrencyInput,
         ThrButton,
         ThrInput,
         ThrLabel,
-        Select,
+        CurrencyInput,
     },
 
+    setup(props) {
+        const form = useForm({
+            id_cliente: props.item.id_cliente,
+            valor: props.item.valor,
+            id_faixa_salarial: props.item.id_faixa_salarial,
+            ativo: props.item.ativo
+        });
+
+        return { form };
+    },
+    computed: {
+        selectClientes() {
+            return this.clientes.map((item) => {
+                const obj = {
+                    value: item.id_cliente,
+                    label: item.cliente,
+                };
+                return obj;
+            });
+        },
+        selectFaixaSalarial() {
+            return this.faixa.map((item) => {
+                const obj = {
+                    value: item.id_faixa_salarial,
+                    label: item.salario,
+                };
+                return obj;
+            });
+        },
+    },
     data() {
         return {
             moneyCurrencyOptions: {
@@ -122,33 +138,21 @@ export default {
                 autoSign: true,
                 useGrouping: true,
             },
-            form: this.$inertia.form({
-                salario: "",
-                inicio: "",
-                fim: "",
-                id_cliente: "",
-                ativo: false,
-            }),
         };
     },
     props: {
+        item: Object,
         clientes: Array,
-    },
-    computed: {
-        selectClientes() {
-            return this.clientes.map((item) => {
-                const obj = {
-                    value: item.id_cliente,
-                    label: item.cliente,
-                };
-                return obj;
-            });
-        },
+        faixa: Array,
     },
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
-            this.form.post(this.route("faixa-salarial.store"));
+            this.form.put(
+                this.route(
+                    "desconto-refeicao.update",
+                    this.item.id_desconto_refeicao
+                )
+            );
         },
     },
 };

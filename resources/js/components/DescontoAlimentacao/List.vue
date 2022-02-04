@@ -5,51 +5,105 @@
         <table class="w-full whitespace-nowrap">
             <thead>
                 <tr class="text-left font-bold">
-                    <th class="px-6 pt-6 pb-4">Início</th>
-                    <th class="px-6 pt-6 pb-4">Fim</th>
                     <th class="px-6 pt-6 pb-4">Cliente</th>
-                    <th class="px-6 pt-6 pb-4">Salario</th>
-                    <th class="px-6 pt-6 pb-4">Ativo</th>
+                    <th class="px-6 pt-6 pb-4">Lotacao</th>
+                    <th class="px-6 pt-6 pb-4">Valor</th>
+                    <th class="px-6 pt-6 pb-4">Início</th>
+                    <th class="px-6 pt-6 pb-4">Fim</th>                   
                 </tr>
             </thead>
             <tbody>
                 <tr
                     class="bg-white border-b"
                     v-for="item in items.data"
-                    :key="item.id_faixa_salarial"
+                    :key="item.id_desconto_alimentacao"
                 >
                     <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <DateFormat :value="item.inicio" />
-                    </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <DateFormat :value="item.fim" />
-                    </td>
-                    <td
-                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                        class="
+                            text-sm text-gray-500
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                        "
                     >
                         {{ item.cliente.cliente }}
                     </td>
                     <td
-                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                        class="
+                            text-sm text-gray-500
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                        "
                     >
-                        <MoneyFormat :value="item.salario" />
+                        {{ item.lotacao.lotacao }}
                     </td>
                     <td
-                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
-                        v-html="booleanFormat(item.ativo)"
-                    ></td>
+                        class="
+                            text-sm text-gray-500
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                        "
+                    >
+                        <MoneyFormat :value="item.valor" />
+                    </td>
                     <td
-                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                        class="
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                            text-sm
+                            font-medium
+                            text-gray-900
+                        "
+                    >
+                        <DateFormat :value="item.inicio" />
+                    </td>
+                    <td
+                        class="
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                            text-sm
+                            font-medium
+                            text-gray-900
+                        "
+                    >
+                        <DateFormat :value="item.fim" />
+                    </td>
+                    
+                    <td
+                        class="
+                            px-6
+                            py-4
+                            whitespace-nowrap
+                            text-right text-sm
+                            font-medium
+                        "
                     >
                         <Dropdown align="right" width="48">
                             <template #trigger>
                                 <button
                                     type="button"
-                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                    class="
+                                        inline-flex
+                                        items-center
+                                        px-3
+                                        py-2
+                                        border border-transparent
+                                        text-sm
+                                        leading-4
+                                        font-medium
+                                        rounded-md
+                                        text-gray-500
+                                        bg-white
+                                        hover:text-gray-700
+                                        focus:outline-none
+                                        transition
+                                        ease-in-out
+                                        duration-150
+                                    "
                                 >
                                     Opções
 
@@ -72,15 +126,15 @@
                                 <DropdownLink
                                     :href="
                                         route(
-                                            'faixa-salarial.edit',
-                                            item.id_faixa_salarial
+                                            'desconto-alimentacao.edit',
+                                            item.id_desconto_alimentacao
                                         )
                                     "
                                 >
                                     Editar
                                 </DropdownLink>
                                 <DropdownLink
-                                    @click="destroy(item.id_faixa_salarial)"
+                                    @click="destroy(item.id_desconto_alimentacao)"
                                 >
                                     Deletar
                                 </DropdownLink>
@@ -130,7 +184,7 @@ export default {
             }
         },
         destroy(id) {
-            this.$inertia.delete(route("faixa-salarial.destroy", id));
+            this.$inertia.delete(route("desconto-alimentacao.destroy", id));
         },
         edit(id) {
             this.$emit("edit", id);

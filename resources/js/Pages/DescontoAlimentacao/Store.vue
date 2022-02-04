@@ -14,11 +14,11 @@
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <ThrLabel for="salario" value="Salario" />
+                            <ThrLabel for="valor" value="Valor" />
                             <currency-input
-                                id="salario"
+                                id="valor"
                                 class="mt-1 block w-full"
-                                v-model="form.salario"
+                                v-model="form.valor"
                                 required
                                 :options="moneyCurrencyOptions"
                             />
@@ -48,6 +48,15 @@
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
+                            <ThrLabel value="Lotacao" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_lotacao"
+                                required
+                                :options="selectLotacao"
+                            />
+                        </div>
+                        <div>
                             <ThrLabel value="Cliente" />
                             <Select
                                 class="mt-1 block w-full"
@@ -55,10 +64,6 @@
                                 required
                                 :options="selectClientes"
                             />
-                        </div>
-                        <div>
-                            <ThrLabel value="Status" />
-                            <Switch v-model:checked="form.ativo" />
                         </div>
                     </div>
                     <div class="text-center mt-4">
@@ -69,7 +74,7 @@
                                 bg-gray-800
                                 mr-3
                             "
-                            :href="route('faixa-salarial.index')"
+                            :href="route('compras-refeicao.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -89,21 +94,19 @@
 <script>
 import ThrButton from "@/Components/Button.vue";
 import ThrInput from "@/Components/Input.vue";
-import Switch from "@/Components/Switch.vue";
+import CurrencyInput from "@/Components/CurrencyInput";
 import ThrLabel from "@/Components/Label.vue";
 import Select from "@/Components/Select.vue";
 import LinkButton from "@/Components/LinkButton.vue";
-import CurrencyInput from "@/Components/CurrencyInput";
 
 export default {
     components: {
-        Switch,
         LinkButton,
-        CurrencyInput,
         ThrButton,
         ThrInput,
         ThrLabel,
         Select,
+        CurrencyInput,
     },
 
     data() {
@@ -123,16 +126,17 @@ export default {
                 useGrouping: true,
             },
             form: this.$inertia.form({
-                salario: "",
                 inicio: "",
                 fim: "",
+                valor: "",
                 id_cliente: "",
-                ativo: false,
+                id_lotacao: "",
             }),
         };
     },
     props: {
         clientes: Array,
+        lotacao: Array,
     },
     computed: {
         selectClientes() {
@@ -144,11 +148,19 @@ export default {
                 return obj;
             });
         },
+        selectLotacao() {
+            return this.lotacao.map((item) => {
+                const obj = {
+                    value: item.id_lotacao,
+                    label: item.lotacao,
+                };
+                return obj;
+            });
+        },
     },
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
-            this.form.post(this.route("faixa-salarial.store"));
+            this.form.post(this.route("desconto-alimentacao.store"));
         },
     },
 };
