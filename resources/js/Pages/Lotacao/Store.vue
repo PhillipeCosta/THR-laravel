@@ -23,14 +23,23 @@
                             autofocus
                         />
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-3 gap-4">
                         <div>
-                            <ThrLabel value="Cliente" />
+                            <ThrLabel value="Empresa" />
                             <Select
                                 class="mt-1 block w-full"
-                                v-model="form.id_cliente"
+                                v-model="form.id_pessoa"
                                 required
-                                :options="selectClientes"
+                                :options="selectEmpresa"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel value="Feriado" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_feriado"
+                                required
+                                :options="selectFeriado"
                             />
                         </div>
                         <div>
@@ -64,12 +73,12 @@
 </template>
 
 <script>
-import ThrButton from "@/Components/Button.vue";
-import ThrInput from "@/Components/Input.vue";
-import Switch from "@/Components/Switch.vue";
-import ThrLabel from "@/Components/Label.vue";
-import Select from "@/Components/Select.vue";
-import LinkButton from "@/Components/LinkButton.vue";
+import ThrButton from "@/Components/Global/Button.vue";
+import ThrInput from "@/Components/Global/Input.vue";
+import Switch from "@/Components/Global/Switch.vue";
+import ThrLabel from "@/Components/Global/Label.vue";
+import Select from "@/Components/Global/Select.vue";
+import LinkButton from "@/Components/Global/LinkButton.vue";
 
 export default {
     components: {
@@ -85,20 +94,31 @@ export default {
         return {
             form: this.$inertia.form({
                 lotacao: "",
-                id_cliente: "",
+                id_feriado: "",
+                id_pessoa: "",
                 ativo: false,
             }),
         };
     },
     props: {
-        clientes: Array,
+        empresas: Array,
+        feriados: Array,
     },
     computed: {
-        selectClientes() {
-            return this.clientes.map((item) => {
+        selectEmpresa() {
+            return this.empresas.map((item) => {
                 const obj = {
-                    value: item.id_cliente,
-                    label: item.cliente,
+                    value: item.id_pessoa,
+                    label: item.razao_social,
+                };
+                return obj;
+            });
+        },
+        selectFeriado() {
+            return this.feriados.map((item) => {
+                const obj = {
+                    value: item.id_feriado,
+                    label: item.nome_grupo,
                 };
                 return obj;
             });
@@ -106,7 +126,6 @@ export default {
     },
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
             this.form.post(this.route("lotacao.store"));
         },
     },

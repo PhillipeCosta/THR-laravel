@@ -2,7 +2,10 @@
     <FlashMessages />
 
     <div class="bg-white rounded-md shadow">
-        <table class="w-full whitespace-nowrap">
+        <div v-if="!items.data.length">
+            <EmptyTable />
+        </div>
+        <table class="w-full whitespace-nowrap" v-else>
             <thead>
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Início</th>
@@ -97,12 +100,13 @@
 
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
-import DateFormat from "@/Components/DateFormat.vue";
-import FlashMessages from "@/Components/FlashMessages";
-import MoneyFormat from "@/Components/MoneyFormat.vue";
-import Pagination from "@/Components/Pagination";
-import Dropdown from "@/Components/Dropdown.vue";
-import DropdownLink from "@/Components/DropdownLink.vue";
+import DateFormat from "@/Components/Global/DateFormat.vue";
+import FlashMessages from "@/Components/Global/FlashMessages";
+import MoneyFormat from "@/Components/Global/MoneyFormat.vue";
+import Pagination from "@/Components/Global/Pagination";
+import Dropdown from "@/Components/Global/Dropdown.vue";
+import DropdownLink from "@/Components/Global/DropdownLink.vue";
+import EmptyTable from "@/Components/Global/EmptyTable.vue";
 
 export default {
     components: {
@@ -114,6 +118,7 @@ export default {
         FlashMessages,
         MoneyFormat,
         Pagination,
+        EmptyTable
     },
     props: {
         items: Object,

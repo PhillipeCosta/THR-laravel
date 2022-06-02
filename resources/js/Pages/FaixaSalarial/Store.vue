@@ -87,13 +87,13 @@
 </template>
 
 <script>
-import ThrButton from "@/Components/Button.vue";
-import ThrInput from "@/Components/Input.vue";
-import Switch from "@/Components/Switch.vue";
-import ThrLabel from "@/Components/Label.vue";
-import Select from "@/Components/Select.vue";
-import LinkButton from "@/Components/LinkButton.vue";
-import CurrencyInput from "@/Components/CurrencyInput";
+import ThrButton from "@/Components/Global/Button.vue";
+import ThrInput from "@/Components/Global/Input.vue";
+import Switch from "@/Components/Global/Switch.vue";
+import ThrLabel from "@/Components/Global/Label.vue";
+import Select from "@/Components/Global/Select.vue";
+import LinkButton from "@/Components/Global/LinkButton.vue";
+import CurrencyInput from "@/Components/Global/CurrencyInput";
 
 export default {
     components: {

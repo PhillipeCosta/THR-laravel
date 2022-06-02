@@ -27,45 +27,21 @@
                                 </BreezeNavLink>
 
                                 <BreezeNavLink
-                                    :href="route('beneficios.index')"
+                                    :href="route('fornecedor.index')"
                                     :active="
-                                        route().current('beneficios.index')
+                                        route().current('fornecedor.index')
                                     "
                                 >
-                                    Benefícios
+                                    Fornecedor
                                 </BreezeNavLink>
 
                                 <BreezeNavLink
-                                    :href="route('cliente.index')"
-                                    :active="route().current('cliente.index')"
+                                    :href="route('empresa.index')"
+                                    :active="route().current('empresa.index')"
                                 >
-                                    Cliente
+                                    Empresas
                                 </BreezeNavLink>
 
-                                <BreezeNavLink
-                                    :href="route('lotacao.index')"
-                                    :active="route().current('lotacao.index')"
-                                >
-                                    Lotação
-                                </BreezeNavLink>
-                                <BreezeNavLink
-                                    :href="route('faixa-salarial.index')"
-                                    :active="
-                                        route().current('faixa-salarial.index')
-                                    "
-                                >
-                                    Faixa Salarial
-                                </BreezeNavLink>
-                                <BreezeNavLink
-                                    :href="route('compras-refeicao.index')"
-                                    :active="
-                                        route().current(
-                                            'compras-refeicao.index'
-                                        )
-                                    "
-                                >
-                                    Compra Refeição/Alimentação
-                                </BreezeNavLink>
                                 <div
                                     class="hidden sm:flex sm:items-center sm:ml-6"
                                 >
@@ -75,7 +51,63 @@
                                                 type="button"
                                                 class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
                                             >
-                                                Descontos
+                                                Faixas
+                                                <svg
+                                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </template>
+
+                                        <template #content>
+                                            <BreezeDropdownLink
+                                                :href="
+                                                    route('faixa-etaria.index')
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'faixa-etaria.index'
+                                                    )
+                                                "
+                                            >
+                                                Faixa Etária
+                                            </BreezeDropdownLink>
+                                            <BreezeDropdownLink
+                                                :href="
+                                                    route(
+                                                        'faixa-salarial.index'
+                                                    )
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'faixa-salarial.index'
+                                                    )
+                                                "
+                                            >
+                                                Faixa Salarial
+                                            </BreezeDropdownLink>
+                                        </template>
+                                    </BreezeDropdown>
+                                </div>
+
+                                <div
+                                    class="hidden sm:flex sm:items-center sm:ml-6"
+                                >
+                                    <BreezeDropdown align="right" width="48">
+                                        <template #trigger>
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
+                                            >
+                                                Benefícios
                                                 <svg
                                                     class="ml-2 -mr-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -95,29 +127,90 @@
                                             <BreezeDropdownLink
                                                 :href="
                                                     route(
-                                                        'desconto-alimentacao.index'
+                                                        'empresa-beneficio.index'
+                                                    )
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'empresa-beneficio.index'
                                                     )
                                                 "
                                             >
-                                                Alimentação
+                                                Empresa Benefícios
                                             </BreezeDropdownLink>
                                             <BreezeDropdownLink
                                                 :href="
                                                     route(
-                                                        'desconto-transporte.index'
+                                                        'compras-beneficios.index'
+                                                    )
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'compras-beneficios.index'
                                                     )
                                                 "
                                             >
-                                                Transporte
+                                                Compra Benefícios
+                                            </BreezeDropdownLink>
+                                        </template>
+                                    </BreezeDropdown>
+                                </div>
+
+                                <div
+                                    class="hidden sm:flex sm:items-center sm:ml-6"
+                                >
+                                    <BreezeDropdown align="right" width="48">
+                                        <template #trigger>
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
+                                            >
+                                                Atributos
+                                                <svg
+                                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </template>
+
+                                        <template #content>
+                                            <BreezeDropdownLink
+                                                :href="route('feriado.index')"
+                                                :active="
+                                                    route().current(
+                                                        'feriado.index'
+                                                    )
+                                                "
+                                            >
+                                                Feriados
                                             </BreezeDropdownLink>
                                             <BreezeDropdownLink
-                                                :href="
-                                                    route(
-                                                        'desconto-refeicao.index'
+                                                :href="route('lotacao.index')"
+                                                :active="
+                                                    route().current(
+                                                        'lotacao.index'
                                                     )
                                                 "
                                             >
-                                                Refeição
+                                                Lotação
+                                            </BreezeDropdownLink>
+                                            <BreezeDropdownLink
+                                                :href="route('jornada.index')"
+                                                :active="
+                                                    route().current(
+                                                        'jornada.index'
+                                                    )
+                                                "
+                                            >
+                                                Jornadas
                                             </BreezeDropdownLink>
                                         </template>
                                     </BreezeDropdown>
@@ -265,11 +358,11 @@
 </template>
 
 <script>
-import BreezeApplicationLogo from "@/Components/ApplicationLogo.vue";
-import BreezeDropdown from "@/Components/Dropdown.vue";
-import BreezeDropdownLink from "@/Components/DropdownLink.vue";
-import BreezeNavLink from "@/Components/NavLink.vue";
-import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
+import BreezeApplicationLogo from "@/Components/Global/ApplicationLogo.vue";
+import BreezeDropdown from "@/Components/Global/Dropdown.vue";
+import BreezeDropdownLink from "@/Components/Global/DropdownLink.vue";
+import BreezeNavLink from "@/Components/Global/NavLink.vue";
+import BreezeResponsiveNavLink from "@/Components/Global/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {

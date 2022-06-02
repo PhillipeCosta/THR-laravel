@@ -28,8 +28,8 @@
 <script>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import List from "@/Components/FaixaSalarial/List.vue";
-import Modal from "@/Components/Modal.vue";
-import LinkButton from "@/Components/LinkButton.vue";
+import Modal from "@/Components/Global/Modal.vue";
+import LinkButton from "@/Components/Global/LinkButton.vue";
 
 import { Head } from "@inertiajs/inertia-vue3";
 

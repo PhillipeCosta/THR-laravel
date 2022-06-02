@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue'
+import BreezeApplicationLogo from '@/Components/Global/ApplicationLogo.vue'
 import { Link } from '@inertiajs/inertia-vue3';
 
 export default {

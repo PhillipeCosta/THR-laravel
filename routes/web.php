@@ -2,9 +2,17 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{BeneficiosController, ClienteController, 
-    FaixaSalarialController, LotacaoController, ComprasRefeicaoController, 
-    DescontoRefeicaoController, DescontoAlimentacaoController, DescontoTransporteController};
+use App\Http\Controllers\{
+    FornecedorController,
+    FaixaSalarialController,
+    LotacaoController,
+    CompraBeneficioController,
+    EmpresaController,
+    FeriadoController,
+    FaixaEtariaController,
+    EmpresaBeneficioController,
+    JornadaController
+};
 use Inertia\Inertia;
 
 /*
@@ -32,14 +40,15 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified'])->name('home');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function ($route) {
-    Route::resource('beneficios', BeneficiosController::class);
-    Route::resource('cliente', ClienteController::class);
     Route::resource('lotacao', LotacaoController::class);
     Route::resource('faixa-salarial', FaixaSalarialController::class);
-    Route::resource('compras-refeicao', ComprasRefeicaoController::class);
-    Route::resource('desconto-alimentacao', DescontoAlimentacaoController::class);
-    Route::resource('desconto-refeicao', DescontoRefeicaoController::class);
-    Route::resource('desconto-transporte', DescontoTransporteController::class);
+    Route::resource('compras-beneficios', CompraBeneficioController::class);
+    Route::resource('fornecedor', FornecedorController::class);
+    Route::resource('empresa', EmpresaController::class);
+    Route::resource('feriado', FeriadoController::class);
+    Route::resource('faixa-etaria', FaixaEtariaController::class);
+    Route::resource('empresa-beneficio', EmpresaBeneficioController::class);
+    Route::resource('jornada', JornadaController::class);
 });
 
 require __DIR__ . '/auth.php';

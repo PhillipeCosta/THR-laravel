@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{FaixaSalarial, Cliente};
-use App\Http\Requests\{StoreFaixaSalarialRequest, UpdateFaixaSalarialRequest};
+use App\Http\Requests\{StoreRequest, UpdateRequest};
 use Illuminate\Support\Facades\{Redirect,Request};
 use Inertia\Inertia;
 
@@ -18,7 +18,6 @@ class FaixaSalarialController extends Controller
     {
         return Inertia::render('FaixaSalarial/Index', [
             'items' => FaixaSalarial::orderBy('inicio')
-                ->with('cliente')
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -32,17 +31,16 @@ class FaixaSalarialController extends Controller
     public function create()
     {
         return Inertia::render('FaixaSalarial/Store', [
-            'clientes' => Cliente::where('ativo', 1)->orderBy('cliente')->get(),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreFaixaSalarialRequest  $request
+     * @param  \App\Http\Requests\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFaixaSalarialRequest $request)
+    public function store(StoreRequest $request)
     {
         FaixaSalarial::create($request->all());
         return Redirect::route('faixa-salarial.index')->with('success', 'Faixa salarial criada com sucesso!');
@@ -68,19 +66,18 @@ class FaixaSalarialController extends Controller
     public function edit(FaixaSalarial $faixaSalarial)
     {
         return Inertia::render('FaixaSalarial/Edit', [
-            'item' => $faixaSalarial,
-            'clientes' => Cliente::where('ativo', 1)->orderBy('cliente')->get(),
+            'item' => $faixaSalarial
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateFaixaSalarialRequest  $request
+     * @param  \App\Http\Requests\UpdateRequest  $request
      * @param  \App\Models\FaixaSalarial  $beneficio
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFaixaSalarialRequest $request, FaixaSalarial $faixaSalarial)
+    public function update(UpdateRequest $request, FaixaSalarial $faixaSalarial)
     {
         $faixaSalarial->update($request->all());
         return Redirect::route('faixa-salarial.index')->with('success', 'Faixa salarial alterada com sucesso!');

@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\StoreLotacaoRequest;
-use App\Http\Requests\UpdateLotacaoRequest;
-use App\Models\Lotacao;
-use App\Models\Cliente;
+use App\Http\Requests\{StoreRequest, UpdateRequest};
+use App\Models\{Lotacao, Empresa, Feriado};
 use Inertia\Inertia;
 
 
@@ -23,8 +21,9 @@ class LotacaoController extends Controller
         return Inertia::render('Lotacao/Index', [
             'filters' => Request::all('search'),
             'items' => Lotacao::orderBy('lotacao')
+                ->with('empresa')
+                ->with('feriado')
                 ->filter(Request::only('search'))
-                ->with('cliente')
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -38,17 +37,18 @@ class LotacaoController extends Controller
     public function create()
     {
         return Inertia::render('Lotacao/Store', [
-            'clientes' => Cliente::where('ativo', 1)->orderBy('cliente')->get(),
+            'empresas' => Empresa::orderBy('razao_social')->get(),
+            'feriados' => Feriado::orderBy('nome_grupo')->get(),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLotacaoRequest  $request
+     * @param  \App\Http\Requests\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLotacaoRequest $request)
+    public function store(StoreRequest $request)
     {
         Lotacao::create($request->all());
         return Redirect::route('lotacao.index')->with('success', 'Lotação criada com sucesso!');
@@ -75,18 +75,19 @@ class LotacaoController extends Controller
     {
         return Inertia::render('Lotacao/Edit', [
             'item' => $lotacao,
-            'clientes' => Cliente::where('ativo', 1)->orderBy('cliente')->get(),
+            'empresas' => Empresa::orderBy('razao_social')->get(),
+            'feriados' => Feriado::orderBy('nome_grupo')->get(),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateLotacaoRequest  $lotacao
+     * @param  \App\Http\Requests\UpdateRequest  $lotacao
      * @param  \App\Models\Lotacao  $lotacao
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLotacaoRequest $request, Lotacao $lotacao)
+    public function update(UpdateRequest $request, Lotacao $lotacao)
     {
         $lotacao->update($request->all());
         return Redirect::route('lotacao.index')->with('success', 'Lotação alterado com sucesso!');

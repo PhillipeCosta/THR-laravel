@@ -6,7 +6,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Cliente;
+use App\Models\{Empresa, Feriado};
 
 class Lotacao extends Model
 {
@@ -16,11 +16,13 @@ class Lotacao extends Model
     protected $primaryKey  = 'id_lotacao';
     public $timestamps = false;
     protected $fillable = [
-        'id_cliente',
+        'id_pessoa',
         'lotacao',
         'ativo',
         'data_hora_registro',
-        'nome_pessoa_registro'
+        'nome_pessoa_registro',
+        'nome_grupo_feriados',
+        'id_feriado'
     ];
 
     public function scopeFilter($query, array $filters)
@@ -30,8 +32,13 @@ class Lotacao extends Model
         });
     }
 
-    public function cliente()
+    public function empresa()
     {
-        return $this->hasOne(Cliente::class, 'id_cliente', 'id_cliente');
+        return $this->hasOne(Empresa::class, 'id_pessoa', 'id_pessoa');
+    }
+
+    public function feriado()
+    {
+        return $this->hasOne(Feriado::class, 'id_feriado', 'id_feriado');
     }
 }

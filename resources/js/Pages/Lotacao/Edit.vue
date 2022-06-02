@@ -2,14 +2,7 @@
     <div class="bg-gray-100">
         <div class="flex items-center container mx-auto h-screen">
             <div
-                class="
-                    rounded
-                    overflow-hidden
-                    flex-grow
-                    shadow-lg
-                    p-10
-                    bg-white
-                "
+                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
                 <form @submit.prevent="submit">
                     <div class="mb-4">
@@ -23,15 +16,23 @@
                             autofocus
                         />
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-3 gap-4">
                         <div>
-                            <ThrLabel value="Cliente" />
+                            <ThrLabel value="Empresa" />
                             <Select
-                                type="text"
                                 class="mt-1 block w-full"
-                                v-model="form.id_cliente"
+                                v-model="form.id_pessoa"
                                 required
-                                :options="selectClientes"
+                                :options="selectEmpresa"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel value="Feriado" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_feriado"
+                                required
+                                :options="selectFeriado"
                             />
                         </div>
                         <div>
@@ -41,12 +42,7 @@
                     </div>
                     <div class="text-center mt-4">
                         <LinkButton
-                            class="
-                                hover:bg-gray-700
-                                active:bg-gray-900
-                                bg-gray-800
-                                mr-3
-                            "
+                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
                             :href="route('lotacao.index')"
                         >
                             Voltar
@@ -65,12 +61,12 @@
 </template>
 
 <script>
-import ThrButton from "@/Components/Button.vue";
-import ThrInput from "@/Components/Input.vue";
-import Switch from "@/Components/Switch.vue";
-import ThrLabel from "@/Components/Label.vue";
-import Select from "@/Components/Select.vue";
-import LinkButton from "@/Components/LinkButton.vue";
+import ThrButton from "@/Components/Global/Button.vue";
+import ThrInput from "@/Components/Global/Input.vue";
+import Switch from "@/Components/Global/Switch.vue";
+import ThrLabel from "@/Components/Global/Label.vue";
+import Select from "@/Components/Global/Select.vue";
+import LinkButton from "@/Components/Global/LinkButton.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -86,18 +82,28 @@ export default {
     setup(props) {
         const form = useForm({
             lotacao: props.item.lotacao,
-            id_cliente: props.item.id_cliente,
+            id_feriado: props.item.id_feriado,
+            id_pessoa: props.item.id_pessoa,
             ativo: props.item.ativo == 1 ? true : false,
         });
 
         return { form };
     },
     computed: {
-        selectClientes() {
-            return this.clientes.map((item) => {
+        selectEmpresa() {
+            return this.empresas.map((item) => {
                 const obj = {
-                    value: item.id_cliente,
-                    label: item.cliente,
+                    value: item.id_pessoa,
+                    label: item.razao_social,
+                };
+                return obj;
+            });
+        },
+        selectFeriado() {
+            return this.feriados.map((item) => {
+                const obj = {
+                    value: item.id_feriado,
+                    label: item.nome_grupo,
                 };
                 return obj;
             });
@@ -108,13 +114,15 @@ export default {
     },
     props: {
         item: Object,
-        clientes: Array
+        empresas: Array,
+        feriados: Array,
     },
     methods: {
         submit() {
-            this.form.put(this.route("lotacao.update", this.item.id_lotacao), {
-                //onFinish: () => this.form.reset("password", "password_confirmation"),
-            });
+            this.form.put(
+                this.route("lotacao.update", this.item.id_lotacao),
+                {}
+            );
         },
     },
 };
