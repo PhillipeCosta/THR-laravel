@@ -9,10 +9,10 @@
             <thead>
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Fornecedor</th>
-                    <th class="px-6 pt-6 pb-4">Tipo de Benefício</th>
                     <th class="px-6 pt-6 pb-4">Lotação</th>
+                    <th class="px-6 pt-6 pb-4">Tipo</th>
+                    <th class="px-6 pt-6 pb-4">Valor Diário</th>
                     <th class="px-6 pt-6 pb-4">Vigência</th>
-                    <th class="px-6 pt-6 pb-4">Valor</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,19 +23,29 @@
                 >
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
-                    ></td>
+                    >
+                        {{ item.fornecedor.razao_social }}
+                    </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
-                    ></td>
+                    >
+                        {{ item.lotacao.lotacao }}
+                    </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
-                    ></td>
+                    >
+                        {{ item.tipo_beneficio }}
+                    </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
-                    ></td>
+                    >
+                        <MoneyFormat :value="item.valor_diario" />
+                    </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    ></td>
+                    >
+                        <DateFormat :value="item.vigencia" />
+                    </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                     >
@@ -66,15 +76,15 @@
                                 <DropdownLink
                                     :href="
                                         route(
-                                            'compras-refeicao.edit',
-                                            item.id_compras_refeicao
+                                            'compras-beneficios.edit',
+                                            item.id_compra_beneficio
                                         )
                                     "
                                 >
                                     Editar
                                 </DropdownLink>
                                 <DropdownLink
-                                    @click="destroy(item.id_compras_refeicao)"
+                                    @click="destroy(item.id_compra_beneficio)"
                                 >
                                     Deletar
                                 </DropdownLink>
@@ -119,7 +129,7 @@ export default {
     },
     methods: {
         destroy(id) {
-            this.$inertia.delete(route("compras-refeicao.destroy", id));
+            this.$inertia.delete(route("compras-beneficios.destroy", id));
         },
         edit(id) {
             this.$emit("edit", id);

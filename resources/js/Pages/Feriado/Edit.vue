@@ -31,17 +31,17 @@
                                 autofocus
                             />
                         </div>
-                        <!--<div>
-                            <ThrLabel for="data" value="Data" />
+                        <div>
+                            <ThrLabel for="data_feriado" value="Data" />
                             <ThrInput
-                                id="data"
+                                id="data_feriado"
                                 type="date"
                                 class="mt-1 block w-full"
-                                v-model="form.data"
+                                v-model="form.data_feriado"
                                 required
                                 autofocus
                             />
-                        </div>-->
+                        </div>
                     </div>
                     <div class="text-center mt-4">
                         <LinkButton
@@ -68,8 +68,6 @@ import ThrButton from "@/Components/Global/Button.vue";
 import ThrInput from "@/Components/Global/Input.vue";
 import ThrLabel from "@/Components/Global/Label.vue";
 import LinkButton from "@/Components/Global/LinkButton.vue";
-
-import ufs from "@/enums/ufs";
 import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -85,7 +83,7 @@ export default {
         const form = useForm({
             nome_grupo: props.item.nome_grupo,
             descricao: props.item.descricao,
-            //data: props.item.data,
+            data_feriado: new Date(props.item.data_feriado).toISOString().substring(0, 10),
         });
 
         return { form };

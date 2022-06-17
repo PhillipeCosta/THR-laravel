@@ -17,7 +17,7 @@ class FeriadoController extends Controller
     public function index()
     {
         return Inertia::render('Feriado/Index', [
-            'items' => Feriado::orderBy('data')
+            'items' => Feriado::latest()
                 ->paginate(10)
                 ->withQueryString()
         ]);

@@ -170,7 +170,7 @@ export default {
             this.form.put(
                 this.route(
                     "empresa-beneficio.update",
-                    this.item.id_desconto_faixa_etaria
+                    this.item.id_empresa_beneficio
                 ),
                 {
                     //onFinish: () => this.form.reset("password", "password_confirmation"),

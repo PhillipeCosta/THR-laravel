@@ -13,7 +13,6 @@ class Empresa extends Model
     use HasFactory, Notifiable;
     protected $table = 'pessoa';
     protected $primaryKey  = 'id_pessoa';
-    public $timestamps = false;
     protected $fillable = [
         'razao_social',
         'nome_fantasia',
@@ -29,7 +28,6 @@ class Empresa extends Model
         'cnae',
         'telefone',
         'contato',
-        'data_hora_registro',
         'nome_pessoa_registro',
         'tipo'
     ];

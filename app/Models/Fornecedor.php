@@ -13,7 +13,6 @@ class Fornecedor extends Model
     use HasFactory, Notifiable;
     protected $table = 'fornecedor';
     protected $primaryKey  = 'id_fornecedor';
-    public $timestamps = false;
     protected $fillable = [
         'razao_social',
         'nome_fantasia',
@@ -27,7 +26,6 @@ class Fornecedor extends Model
         'tipo_fornecedor',
         'ans',
         'telefone',
-        'data_hora_registro',
         'nome_pessoa_registro',
         'inscricao_estadual',
         'tipo_beneficio',

@@ -2,60 +2,19 @@
     <div class="bg-gray-100">
         <div class="flex items-center container mx-auto h-screen">
             <div
-                class="
-                    rounded
-                    overflow-hidden
-                    flex-grow
-                    shadow-lg
-                    p-10
-                    bg-white
-                "
+                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
                 <form @submit.prevent="submit">
-                    <div class="grid grid-cols-4 gap-4 mb-4">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <ThrLabel for="tipo" value="Tipo" />
+                            <ThrLabel value="Fornecedor" />
                             <Select
                                 class="mt-1 block w-full"
-                                v-model="form.tipo"
+                                v-model="form.id_fornecedor"
                                 required
-                                :options="selectTipo"
+                                :options="selectFornecedor"
                             />
                         </div>
-                        <div>
-                            <ThrLabel for="valor" value="Valor" />
-                            <currency-input
-                                id="valor"
-                                class="mt-1 block w-full"
-                                v-model="form.valor"
-                                required
-                                :options="moneyCurrencyOptions"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="inicio" value="Início" />
-                            <ThrInput
-                                id="inicio"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.inicio"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="fim" value="Fim" />
-                            <ThrInput
-                                id="fim"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.fim"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4">
                         <div>
                             <ThrLabel value="Lotacao" />
                             <Select
@@ -65,25 +24,45 @@
                                 :options="selectLotacao"
                             />
                         </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
                         <div>
-                            <ThrLabel value="Cliente" />
-                            <Select
+                            <ThrLabel for="tipo_beneficio" value="Tipo" />
+                            <ThrInput
+                                id="tipo_beneficio"
+                                type="text"
                                 class="mt-1 block w-full"
-                                v-model="form.id_cliente"
+                                v-model="form.tipo_beneficio"
                                 required
-                                :options="selectClientes"
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="valor_diario" value="Valor diário" />
+                            <currency-input
+                                id="valor_diario"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_diario"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="vigencia" value="Vigência" />
+                            <ThrInput
+                                id="vigencia"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.vigencia"
+                                required
+                                autofocus
                             />
                         </div>
                     </div>
                     <div class="text-center mt-4">
                         <LinkButton
-                            class="
-                                hover:bg-gray-700
-                                active:bg-gray-900
-                                bg-gray-800
-                                mr-3
-                            "
-                            :href="route('compras-refeicao.index')"
+                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
+                            :href="route('compras-beneficios.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -121,22 +100,21 @@ export default {
 
     setup(props) {
         const form = useForm({
-            inicio: new Date(props.item.inicio).toISOString().substring(0, 10),
-            fim: new Date(props.item.fim).toISOString().substring(0, 10),
-            id_cliente: props.item.id_cliente,
-            valor: props.item.valor,
-            tipo: props.item.tipo,
-            id_lotacao: props.item.id_lotacao
+            id_lotacao: props.item.id_lotacao,
+            id_fornecedor: props.item.id_fornecedor,
+            tipo_beneficio: props.item.tipo_beneficio,
+            vigencia: new Date(props.item.vigencia).toISOString().substring(0, 10),
+            valor_diario: props.item.valor_diario
         });
 
         return { form };
     },
     computed: {
-        selectClientes() {
-            return this.clientes.map((item) => {
+        selectFornecedor() {
+            return this.fornecedores.map((item) => {
                 const obj = {
-                    value: item.id_cliente,
-                    label: item.cliente,
+                    value: item.id_fornecedor,
+                    label: item.razao_social,
                 };
                 return obj;
             });
@@ -149,19 +127,7 @@ export default {
                 };
                 return obj;
             });
-        },
-        selectTipo() {
-            return [
-                {
-                    value: "Refeição",
-                    label: "Refeição",
-                },
-                {
-                    value: "Alimentaçã",
-                    label: "Alimentaçã",
-                },
-            ];
-        },
+        }
     },
     data() {
         return {
@@ -183,15 +149,15 @@ export default {
     },
     props: {
         item: Object,
-        clientes: Array,
+        fornecedores: Array,
         lotacao: Array,
     },
     methods: {
         submit() {
             this.form.put(
                 this.route(
-                    "compras-refeicao.update",
-                    this.item.id_compras_refeicao
+                    "compras-beneficios.update",
+                    this.item.id_compra_beneficio
                 ),
                 {
                     //onFinish: () => this.form.reset("password", "password_confirmation"),

@@ -13,7 +13,6 @@ class TipoBeneficio extends Model
     use HasFactory, Notifiable;
     protected $table = 'tipo_beneficio';
     protected $primaryKey  = 'id_tipo_beneficio';
-    public $timestamps = false;
     protected $fillable = [
         'tipo'
     ];

@@ -11,7 +11,8 @@ use App\Http\Controllers\{
     FeriadoController,
     FaixaEtariaController,
     EmpresaBeneficioController,
-    JornadaController
+    JornadaController,
+    DependenteController
 };
 use Inertia\Inertia;
 
@@ -46,9 +47,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function ($route) {
     Route::resource('fornecedor', FornecedorController::class);
     Route::resource('empresa', EmpresaController::class);
     Route::resource('feriado', FeriadoController::class);
-    Route::resource('faixa-etaria', FaixaEtariaController::class);
+    Route::resource('faixa-etaria', FaixaEtariaController::class)->parameters([
+        'faixa-etaria' => 'faixa_etaria'
+    ]);
     Route::resource('empresa-beneficio', EmpresaBeneficioController::class);
     Route::resource('jornada', JornadaController::class);
+    Route::resource('dependente', DependenteController::class);
+
 });
 
 require __DIR__ . '/auth.php';

@@ -2,14 +2,7 @@
     <div class="bg-gray-100">
         <div class="flex items-center container mx-auto h-screen">
             <div
-                class="
-                    rounded
-                    overflow-hidden
-                    flex-grow
-                    shadow-lg
-                    p-10
-                    bg-white
-                "
+                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-3 gap-4 mb-4">
@@ -46,14 +39,65 @@
                             />
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <ThrLabel value="Cliente" />
+                            <ThrLabel
+                                for="valor_desc_vr"
+                                value="Valor Desc. VR"
+                            />
+                            <currency-input
+                                id="valor_desc_vr"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_desc_vr"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel
+                                for="valor_desc_vt"
+                                value="Valor Desc. VT"
+                            />
+                            <currency-input
+                                id="valor_desc_vt"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_desc_vt"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel
+                                for="valor_desc_va"
+                                value="Valor Desc. VA"
+                            />
+                            <currency-input
+                                id="valor_desc_va"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_desc_va"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <ThrLabel value="Benefício" />
                             <Select
                                 class="mt-1 block w-full"
-                                v-model="form.id_cliente"
+                                v-model="form.id_compra_beneficio"
                                 required
-                                :options="selectClientes"
+                                :options="selectBeneficio"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel value="Lotação" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_lotacao"
+                                required
+                                :options="selectLotacao"
                             />
                         </div>
                         <div>
@@ -63,12 +107,7 @@
                     </div>
                     <div class="text-center mt-4">
                         <LinkButton
-                            class="
-                                hover:bg-gray-700
-                                active:bg-gray-900
-                                bg-gray-800
-                                mr-3
-                            "
+                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
                             :href="route('faixa-salarial.index')"
                         >
                             Voltar
@@ -126,20 +165,34 @@ export default {
                 salario: "",
                 inicio: "",
                 fim: "",
-                id_cliente: "",
+                valor_desc_vr: "",
+                valor_desc_vt: "",
+                valor_desc_va: "",
+                id_compra_beneficio: "",
+                id_lotacao: "",
                 ativo: false,
             }),
         };
     },
     props: {
-        clientes: Array,
+        lotacao: Array,
+        compra_beneficio: Array,
     },
     computed: {
-        selectClientes() {
-            return this.clientes.map((item) => {
+        selectLotacao() {
+            return this.lotacao.map((item) => {
                 const obj = {
-                    value: item.id_cliente,
-                    label: item.cliente,
+                    value: item.id_lotacao,
+                    label: item.lotacao,
+                };
+                return obj;
+            });
+        },
+        selectBeneficio() {
+            return this.compra_beneficio.map((item) => {
+                const obj = {
+                    value: item.id_compra_beneficio,
+                    label: item.tipo_beneficio,
                 };
                 return obj;
             });
@@ -147,7 +200,6 @@ export default {
     },
     methods: {
         submit() {
-            //this.form.ativo = this.form.ativo == false ? 0 : 1;
             this.form.post(this.route("faixa-salarial.store"));
         },
     },

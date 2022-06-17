@@ -31,17 +31,17 @@
                                 autofocus
                             />
                         </div>
-                        <!--<div>
-                            <ThrLabel for="data" value="Data" />
+                        <div>
+                            <ThrLabel for="data_feriado" value="Data" />
                             <ThrInput
-                                id="data"
+                                id="data_feriado"
                                 type="date"
                                 class="mt-1 block w-full"
-                                v-model="form.data"
+                                v-model="form.data_feriado"
                                 required
                                 autofocus
                             />
-                        </div>-->
+                        </div>
                     </div>
 
                     <div class="text-center mt-4">
@@ -82,7 +82,7 @@ export default {
             form: this.$inertia.form({
                 nome_grupo: '',
                 descricao: '',
-                //data: '',
+                data_feriado: '',
             }),
         };
     },

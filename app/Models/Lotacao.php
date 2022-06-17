@@ -14,12 +14,10 @@ class Lotacao extends Model
     use HasFactory, Notifiable;
     protected $table = 'lotacao';
     protected $primaryKey  = 'id_lotacao';
-    public $timestamps = false;
     protected $fillable = [
         'id_pessoa',
         'lotacao',
         'ativo',
-        'data_hora_registro',
         'nome_pessoa_registro',
         'nome_grupo_feriados',
         'id_feriado'

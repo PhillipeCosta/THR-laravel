@@ -56,7 +56,7 @@ class EmpresaBeneficioController extends Controller
      * @param  \App\Models\EmpresaBeneficio  $beneficio
      * @return \Illuminate\Http\Response
      */
-    public function show(EmpresaBeneficio $beneficio)
+    public function show(EmpresaBeneficio $empresa_beneficio)
     {
         //
     }
@@ -64,13 +64,13 @@ class EmpresaBeneficioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\EmpresaBeneficio  $beneficio
+     * @param  \App\Models\EmpresaBeneficio  $empresa_beneficio
      * @return \Illuminate\Http\Response
      */
-    public function edit(EmpresaBeneficio $beneficio)
+    public function edit(EmpresaBeneficio $empresa_beneficio)
     {
         return Inertia::render('EmpresaBeneficio/Edit', [
-            'item' => $beneficio,
+            'item' => $empresa_beneficio,
             'fornecedores' => Fornecedor::orderBy('razao_social')->get(),
             'lotacao' => Lotacao::orderBy('lotacao')->get()
         ]);
@@ -80,24 +80,24 @@ class EmpresaBeneficioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateRequest  $request
-     * @param  \App\Models\EmpresaBeneficio  $faixa
+     * @param  \App\Models\EmpresaBeneficio $empresa_beneficio
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, EmpresaBeneficio $faixa)
+    public function update(UpdateRequest $request, EmpresaBeneficio $empresa_beneficio)
     {
-        $faixa->update($request->all());
-        return Redirect::route('empresa.index')->with('success', 'Faixa etária alterada com sucesso!');
+        $empresa_beneficio->update($request->all());
+        return Redirect::route('empresa-beneficio.index')->with('success', 'Benefício empresa alterado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EmpresaBeneficio  $faixa
+     * @param  \App\Models\EmpresaBeneficio $empresa_beneficio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EmpresaBeneficio $faixa)
+    public function destroy(EmpresaBeneficio $empresa_beneficio)
     {
-        $faixa->delete();
-        return Redirect::route('empresa.index')->with('success', 'Faixa etária deletada com sucesso!');
+        $empresa_beneficio->delete();
+        return Redirect::route('empresa-beneficio.index')->with('success', 'Benefício empresa deletado com sucesso!');
     }
 }

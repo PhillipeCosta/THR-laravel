@@ -15,7 +15,6 @@ class EmpresaBeneficio extends Model
     use HasFactory, Notifiable;
     protected $table = 'empresa_beneficio';
     protected $primaryKey  = 'id_empresa_beneficio';
-    public $timestamps = false;
     protected $fillable = [
         'id_lotacao',
         'id_fornecedor',

@@ -14,14 +14,12 @@ class CompraBeneficio extends Model
     use HasFactory, Notifiable;
     protected $table = 'compra_beneficio';
     protected $primaryKey  = 'id_compra_beneficio';
-    public $timestamps = false;
     protected $fillable = [
         'id_lotacao',
         'id_fornecedor',
         'tipo_beneficio',
         'vigencia',
         'valor_diario',
-        'data_hora_registro',
         'nome_pessoa_registro'
     ];
 

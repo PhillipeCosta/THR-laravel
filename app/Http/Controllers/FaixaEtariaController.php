@@ -17,7 +17,7 @@ class FaixaEtariaController extends Controller
     public function index()
     {
         return Inertia::render('FaixaEtaria/Index', [
-            'items' => FaixaEtaria::orderBy('tipo_plano')
+            'items' => FaixaEtaria::orderBy('faixa_idade')
                 ->with('fornecedor')
                 ->paginate(10)
                 ->withQueryString()
@@ -32,7 +32,7 @@ class FaixaEtariaController extends Controller
     public function create()
     {
         return Inertia::render('FaixaEtaria/Store', [
-            'fornecedores' => Fornecedor::orderBy('razao_social')->get()
+            'fornecedores' => Fornecedor::get(),
         ]);
     }
 
@@ -51,10 +51,10 @@ class FaixaEtariaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\FaixaEtaria  $faixa
+     * @param  \App\Models\FaixaEtaria  $faixa_etaria
      * @return \Illuminate\Http\Response
      */
-    public function show(FaixaEtaria $faixa)
+    public function show(FaixaEtaria $faixa_etaria)
     {
         //
     }
@@ -62,14 +62,14 @@ class FaixaEtariaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\FaixaEtaria  $faixa
+     * @param  \App\Models\FaixaEtaria  $faixa_etaria
      * @return \Illuminate\Http\Response
      */
-    public function edit(FaixaEtaria $faixa)
+    public function edit(FaixaEtaria $faixa_etaria)
     {
         return Inertia::render('FaixaEtaria/Edit', [
-            'item' => $faixa,
-            'fornecedores' => Fornecedor::orderBy('razao_social')->get()
+            'item' => $faixa_etaria,
+            'fornecedores' => Fornecedor::get(),
         ]);
     }
 
@@ -77,24 +77,24 @@ class FaixaEtariaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateRequest  $request
-     * @param  \App\Models\FaixaEtaria  $faixa
+     * @param  \App\Models\FaixaEtaria $faixa_etaria
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, FaixaEtaria $faixa)
+    public function update(UpdateRequest $request, FaixaEtaria $faixa_etaria)
     {
-        $faixa->update($request->all());
-        return Redirect::route('empresa.index')->with('success', 'Faixa etária alterada com sucesso!');
+        $faixa_etaria->update($request->all());
+        return Redirect::route('faixa-etaria.index')->with('success', 'Faixa etária alterada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\FaixaEtaria  $faixa
+     * @param  \App\Models\FaixaEtaria $faixa_etaria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FaixaEtaria $faixa)
+    public function destroy(FaixaEtaria $faixa_etaria)
     {
-        $faixa->delete();
-        return Redirect::route('empresa.index')->with('success', 'Faixa etária deletada com sucesso!');
+        $faixa_etaria->delete();
+        return Redirect::route('faixa-etaria.index')->with('success', 'Faixa etária deletada com sucesso!');
     }
 }

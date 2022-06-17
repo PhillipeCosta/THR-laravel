@@ -39,14 +39,65 @@
                             />
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <ThrLabel value="Cliente" />
+                            <ThrLabel
+                                for="valor_desc_vr"
+                                value="Valor Desc. VR"
+                            />
+                            <currency-input
+                                id="valor_desc_vr"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_desc_vr"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel
+                                for="valor_desc_vt"
+                                value="Valor Desc. VT"
+                            />
+                            <currency-input
+                                id="valor_desc_vt"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_desc_vt"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel
+                                for="valor_desc_va"
+                                value="Valor Desc. VA"
+                            />
+                            <currency-input
+                                id="valor_desc_va"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_desc_va"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <ThrLabel value="Benefício" />
                             <Select
                                 class="mt-1 block w-full"
-                                v-model="form.id_cliente"
+                                v-model="form.id_compra_beneficio"
                                 required
-                                :options="selectClientes"
+                                :options="selectBeneficio"
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel value="Lotação" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_lotacao"
+                                required
+                                :options="selectLotacao"
                             />
                         </div>
                         <div>
@@ -97,21 +148,34 @@ export default {
 
     setup(props) {
         const form = useForm({
+            valor_desc_vr: props.item.valor_desc_vr,
+            valor_desc_vt: props.item.valor_desc_vt,
+            valor_desc_va: props.item.valor_desc_va,
+            id_compra_beneficio: props.item.id_compra_beneficio,
+            id_lotacao: props.item.id_lotacao,
             salario: props.item.salario,
             inicio: new Date(props.item.inicio).toISOString().substring(0, 10),
             fim: new Date(props.item.fim).toISOString().substring(0, 10),
-            id_cliente: props.item.id_cliente,
             ativo: props.item.ativo == 1 ? true : false,
         });
 
         return { form };
     },
     computed: {
-        selectClientes() {
-            return this.clientes.map((item) => {
+        selectLotacao() {
+            return this.lotacao.map((item) => {
                 const obj = {
-                    value: item.id_cliente,
-                    label: item.cliente,
+                    value: item.id_lotacao,
+                    label: item.lotacao,
+                };
+                return obj;
+            });
+        },
+        selectBeneficio() {
+            return this.compra_beneficio.map((item) => {
+                const obj = {
+                    value: item.id_compra_beneficio,
+                    label: item.tipo_beneficio,
                 };
                 return obj;
             });
@@ -137,7 +201,8 @@ export default {
     },
     props: {
         item: Object,
-        clientes: Array,
+        lotacao: Array,
+        compra_beneficio: Array,
     },
     methods: {
         submit() {

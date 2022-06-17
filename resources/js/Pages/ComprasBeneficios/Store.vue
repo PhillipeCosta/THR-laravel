@@ -115,12 +115,11 @@ export default {
                 useGrouping: true,
             },
             form: this.$inertia.form({
-                inicio: "",
-                fim: "",
-                valor: "",
-                tipo: "",
-                id_cliente: "",
                 id_lotacao: "",
+                id_fornecedor: "",
+                tipo_beneficio: "",
+                vigencia: "",
+                valor_diario: "",
             }),
         };
     },

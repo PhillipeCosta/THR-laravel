@@ -13,12 +13,10 @@ class Feriado extends Model
     use HasFactory, Notifiable;
     protected $table = 'feriado';
     protected $primaryKey  = 'id_feriado';
-    public $timestamps = false;
     protected $fillable = [
         'nome_grupo',
         'descricao',
-        'data',
-        'data_hora_registro',
+        'data_feriado',
         'nome_pessoa_registro'
     ];
 }

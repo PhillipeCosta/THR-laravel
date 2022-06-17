@@ -136,13 +136,13 @@ export default {
     },
     computed: {
         selectFornecedor() {
-            /*return this.fornecedores.map((item) => {
+            return this.fornecedores.map((item) => {
                 const obj = {
                     value: item.id_fornecedor,
                     label: item.razao_social,
                 };
                 return obj;
-            });*/
+            });
         },
     },
     data() {
@@ -165,7 +165,7 @@ export default {
     },
     props: {
         item: Object,
-        //fornecedores: Array,
+        fornecedores: Array,
     },
     methods: {
         submit() {

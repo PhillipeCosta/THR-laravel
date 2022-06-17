@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Fornecedor, Lotacao, CompraBeneficio};
-use App\Http\Requests\{StoreCompraBeneficioRequest, UpdateCompraBeneficioRequest};
+use App\Http\Requests\{StoreRequest, UpdateRequest};
 use Illuminate\Support\Facades\{Redirect,Request};
 use Inertia\Inertia;
 
@@ -41,10 +41,10 @@ class CompraBeneficioController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCompraBeneficioRequest  $request
+     * @param  \App\Http\Requests\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCompraBeneficioRequest $request)
+    public function store(StoreRequest $request)
     {
         CompraBeneficio::create($request->all());
         return Redirect::route('compras-beneficios.index')->with('success', 'Benefício criado com sucesso!');
@@ -53,10 +53,10 @@ class CompraBeneficioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CompraBeneficio  $compraBeneficio
+     * @param  \App\Models\compras_beneficio  $compras_beneficio
      * @return \Illuminate\Http\Response
      */
-    public function show(CompraBeneficio $compraBeneficio)
+    public function show(CompraBeneficio $compras_beneficio)
     {
         //
     }
@@ -64,13 +64,13 @@ class CompraBeneficioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CompraBeneficio  $compraBeneficio
+     * @param  \App\Models\CompraBeneficio  $compras_beneficio
      * @return \Illuminate\Http\Response
      */
-    public function edit(CompraBeneficio $compraBeneficio)
+    public function edit(CompraBeneficio $compras_beneficio)
     {
         return Inertia::render('ComprasBeneficios/Edit', [
-            'item' => $compraBeneficio,
+            'item' => $compras_beneficio,
             'fornecedores' => Fornecedor::orderBy('razao_social')->get(),
             'lotacao' => Lotacao::orderBy('lotacao')->get()
         ]);
@@ -79,25 +79,25 @@ class CompraBeneficioController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCompraBeneficioRequest  $request
-     * @param  \App\Models\CompraBeneficio  $compraBeneficio
+     * @param  \App\Http\Requests\UpdateRequest  $request
+     * @param  \App\Models\CompraBeneficio  $compras_beneficio
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCompraBeneficioRequest $request, CompraBeneficio $compraBeneficio)
+    public function update(UpdateRequest $request, CompraBeneficio $compras_beneficio)
     {
-        $compraBeneficio->update($request->all());
+        $compras_beneficio->update($request->all());
         return Redirect::route('compras-beneficios.index')->with('success', 'Benefício alterado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CompraBeneficio  $compraBeneficio
+     * @param  \App\Models\CompraBeneficio  $compras_beneficio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CompraBeneficio $compraBeneficio)
+    public function destroy(CompraBeneficio $compras_beneficio)
     {
-        $compraBeneficio->delete();
+        $compras_beneficio->delete();
         return Redirect::route('compras-beneficios.index')->with('success', 'Benefício deletado com sucesso!');
     }
 }

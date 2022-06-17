@@ -10,8 +10,10 @@
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Início</th>
                     <th class="px-6 pt-6 pb-4">Fim</th>
-                    <th class="px-6 pt-6 pb-4">Cliente</th>
                     <th class="px-6 pt-6 pb-4">Salario</th>
+                    <th class="px-6 pt-6 pb-4">Descontos</th>
+                    <th class="px-6 pt-6 pb-4">Lotação</th>
+                    <th class="px-6 pt-6 pb-4">Benefícios</th>
                     <th class="px-6 pt-6 pb-4">Ativo</th>
                 </tr>
             </thead>
@@ -34,12 +36,24 @@
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.cliente.cliente }}
+                        <MoneyFormat :value="item.salario" />
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        <MoneyFormat :value="item.salario" />
+                        VR: <MoneyFormat :value="item.valor_desc_vr" /> <br>
+                        VT: <MoneyFormat :value="item.valor_desc_vt" /> <br>
+                        VA: <MoneyFormat :value="item.valor_desc_va" />
+                    </td>
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        {{ item.lotacao.lotacao }}
+                    </td>
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        {{ item.compra_beneficio.tipo_beneficio }}
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
@@ -118,7 +132,7 @@ export default {
         FlashMessages,
         MoneyFormat,
         Pagination,
-        EmptyTable
+        EmptyTable,
     },
     props: {
         items: Object,

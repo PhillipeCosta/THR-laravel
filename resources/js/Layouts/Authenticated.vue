@@ -183,6 +183,16 @@
 
                                         <template #content>
                                             <BreezeDropdownLink
+                                                :href="route('dependente.index')"
+                                                :active="
+                                                    route().current(
+                                                        'dependente.index'
+                                                    )
+                                                "
+                                            >
+                                                Dependentes
+                                            </BreezeDropdownLink>
+                                            <BreezeDropdownLink
                                                 :href="route('feriado.index')"
                                                 :active="
                                                     route().current(

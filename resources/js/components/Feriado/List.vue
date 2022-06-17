@@ -32,7 +32,7 @@
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.data }}
+                        <DateFormat :value="item.data_feriado" />
                     </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
