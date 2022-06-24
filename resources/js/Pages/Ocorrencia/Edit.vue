@@ -19,7 +19,6 @@
                             <Select
                                 class="mt-1 block w-full"
                                 v-model="form.id_funcionario"
-                                required
                                 :options="SelectFuncionario"
                             />
                         </div>
@@ -36,7 +35,7 @@
                             <ThrLabel for="competencia" value="Competência" />
                             <ThrInput
                                 id="competencia"
-                                type="text"
+                                type="Date"
                                 class="mt-1 block w-full"
                                 v-model="form.competencia"
                                 required
@@ -142,7 +141,9 @@ export default {
             id_ausencia: props.item.id_ausencia,
             data_inicio: props.item.data_inicio,
             data_fim: props.item.data_fim,
-            competencia: props.item.competencia,
+            competencia: new Date(props.item.competencia)
+                .toISOString()
+                .substring(0, 10),
             quantidade_dias: props.item.quantidade_dias,
             observacao: props.item.observacao,
         });
@@ -169,7 +170,7 @@ export default {
         },
     },
     props: {
-        item: Object,        
+        item: Object,
         ausencia: Array,
         funcionario: Array,
     },

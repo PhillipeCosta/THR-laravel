@@ -61,7 +61,7 @@
                             />
                             <ThrInput
                                 id="inscricao_estadual"
-                                type="text"
+                                type="Number"
                                 class="mt-1 block w-full"
                                 v-model="form.inscricao_estadual"
                                 required

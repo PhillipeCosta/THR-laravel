@@ -53,10 +53,10 @@ class OcorrenciaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Ocorrencia  $ocorrencia
+     * @param  \App\Models\Ocorrencia  $ocorrencium
      * @return \Illuminate\Http\Response
      */
-    public function show(Ocorrencia $ocorrencia)
+    public function show(Ocorrencia $ocorrencium)
     {
         //
     }
@@ -64,13 +64,13 @@ class OcorrenciaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Ocorrencia  $ocorrencia
+     * @param  \App\Models\Ocorrencia $ocorrencium
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ocorrencia $ocorrencia)
+    public function edit(Ocorrencia $ocorrencium)
     {
         return Inertia::render('Ocorrencia/Edit', [
-            'item' => $ocorrencia,
+            'item' => $ocorrencium,
             'funcionario' => Funcionario::get(),
             'ausencia' => Ausencia::get()
         ]);
@@ -92,12 +92,12 @@ class OcorrenciaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Ocorrencia  $ocorrencia
+     * @param  \App\Models\Ocorrencia  $ocorrencocorrenciumia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ocorrencia $ocorrencia)
+    public function destroy(Ocorrencia $ocorrencium)
     {
-        $ocorrencia->delete();
+        $ocorrencium->delete();
         return Redirect::route('ocorrencia.index')->with('success', 'Ocorrência deletado com sucesso!');
     }
 }

@@ -10,8 +10,8 @@
                     Editar Empresa
                 </h2>
                 <form @submit.prevent="submit">
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
+                    <div class="grid grid-cols-4 gap-4 mb-4">
+                        <div class="col-span-2">
                             <ThrLabel for="razao_social" value="Razão Social" />
                             <ThrInput
                                 id="razao_social"
@@ -36,8 +36,7 @@
                                 autofocus
                             />
                         </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4 mb-4">
+
                         <div>
                             <ThrLabel for="cnpj" value="CNPJ" />
                             <ThrInput
@@ -54,6 +53,9 @@
                                 autofocus
                             />
                         </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        
                         <div>
                             <ThrLabel
                                 for="inscricao_estadual"
@@ -84,6 +86,20 @@
                                 autofocus
                             />
                         </div>
+                        <div>
+                            <ThrLabel
+                                for="contato"
+                                value="Contato"
+                            />
+                            <ThrInput
+                                id="contato"
+                                type="text"
+                                class="mt-1 block w-full"
+                                v-model="form.contato"
+                                required
+                                autofocus
+                            />
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-3 gap-4 mb-4">
@@ -97,7 +113,7 @@
                             />
                         </div>
                         <div>
-                            <ThrLabel for="cnae" value="cnae" />
+                            <ThrLabel for="cnae" value="CNAE" />
                             <ThrInput
                                 id="cnae"
                                 type="text"
@@ -270,6 +286,7 @@ export default {
             inscricao_estadual: props.item.inscricao_estadual,
             tipo_beneficio: props.item.tipo_beneficio,
             cnae: props.item.cnae,
+            contato: props.item.contato,
         });
 
         return { form };

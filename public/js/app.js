@@ -22097,7 +22097,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       telefone: props.item.telefone,
       inscricao_estadual: props.item.inscricao_estadual,
       tipo_beneficio: props.item.tipo_beneficio,
-      cnae: props.item.cnae
+      cnae: props.item.cnae,
+      contato: props.item.contato
     });
     return {
       form: form
@@ -22260,7 +22261,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         telefone: "",
         inscricao_estadual: "",
         tipo_beneficio: "",
-        cnae: ""
+        cnae: "",
+        contato: ""
       })
     };
   },
@@ -24089,7 +24091,7 @@ __webpack_require__.r(__webpack_exports__);
       id_ausencia: props.item.id_ausencia,
       data_inicio: props.item.data_inicio,
       data_fim: props.item.data_fim,
-      competencia: props.item.competencia,
+      competencia: new Date(props.item.competencia).toISOString().substring(0, 10),
       quantidade_dias: props.item.quantidade_dias,
       observacao: props.item.observacao
     });
@@ -24990,13 +24992,13 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "px-6 pt-6 pb-4"
 }, "Tipo Plano"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "px-6 pt-6 pb-4"
-}, "Faixa de Idade"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "px-6 pt-6 pb-4"
 }, "Fornecedor"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "px-6 pt-6 pb-4"
-}, "Valor Dependente"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+}, "Faixa de Idade"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "px-6 pt-6 pb-4"
 }, "Valor Funcionário"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "px-6 pt-6 pb-4"
+}, "Valor Dependente"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "px-6 pt-6 pb-4"
 }, "Vigência")])], -1
 /* HOISTED */
@@ -25063,18 +25065,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       "class": "bg-white border-b",
       key: item.id_desconto_faixa_etaria
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.tipo_plano), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.faixa_idade), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.faixa_idade), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.tipo_plano), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.fornecedor.razao_social), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MoneyFormat, {
-      value: item.valor_dependente
+      value: item.valor_funcionario
     }, null, 8
     /* PROPS */
     , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MoneyFormat, {
-      value: item.valor_funcionario
+      value: item.valor_dependente
     }, null, 8
     /* PROPS */
     , ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DateFormat, {
@@ -30043,30 +30045,33 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_5 = {
-  "class": "grid grid-cols-2 gap-4 mb-4"
+  "class": "grid grid-cols-4 gap-4 mb-4"
 };
 var _hoisted_6 = {
-  "class": "grid grid-cols-3 gap-4 mb-4"
+  "class": "col-span-2"
 };
 var _hoisted_7 = {
   "class": "grid grid-cols-3 gap-4 mb-4"
 };
 var _hoisted_8 = {
-  "class": "grid grid-cols-5 gap-4 mb-4"
-};
-var _hoisted_9 = {
-  "class": "col-span-3"
-};
-var _hoisted_10 = {
   "class": "grid grid-cols-3 gap-4 mb-4"
 };
+var _hoisted_9 = {
+  "class": "grid grid-cols-5 gap-4 mb-4"
+};
+var _hoisted_10 = {
+  "class": "col-span-3"
+};
 var _hoisted_11 = {
+  "class": "grid grid-cols-3 gap-4 mb-4"
+};
+var _hoisted_12 = {
   "class": "text-center mt-4"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Voltar ");
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Voltar ");
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Alterar ");
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Alterar ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ThrLabel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ThrLabel");
@@ -30082,10 +30087,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _directive_maska = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDirective)("maska");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submit && $options.submit.apply($options, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "razao_social",
     value: "Razão Social"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30115,7 +30120,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "cnpj",
     value: "CNPJ"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30133,7 +30138,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"]), [[_directive_maska, '##.###.###/####-##']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"]), [[_directive_maska, '##.###.###/####-##']])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "inscricao_estadual",
     value: "Inscrição Estadual"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30166,13 +30171,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"]), [[_directive_maska, ['(##) #####-####', '(##) ####-####']]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"]), [[_directive_maska, ['(##) #####-####', '(##) ####-####']]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+    "for": "contato",
+    value: "Contato"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
+    id: "contato",
+    type: "text",
+    "class": "mt-1 block w-full",
+    modelValue: $setup.form.contato,
+    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+      return $setup.form.contato = $event;
+    }),
+    required: "",
+    autofocus: ""
+  }, null, 8
+  /* PROPS */
+  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "tipo",
     value: "Tipo"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
     "class": "mt-1 block w-full",
     modelValue: $setup.form.tipo,
-    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $setup.form.tipo = $event;
     }),
     required: "",
@@ -30181,13 +30201,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "cnae",
-    value: "cnae"
+    value: "CNAE"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
     id: "cnae",
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.cnae,
-    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return $setup.form.cnae = $event;
     }),
     required: "",
@@ -30202,35 +30222,35 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.codigo_empresa_folha,
-    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+    "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
       return $setup.form.codigo_empresa_folha = $event;
     }),
     required: "",
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "cep",
     value: "CEP"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
-    onMaska: _cache[10] || (_cache[10] = function ($event) {
+    onMaska: _cache[11] || (_cache[11] = function ($event) {
       return $setup.form.cep = $event.target.dataset.maskRawValue;
     }),
     id: "cep",
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $options.maskedValues.cep,
-    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+    "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
       return $options.maskedValues.cep = $event;
     }),
     required: "",
     autofocus: "",
-    onBlur: _cache[12] || (_cache[12] = function ($event) {
+    onBlur: _cache[13] || (_cache[13] = function ($event) {
       return $options.searchCEP($event.target.dataset.maskRawValue);
     })
   }, null, 8
   /* PROPS */
-  , ["modelValue"]), [[_directive_maska, '##.###-###']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"]), [[_directive_maska, '##.###-###']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "endereco",
     value: "Endereço"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30238,7 +30258,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.endereco,
-    "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
       return $setup.form.endereco = $event;
     }),
     required: "",
@@ -30253,14 +30273,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.numero_endereco,
-    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
       return $setup.form.numero_endereco = $event;
     }),
     required: "",
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "bairro",
     value: "Bairro"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30268,7 +30288,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.bairro,
-    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
       return $setup.form.bairro = $event;
     }),
     required: "",
@@ -30283,7 +30303,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.cidade,
-    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
       return $setup.form.cidade = $event;
     }),
     required: "",
@@ -30296,19 +30316,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
     "class": "mt-1 block w-full",
     modelValue: $setup.form.estado,
-    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
+    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
       return $setup.form.estado = $event;
     }),
     required: "",
     options: $options.ufs
   }, null, 8
   /* PROPS */
-  , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
+  , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
     "class": "hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3",
     href: _ctx.route('empresa.index')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_12];
+      return [_hoisted_13];
     }),
     _: 1
     /* STABLE */
@@ -30322,7 +30342,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     disabled: $setup.form.processing
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_13];
+      return [_hoisted_14];
     }),
     _: 1
     /* STABLE */
@@ -30441,30 +30461,33 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_5 = {
-  "class": "grid grid-cols-2 gap-4 mb-4"
+  "class": "grid grid-cols-4 gap-4 mb-4"
 };
 var _hoisted_6 = {
-  "class": "grid grid-cols-3 gap-4 mb-4"
+  "class": "col-span-2"
 };
 var _hoisted_7 = {
   "class": "grid grid-cols-3 gap-4 mb-4"
 };
 var _hoisted_8 = {
-  "class": "grid grid-cols-5 gap-4 mb-4"
-};
-var _hoisted_9 = {
-  "class": "col-span-3"
-};
-var _hoisted_10 = {
   "class": "grid grid-cols-3 gap-4 mb-4"
 };
+var _hoisted_9 = {
+  "class": "grid grid-cols-5 gap-4 mb-4"
+};
+var _hoisted_10 = {
+  "class": "col-span-3"
+};
 var _hoisted_11 = {
+  "class": "grid grid-cols-3 gap-4 mb-4"
+};
+var _hoisted_12 = {
   "class": "text-center mt-4"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Voltar ");
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Voltar ");
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cadastrar ");
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cadastrar ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ThrLabel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ThrLabel");
@@ -30480,10 +30503,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _directive_maska = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDirective)("maska");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submit && $options.submit.apply($options, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "razao_social",
     value: "Razão Social"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30513,7 +30536,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "cnpj",
     value: "CNPJ"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30531,7 +30554,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"]), [[_directive_maska, '##.###.###/####-##']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"]), [[_directive_maska, '##.###.###/####-##']])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "inscricao_estadual",
     value: "Inscrição Estadual"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30564,13 +30587,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"]), [[_directive_maska, ['(##) #####-####', '(##) ####-####']]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"]), [[_directive_maska, ['(##) #####-####', '(##) ####-####']]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+    "for": "contato",
+    value: "Contato"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
+    id: "contato",
+    type: "text",
+    "class": "mt-1 block w-full",
+    modelValue: $data.form.contato,
+    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+      return $data.form.contato = $event;
+    }),
+    required: "",
+    autofocus: ""
+  }, null, 8
+  /* PROPS */
+  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "tipo",
     value: "Tipo"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
     "class": "mt-1 block w-full",
     modelValue: $data.form.tipo,
-    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $data.form.tipo = $event;
     }),
     required: "",
@@ -30579,13 +30617,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "cnae",
-    value: "cnae"
+    value: "CNAE"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
     id: "cnae",
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $data.form.cnae,
-    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return $data.form.cnae = $event;
     }),
     required: "",
@@ -30600,35 +30638,35 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $data.form.codigo_empresa_folha,
-    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+    "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
       return $data.form.codigo_empresa_folha = $event;
     }),
     required: "",
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "cep",
     value: "CEP"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
-    onMaska: _cache[10] || (_cache[10] = function ($event) {
+    onMaska: _cache[11] || (_cache[11] = function ($event) {
       return $data.form.cep = $event.target.dataset.maskRawValue;
     }),
     id: "cep",
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $data.maskedValues.cep,
-    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+    "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
       return $data.maskedValues.cep = $event;
     }),
     required: "",
     autofocus: "",
-    onBlur: _cache[12] || (_cache[12] = function ($event) {
+    onBlur: _cache[13] || (_cache[13] = function ($event) {
       return $options.searchCEP($event.target.dataset.maskRawValue);
     })
   }, null, 8
   /* PROPS */
-  , ["modelValue"]), [[_directive_maska, '##.###-###']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"]), [[_directive_maska, '##.###-###']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "endereco",
     value: "Endereço"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30636,7 +30674,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $data.form.endereco,
-    "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
       return $data.form.endereco = $event;
     }),
     required: "",
@@ -30651,14 +30689,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $data.form.numero_endereco,
-    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
       return $data.form.numero_endereco = $event;
     }),
     required: "",
     autofocus: ""
   }, null, 8
   /* PROPS */
-  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+  , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
     "for": "bairro",
     value: "Bairro"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -30666,7 +30704,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $data.form.bairro,
-    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
       return $data.form.bairro = $event;
     }),
     required: "",
@@ -30681,7 +30719,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "mt-1 block w-full",
     modelValue: $data.form.cidade,
-    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
       return $data.form.cidade = $event;
     }),
     required: "",
@@ -30694,19 +30732,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
     "class": "mt-1 block w-full",
     modelValue: $data.form.estado,
-    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
+    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
       return $data.form.estado = $event;
     }),
     required: "",
     options: $options.ufs
   }, null, 8
   /* PROPS */
-  , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
+  , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
     "class": "hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3",
     href: _ctx.route('empresa.index')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_12];
+      return [_hoisted_13];
     }),
     _: 1
     /* STABLE */
@@ -30720,7 +30758,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     disabled: $data.form.processing
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_13];
+      return [_hoisted_14];
     }),
     _: 1
     /* STABLE */
@@ -32136,7 +32174,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: "Inscrição Estadual"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
     id: "inscricao_estadual",
-    type: "text",
+    type: "Number",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.inscricao_estadual,
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
@@ -32536,7 +32574,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: "Inscrição Estadual"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
     id: "inscricao_estadual",
-    type: "text",
+    type: "Number",
     "class": "mt-1 block w-full",
     modelValue: $data.form.inscricao_estadual,
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
@@ -34819,7 +34857,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.form.id_funcionario = $event;
     }),
-    required: "",
     options: $options.SelectFuncionario
   }, null, 8
   /* PROPS */
@@ -34841,7 +34878,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: "Competência"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
     id: "competencia",
-    type: "text",
+    type: "Date",
     "class": "mt-1 block w-full",
     modelValue: $setup.form.competencia,
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {

@@ -9,10 +9,10 @@
             <thead>
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Tipo Plano</th>
-                    <th class="px-6 pt-6 pb-4">Faixa de Idade</th>
                     <th class="px-6 pt-6 pb-4">Fornecedor</th>
-                    <th class="px-6 pt-6 pb-4">Valor Dependente</th>
+                    <th class="px-6 pt-6 pb-4">Faixa de Idade</th>
                     <th class="px-6 pt-6 pb-4">Valor Funcionário</th>
+                    <th class="px-6 pt-6 pb-4">Valor Dependente</th>
                     <th class="px-6 pt-6 pb-4">Vigência</th>
                 </tr>
             </thead>
@@ -25,13 +25,14 @@
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                     >
-                        {{ item.tipo_plano }}
+                        {{ item.faixa_idade }}
                     </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                     >
-                        {{ item.faixa_idade }}
+                        {{ item.tipo_plano }}
                     </td>
+
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                     >
@@ -40,12 +41,12 @@
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        <MoneyFormat :value="item.valor_dependente" />
+                        <MoneyFormat :value="item.valor_funcionario" />
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        <MoneyFormat :value="item.valor_funcionario" />
+                        <MoneyFormat :value="item.valor_dependente" />
                     </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
@@ -128,7 +129,7 @@ export default {
         FlashMessages,
         MoneyFormat,
         Pagination,
-        EmptyTable
+        EmptyTable,
     },
     props: {
         items: Object,
