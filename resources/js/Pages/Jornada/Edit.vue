@@ -4,6 +4,11 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Editar Jornada
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
@@ -66,7 +71,6 @@ import ThrInput from "@/Components/Global/Input.vue";
 import ThrLabel from "@/Components/Global/Label.vue";
 import LinkButton from "@/Components/Global/LinkButton.vue";
 
-import ufs from "@/enums/ufs";
 import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -78,7 +82,6 @@ export default {
     },
 
     setup(props) {
-        console.log(props.item);
         const form = useForm({
             nome: props.item.nome,
             dia_semana: props.item.dia_semana,

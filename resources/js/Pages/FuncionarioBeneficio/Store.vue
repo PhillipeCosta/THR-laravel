@@ -7,7 +7,7 @@
                 <h2
                     class="font-semibold text-xl text-gray-800 leading-tight mb-3"
                 >
-                    Cadastrar Empresa Benefício
+                    Cadastrar Funcionário Benefício
                 </h2>
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-2 gap-4 mb-4">
@@ -21,61 +21,57 @@
                             />
                         </div>
                         <div>
-                            <ThrLabel value="Lotacao" />
+                            <ThrLabel value="Funcionário" />
                             <Select
                                 class="mt-1 block w-full"
-                                v-model="form.id_lotacao"
-                                required
-                                :options="selectLotacao"
+                                v-model="form.id_funcionario"
+                                :options="selectiFuncionario"
                             />
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <ThrLabel value="Porcentagem funcionário" />
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                                >
-                                    <span class="text-gray-500 sm:text-sm">
-                                        %
-                                    </span>
-                                </div>
-                                <currency-input
-                                    id="percentual_valor_dependente"
-                                    class="mt-1 block w-full pl-7 pr-12"
-                                    v-model="form.percentual_valor_funcionario"
-                                    required
-                                    :options="moneyCurrencyOptions"
-                                />
-                            </div>
+                            <ThrLabel value="Valor unitário" />
+                            <currency-input
+                                id="valor_unitario"
+                                class="mt-1 block w-full"
+                                v-model="form.valor_unitario"
+                                required
+                                :options="moneyCurrencyOptions"
+                            />
                         </div>
                         <div>
-                            <ThrLabel value="Porcentagem dependente" />
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                                >
-                                    <span class="text-gray-500 sm:text-sm">
-                                        %
-                                    </span>
-                                </div>
-                                <currency-input
-                                    id="percentual_valor_dependente"
-                                    class="mt-1 block w-full pl-7 pr-12"
-                                    v-model="form.percentual_valor_dependente"
-                                    required
-                                    :options="moneyCurrencyOptions"
-                                />
-                            </div>
+                            <ThrLabel for="quantidade" value="Quantidade" />
+                            <ThrInput
+                                id="quantidade"
+                                type="number"
+                                class="mt-1 block w-full"
+                                v-model="form.quantidade"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel
+                                for="data_vigencia"
+                                value="Data vigência"
+                            />
+                            <ThrInput
+                                id="data_vigencia"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.data_vigencia"
+                                required
+                                autofocus
+                            />
                         </div>
                     </div>
 
                     <div class="text-center mt-4">
                         <LinkButton
                             class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
-                            :href="route('empresa-beneficio.index')"
+                            :href="route('funcionario-beneficio.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -120,10 +116,6 @@ export default {
                 currencyDisplay: "hidden",
                 valueRange: undefined,
                 precision: 2,
-                valueRange: {
-                    min: 0,
-                    max: 100,
-                },
                 hideCurrencySymbolOnFocus: false,
                 hideGroupingSeparatorOnFocus: false,
                 hideNegligibleDecimalDigitsOnFocus: false,
@@ -133,16 +125,17 @@ export default {
                 useGrouping: true,
             },
             form: this.$inertia.form({
-                id_lotacao: "",
+                id_funcionario: "",
                 id_fornecedor: "",
-                percentual_valor_funcionario: "",
-                percentual_valor_dependente: "",
+                valor_unitario: "",
+                quantidade: "",
+                data_vigencia: "",
             }),
         };
     },
     props: {
         fornecedores: Array,
-        lotacao: Array,
+        funcionario: Array,
     },
     computed: {
         selectFornecedor() {
@@ -154,11 +147,11 @@ export default {
                 return obj;
             });
         },
-        selectLotacao() {
-            return this.lotacao.map((item) => {
+        selectFuncionario() {
+            return this.funcionario.map((item) => {
                 const obj = {
-                    value: item.id_lotacao,
-                    label: item.lotacao,
+                    value: item.id_funcionario,
+                    label: item.nome,
                 };
                 return obj;
             });
@@ -166,7 +159,7 @@ export default {
     },
     methods: {
         submit() {
-            this.form.post(this.route("empresa-beneficio.store"));
+            this.form.post(this.route("funcionario-beneficio.store"));
         },
     },
 };

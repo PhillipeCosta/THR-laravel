@@ -35,6 +35,6 @@ class Dependente extends Model
 
     public function grau_parentesco()
     {
-        return $this->hasOne(GrauParentesco::class, 'id_parentesco', 'id_grau_parentesco');
+        return $this->hasOne(GrauParentesco::class, 'id_grau_parentesco', 'id_parentesco');
     }
 }

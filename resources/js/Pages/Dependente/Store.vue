@@ -4,6 +4,11 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Cadastrar Dependente
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-4 gap-4 mb-4">
                         <div class="col-span-2">
@@ -153,7 +158,6 @@ export default {
                 cpf: "",
             },
             form: this.$inertia.form({
-                tipo: "",
                 matricula_funcionario: "",
                 nome: "",
                 cpf: "",
@@ -162,7 +166,7 @@ export default {
                 id_parentesco: "",
                 nome_mae: "",
                 id_desconto_faixa_etaria: "",
-                nome_pessoa_registro: "",
+                id_parentesco: "",
             }),
         };
     },
@@ -183,8 +187,8 @@ export default {
         grauParentesco() {
             return this.grau_parentesco.map((item) => {
                 const obj = {
-                    value: item.id_desconto_faixa_etaria,
-                    label: item.tipo_plano,
+                    value: item.id_grau_parentesco,
+                    label: item.nome,
                 };
                 return obj;
             });

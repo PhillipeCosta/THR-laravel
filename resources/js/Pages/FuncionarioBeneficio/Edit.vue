@@ -7,36 +7,10 @@
                 <h2
                     class="font-semibold text-xl text-gray-800 leading-tight mb-3"
                 >
-                    Cadastrar Faixa Etária
+                    Editar Funcionário Benefício
                 </h2>
                 <form @submit.prevent="submit">
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="tipo_plano" value="Tipo do plano" />
-                            <ThrInput
-                                id="tipo_plano"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.tipo_plano"
-                                required
-                                autofocus
-                            />
-                        </div>
-
-                        <div>
-                            <ThrLabel
-                                for="faixa_idade"
-                                value="Faixa de idade"
-                            />
-                            <ThrInput
-                                id="faixa_idade"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.faixa_idade"
-                                required
-                                autofocus
-                            />
-                        </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
                             <ThrLabel value="Fornecedor" />
                             <Select
@@ -46,51 +20,57 @@
                                 :options="selectFornecedor"
                             />
                         </div>
+                        <div>
+                            <ThrLabel value="Funcionário" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_funcionario"
+                                :options="selectiFuncionario"
+                            />
+                        </div>
                     </div>
+
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <ThrLabel
-                                for="valor_funcionario"
-                                value="Valor funcionário"
-                            />
+                            <ThrLabel value="Valor unitário" />
                             <currency-input
-                                id="valor_funcionario"
+                                id="valor_unitario"
                                 class="mt-1 block w-full"
-                                v-model="form.valor_funcionario"
+                                v-model="form.valor_unitario"
                                 required
                                 :options="moneyCurrencyOptions"
                             />
                         </div>
                         <div>
-                            <ThrLabel
-                                for="valor_dependente"
-                                value="Valor dependente"
-                            />
-                            <currency-input
-                                id="valor_dependente"
-                                class="mt-1 block w-full"
-                                v-model="form.valor_dependente"
-                                required
-                                :options="moneyCurrencyOptions"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="vigencia" value="Vigência" />
+                            <ThrLabel for="quantidade" value="Quantidade" />
                             <ThrInput
-                                id="vigencia"
+                                id="quantidade"
+                                type="number"
+                                class="mt-1 block w-full"
+                                v-model="form.quantidade"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel
+                                for="data_vigencia"
+                                value="Data vigência"
+                            />
+                            <ThrInput
+                                id="data_vigencia"
                                 type="date"
                                 class="mt-1 block w-full"
-                                v-model="form.vigencia"
+                                v-model="form.data_vigencia"
                                 required
                                 autofocus
                             />
                         </div>
                     </div>
-
                     <div class="text-center mt-4">
                         <LinkButton
                             class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
-                            :href="route('faixa-etaria.index')"
+                            :href="route('funcionario-beneficio.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -98,7 +78,7 @@
                             :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing"
                         >
-                            Cadastrar
+                            Atualizar
                         </ThrButton>
                     </div>
                 </form>
@@ -115,18 +95,50 @@ import ThrLabel from "@/Components/Global/Label.vue";
 import Select from "@/Components/Global/Select.vue";
 import LinkButton from "@/Components/Global/LinkButton.vue";
 import CurrencyInput from "@/Components/Global/CurrencyInput";
+import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
         Switch,
+        Select,
         LinkButton,
         CurrencyInput,
         ThrButton,
         ThrInput,
         ThrLabel,
-        Select,
     },
 
+    setup(props) {
+        const form = useForm({
+            id_funcionario: props.item.id_funcionario,
+            id_fornecedor: props.item.id_fornecedor,
+            valor_unitario: props.item.valor_unitario,
+            quantidade: props.item.quantidade,
+            data_vigencia: new Date(props.item.data_vigencia).toISOString().substring(0, 10),
+        });
+
+        return { form };
+    },
+    computed: {
+        selectFornecedor() {
+            return this.fornecedores.map((item) => {
+                const obj = {
+                    value: item.id_fornecedor,
+                    label: item.razao_social,
+                };
+                return obj;
+            });
+        },
+        selectFuncionario() {
+            return this.funcionario.map((item) => {
+                const obj = {
+                    value: item.id_funcionario,
+                    label: item.nome,
+                };
+                return obj;
+            });
+        },
+    },
     data() {
         return {
             moneyCurrencyOptions: {
@@ -143,33 +155,24 @@ export default {
                 autoSign: true,
                 useGrouping: true,
             },
-            form: this.$inertia.form({
-                tipo_plano: "",
-                faixa_idade: "",
-                id_fornecedor: "",
-                valor_dependente: "",
-                valor_funcionario: "",
-                vigencia: "",
-            }),
         };
     },
     props: {
+        item: Object,
         fornecedores: Array,
-    },
-    computed: {
-        selectFornecedor() {
-            return this.fornecedores.map((item) => {
-                const obj = {
-                    value: item.id_fornecedor,
-                    label: item.razao_social,
-                };
-                return obj;
-            });
-        },
+        funcionario: Array,
     },
     methods: {
         submit() {
-            this.form.post(this.route("faixa-etaria.store"));
+            this.form.put(
+                this.route(
+                    "funcionario-beneficio.update",
+                    this.item.id_funcionario_beneficio
+                ),
+                {
+                    //onFinish: () => this.form.reset("password", "password_confirmation"),
+                }
+            );
         },
     },
 };

@@ -1,18 +1,18 @@
 <template>
-  <Head title="Dependentes" />
+  <Head title="Ocorrências" />
 
   <BreezeAuthenticatedLayout>
     <template #header>
       <div class="flex justify-between">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Dependentes
+          Ocorrências
         </h2>
 
         <LinkButton
-          :href="route('dependente.create')"
+          :href="route('ocorrencia.create')"
           class="hover:bg-red-700 active:bg-red-900 bg-red-800"
         >
-          Cadastrar Dependente
+          Cadastrar Ocorrência
         </LinkButton>
       </div>
     </template>
@@ -27,7 +27,7 @@
 
 <script>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
-import List from "@/Components/Dependente/List.vue";
+import List from "@/Components/Ocorrencia/List.vue";
 import Modal from "@/Components/Global/Modal.vue";
 import LinkButton from "@/Components/Global/LinkButton.vue";
 

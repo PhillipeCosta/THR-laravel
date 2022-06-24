@@ -36,6 +36,15 @@
                                 </BreezeNavLink>
 
                                 <BreezeNavLink
+                                    :href="route('funcionario.index')"
+                                    :active="
+                                        route().current('funcionario.index')
+                                    "
+                                >
+                                    Funcionario
+                                </BreezeNavLink>
+
+                                <BreezeNavLink
                                     :href="route('empresa.index')"
                                     :active="route().current('empresa.index')"
                                 >
@@ -138,6 +147,22 @@
                                             >
                                                 Empresa Benefícios
                                             </BreezeDropdownLink>
+
+                                            <BreezeDropdownLink
+                                                :href="
+                                                    route(
+                                                        'funcionario-beneficio.index'
+                                                    )
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'funcionario-beneficio.index'
+                                                    )
+                                                "
+                                            >
+                                                Funcionário Benefícios
+                                            </BreezeDropdownLink>
+
                                             <BreezeDropdownLink
                                                 :href="
                                                     route(
@@ -183,7 +208,9 @@
 
                                         <template #content>
                                             <BreezeDropdownLink
-                                                :href="route('dependente.index')"
+                                                :href="
+                                                    route('dependente.index')
+                                                "
                                                 :active="
                                                     route().current(
                                                         'dependente.index'
@@ -221,6 +248,18 @@
                                                 "
                                             >
                                                 Jornadas
+                                            </BreezeDropdownLink>
+                                            <BreezeDropdownLink
+                                                :href="
+                                                    route('ocorrencia.index')
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'ocorrencia.index'
+                                                    )
+                                                "
+                                            >
+                                                Ocorrência
                                             </BreezeDropdownLink>
                                         </template>
                                     </BreezeDropdown>

@@ -4,196 +4,114 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Editar Dependente
+                </h2>
                 <form @submit.prevent="submit">
+                    <div class="grid grid-cols-4 gap-4 mb-4">
+                        <div class="col-span-2">
+                            <ThrLabel for="nome" value="Nome" />
+                            <ThrInput
+                                id="nome"
+                                type="text"
+                                class="mt-1 block w-full"
+                                v-model="form.nome"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="cpf" value="CPF" />
+                            <ThrInput
+                                id="cpf"
+                                type="text"
+                                v-maska="'###.###.###-##'"
+                                @maska="
+                                    form.cpf =
+                                        $event.target.dataset.maskRawValue
+                                "
+                                class="mt-1 block w-full"
+                                v-model="maskedValues.cpf"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="rg" value="RG" />
+                            <ThrInput
+                                id="rg"
+                                type="text"
+                                class="mt-1 block w-full"
+                                v-model="form.rg"
+                                required
+                                autofocus
+                            />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <ThrLabel
+                                for="data_nascimento"
+                                value="Data de Nascimento"
+                            />
+                            <ThrInput
+                                id="data_nascimento"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.data_nascimento"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="nome_mae" value="Nome da Mãe" />
+                            <ThrInput
+                                id="nome_mae"
+                                type="text"
+                                class="mt-1 block w-full"
+                                v-model="form.nome_mae"
+                                required
+                                autofocus
+                            />
+                        </div>
+                        <div>
+                            <ThrLabel for="id_parentesco" value="Parentesco" />
+                            <Select
+                                class="mt-1 block w-full"
+                                v-model="form.id_parentesco"
+                                required
+                                :options="grauParentesco"
+                            />
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <ThrLabel for="razao_social" value="Razão Social" />
-                            <ThrInput
-                                id="razao_social"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.razao_social"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
                             <ThrLabel
-                                for="nome_fantasia"
-                                value="Nome Fantasia"
+                                for="id_desconto_faixa_etaria"
+                                value="Faixa Etária"
                             />
-                            <ThrInput
-                                id="nome_fantasia"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.nome_fantasia"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="cnpj" value="CNPJ" />
-                            <ThrInput
-                                id="cnpj"
-                                type="text"
-                                v-maska="'##.###.###/####-##'"
-                                @maska="
-                                    form.cnpj =
-                                        $event.target.dataset.maskRawValue
-                                "
-                                class="mt-1 block w-full"
-                                v-model="maskedValues.cnpj"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="inscricao_estadual"
-                                value="Inscrição Estadual"
-                            />
-                            <ThrInput
-                                id="inscricao_estadual"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.inscricao_estadual"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="telefone" value="Telefone" />
-                            <ThrInput
-                                id="telefone"
-                                type="text"
-                                v-maska="['(##) #####-####', '(##) ####-####']"
-                                @maska="
-                                    form.telefone =
-                                        $event.target.dataset.maskRawValue
-                                "
-                                class="mt-1 block w-full"
-                                v-model="maskedValues.telefone"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="tipo" value="Tipo" />
                             <Select
                                 class="mt-1 block w-full"
-                                v-model="form.tipo"
+                                v-model="form.id_desconto_faixa_etaria"
                                 required
-                                :options="tipos"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="cnae" value="cnae" />
-                            <ThrInput
-                                id="cnae"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.cnae"
-                                required
-                                autofocus
+                                :options="faixaEtaria"
                             />
                         </div>
                         <div>
                             <ThrLabel
-                                for="codigo_empresa_folha"
-                                value="Código Folha"
+                                for="matricula_funcionario"
+                                value="Matrícula Funcionário"
                             />
                             <ThrInput
-                                id="codigo_empresa_folha"
+                                id="matricula_funcionario"
                                 type="text"
                                 class="mt-1 block w-full"
-                                v-model="form.codigo_empresa_folha"
+                                v-model="form.matricula_funcionario"
                                 required
                                 autofocus
-                            />
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-5 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="cep" value="CEP" />
-                            <ThrInput
-                                v-maska="'##.###-###'"
-                                @maska="
-                                    form.cep =
-                                        $event.target.dataset.maskRawValue
-                                "
-                                id="cep"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="maskedValues.cep"
-                                required
-                                autofocus
-                                @blur="
-                                    searchCEP(
-                                        $event.target.dataset.maskRawValue
-                                    )
-                                "
-                            />
-                        </div>
-                        <div class="col-span-3">
-                            <ThrLabel for="endereco" value="Endereço" />
-                            <ThrInput
-                                id="endereco"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.endereco"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="numero" value="Número" />
-                            <ThrInput
-                                id="numero"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.numero_endereco"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="bairro" value="Bairro" />
-                            <ThrInput
-                                id="bairro"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.bairro"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="cidade" value="Cidade" />
-                            <ThrInput
-                                id="cidade"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.cidade"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="estado" value="Estado" />
-                            <Select
-                                class="mt-1 block w-full"
-                                v-model="form.estado"
-                                required
-                                :options="ufs"
                             />
                         </div>
                     </div>
@@ -201,7 +119,7 @@
                     <div class="text-center mt-4">
                         <LinkButton
                             class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
-                            :href="route('empresa.index')"
+                            :href="route('dependente.index')"
                         >
                             Voltar
                         </LinkButton>
@@ -250,84 +168,54 @@ export default {
     setup(props) {
         console.log(props.item);
         const form = useForm({
-            razao_social: props.item.razao_social,
-            nome_fantasia: props.item.nome_fantasia,
-            cnpj: props.item.cnpj,
-            endereco: props.item.endereco,
-            numero_endereco: props.item.numero_endereco,
-            cep: props.item.cep,
-            bairro: props.item.bairro,
-            cidade: props.item.cidade,
-            estado: props.item.estado,
-            tipo: props.item.tipo,
-            codigo_empresa_folha: props.item.codigo_empresa_folha,
-            telefone: props.item.telefone,
-            inscricao_estadual: props.item.inscricao_estadual,
-            tipo_beneficio: props.item.tipo_beneficio,
-            cnae: props.item.cnae,
+            matricula_funcionario: props.item.matricula_funcionario,
+            nome: props.item.nome,
+            cpf: props.item.cpf,
+            rg: props.item.rg,
+            data_nascimento: props.item.data_nascimento,
+            id_parentesco: props.item.id_parentesco,
+            nome_mae: props.item.nome_mae,
+            id_desconto_faixa_etaria: props.item.id_desconto_faixa_etaria,
+            id_parentesco: props.item.id_parentesco,
         });
 
         return { form };
     },
     computed: {
-        ufs() {
-            return ufs.map((item) => {
+        faixaEtaria() {
+            return this.faixa_etaria.map((item) => {
                 const obj = {
-                    value: item,
-                    label: item,
+                    value: item.id_desconto_faixa_etaria,
+                    label: item.tipo_plano,
                 };
                 return obj;
             });
         },
-        tipos() {
-            return [
-                {
-                    value: 1,
-                    label: "Pessoa",
-                },
-                {
-                    value: 2,
-                    label: "Empresa",
-                },
-            ];
+        grauParentesco() {
+            return this.grau_parentesco.map((item) => {
+                const obj = {
+                    value: item.id_grau_parentesco,
+                    label: item.nome,
+                };
+                return obj;
+            });
         },
         maskedValues() {
             return {
-                cep: this.item.cep,
-                telefone: this.item.telefone,
-                cnpj: this.item.cnpj,
+                cpf: this.item.cpf,
             };
         },
     },
     props: {
         item: Object,
+        faixa_etaria: Array,
+        grau_parentesco: Array,
     },
     methods: {
         submit() {
-            this.form.put(this.route("empresa.update", this.item.id_pessoa));
-        },
-        searchCEP(cep) {
-            if (cep.length == 8) {
-                fetch("https://viacep.com.br/ws/" + cep + "/json/", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        this.form = {
-                            ...this.form,
-                            endereco: data.logradouro,
-                            bairro: data.bairro,
-                            estado: data.uf,
-                            cidade: data.localidade,
-                        };
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                    });
-            }
+            this.form.put(
+                this.route("dependente.update", this.item.id_dependentes)
+            );
         },
     },
 };

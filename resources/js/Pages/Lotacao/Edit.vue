@@ -4,6 +4,11 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Editar Lotação
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="mb-4">
                         <ThrLabel for="lotacao" value="Lotação" />

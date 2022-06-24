@@ -4,6 +4,11 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Cadastrar Fornecedor
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
@@ -39,7 +44,10 @@
                                 id="cnpj"
                                 type="text"
                                 v-maska="'##.###.###/####-##'"
-                                @maska="form.cnpj = $event.target.dataset.maskRawValue"
+                                @maska="
+                                    form.cnpj =
+                                        $event.target.dataset.maskRawValue
+                                "
                                 class="mt-1 block w-full"
                                 v-model="maskedValues.cnpj"
                                 required
@@ -66,7 +74,10 @@
                                 id="telefone"
                                 type="text"
                                 v-maska="['(##) #####-####', '(##) ####-####']"
-                                @maska="form.telefone = $event.target.dataset.maskRawValue"
+                                @maska="
+                                    form.telefone =
+                                        $event.target.dataset.maskRawValue
+                                "
                                 class="mt-1 block w-full"
                                 v-model="maskedValues.telefone"
                                 required
@@ -122,7 +133,10 @@
                             <ThrLabel for="cep" value="CEP" />
                             <ThrInput
                                 v-maska="'##.###-###'"
-                                @maska="form.cep = $event.target.dataset.maskRawValue"
+                                @maska="
+                                    form.cep =
+                                        $event.target.dataset.maskRawValue
+                                "
                                 id="cep"
                                 type="text"
                                 class="mt-1 block w-full"

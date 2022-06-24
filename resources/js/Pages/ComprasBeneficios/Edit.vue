@@ -4,6 +4,11 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Editar Benefícios
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
@@ -103,8 +108,10 @@ export default {
             id_lotacao: props.item.id_lotacao,
             id_fornecedor: props.item.id_fornecedor,
             tipo_beneficio: props.item.tipo_beneficio,
-            vigencia: new Date(props.item.vigencia).toISOString().substring(0, 10),
-            valor_diario: props.item.valor_diario
+            vigencia: new Date(props.item.vigencia)
+                .toISOString()
+                .substring(0, 10),
+            valor_diario: props.item.valor_diario,
         });
 
         return { form };
@@ -127,7 +134,7 @@ export default {
                 };
                 return obj;
             });
-        }
+        },
     },
     data() {
         return {

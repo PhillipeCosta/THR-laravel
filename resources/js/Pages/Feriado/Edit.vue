@@ -4,6 +4,11 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Editar Feriado
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
@@ -83,7 +88,9 @@ export default {
         const form = useForm({
             nome_grupo: props.item.nome_grupo,
             descricao: props.item.descricao,
-            data_feriado: new Date(props.item.data_feriado).toISOString().substring(0, 10),
+            data_feriado: new Date(props.item.data_feriado)
+                .toISOString()
+                .substring(0, 10),
         });
 
         return { form };

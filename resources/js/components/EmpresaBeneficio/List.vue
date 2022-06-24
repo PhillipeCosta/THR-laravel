@@ -23,12 +23,16 @@
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                     >
-                        {{ item.lotacao.lotacao }}
+                        <span v-if="item.lotacao">{{
+                            item.lotacao.lotacao
+                        }}</span>
                     </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                     >
-                        {{ item.fornecedor.razao_social }}
+                        <span v-if="item.fornecedor">{{
+                            item.fornecedor.razao_social
+                        }}</span>
                     </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"

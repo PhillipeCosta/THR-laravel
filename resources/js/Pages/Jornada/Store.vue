@@ -4,6 +4,11 @@
             <div
                 class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Cadastrar Jornada
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
@@ -18,10 +23,7 @@
                             />
                         </div>
                         <div>
-                            <ThrLabel
-                                for="dia_semana"
-                                value="Dia da Semana"
-                            />
+                            <ThrLabel for="dia_semana" value="Dia da Semana" />
                             <ThrInput
                                 id="dia_semana"
                                 type="number"
@@ -80,9 +82,9 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                nome: '',
-                dia_semana: '',
-                nome_horario: '',
+                nome: "",
+                dia_semana: "",
+                nome_horario: "",
             }),
         };
     },

@@ -2,15 +2,13 @@
     <div class="bg-gray-100">
         <div class="flex items-center container mx-auto h-screen">
             <div
-                class="
-                    rounded
-                    overflow-hidden
-                    flex-grow
-                    shadow-lg
-                    p-10
-                    bg-white
-                "
+                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
             >
+                <h2
+                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
+                >
+                    Cadastrar Lotação
+                </h2>
                 <form @submit.prevent="submit">
                     <div class="mb-4">
                         <ThrLabel for="lotacao" value="Lotação" />
@@ -49,12 +47,7 @@
                     </div>
                     <div class="text-center mt-4">
                         <LinkButton
-                            class="
-                                hover:bg-gray-700
-                                active:bg-gray-900
-                                bg-gray-800
-                                mr-3
-                            "
+                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
                             :href="route('lotacao.index')"
                         >
                             Voltar

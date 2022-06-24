@@ -12,7 +12,10 @@ use App\Http\Controllers\{
     FaixaEtariaController,
     EmpresaBeneficioController,
     JornadaController,
-    DependenteController
+    DependenteController,
+    FuncionarioController,
+    OcorrenciaController,
+    FuncionarioBeneficioController
 };
 use Inertia\Inertia;
 
@@ -53,7 +56,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function ($route) {
     Route::resource('empresa-beneficio', EmpresaBeneficioController::class);
     Route::resource('jornada', JornadaController::class);
     Route::resource('dependente', DependenteController::class);
-
+    Route::resource('funcionario', FuncionarioController::class);
+    Route::resource('ocorrencia', OcorrenciaController::class);
+    Route::resource('funcionario-beneficio', FuncionarioBeneficioController::class);
 });
 
 require __DIR__ . '/auth.php';

@@ -1,57 +1,72 @@
 <template>
     <FlashMessages />
-    <div class="mb-4 max-w-xs">
-        <h4 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Filtros
-        </h4>
-        <input
-            type="search"
-            v-model="params.search"
-            aria-label="Lotação"
-            placeholder="Lotação..."
-            class="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-    </div>
 
     <div class="bg-white rounded-md shadow">
-        <table class="w-full whitespace-nowrap">
+        <div v-if="!items.data.length">
+            <EmptyTable />
+        </div>
+        <table class="w-full whitespace-nowrap" v-else>
             <thead>
                 <tr class="text-left font-bold">
-                    <th class="px-6 pt-6 pb-4">Lotacao</th>
-                    <th class="px-6 pt-6 pb-4">Empresa</th>
-                    <th class="px-6 pt-6 pb-4">Feriado</th>
-                    <th class="px-6 pt-6 pb-4">Ativo</th>
+                    <th class="px-6 pt-6 pb-4">Funcionário</th>
+                    <th class="px-6 pt-6 pb-4">Ausência</th>
+                    <th class="px-6 pt-6 pb-4">Competência</th>
+                    <th class="px-6 pt-6 pb-4">Data de Início</th>
+                    <th class="px-6 pt-6 pb-4">Data de Fim</th>
+                    <th class="px-6 pt-6 pb-4">Qtd. Dias</th>
+                    <th class="px-6 pt-6 pb-4">Observação</th>
                 </tr>
             </thead>
             <tbody>
                 <tr
                     class="bg-white border-b"
                     v-for="item in items.data"
-                    :key="item.id_lotacao"
+                    :key="item.id_ocorrencia"
                 >
                     <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.lotacao }}
-                    </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <span v-if="item.empresa">{{
-                            item.empresa.razao_social
+                        <span v-if="item.funcionario">{{
+                            item.funcionario.nome
                         }}</span>
                     </td>
+
                     <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        <span v-if="item.feriado">{{
-                            item.feriado.nome_grupo
+                        <span v-if="item.ausencia">{{
+                            item.ausencia.nome
                         }}</span>
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        <DateFormat :value="item.competencia" />
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        <DateFormat :value="item.data_inicio" />
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        <DateFormat :value="item.data_fim" />
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        {{ item.quantidade_dias }}
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
-                        v-html="booleanFormat(item.ativo)"
-                    ></td>
+                    >
+                        {{ item.observacao }}
+                    </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                     >
@@ -81,12 +96,17 @@
                             <template #content>
                                 <DropdownLink
                                     :href="
-                                        route('lotacao.edit', item.id_lotacao)
+                                        route(
+                                            'ocorrencia.edit',
+                                            item.id_ocorrencia
+                                        )
                                     "
                                 >
                                     Editar
                                 </DropdownLink>
-                                <DropdownLink @click="destroy(item.id_lotacao)">
+                                <DropdownLink
+                                    @click="destroy(item.id_ocorrencia)"
+                                >
                                     Deletar
                                 </DropdownLink>
                             </template>
@@ -97,7 +117,7 @@
         </table>
     </div>
 
-    <pagination class="mt-6" :links="items.links" />
+    <Pagination class="mt-6" :links="items.links" />
 </template>
 
 <script>
@@ -108,27 +128,29 @@ import MoneyFormat from "@/Components/Global/MoneyFormat.vue";
 import Pagination from "@/Components/Global/Pagination";
 import Dropdown from "@/Components/Global/Dropdown.vue";
 import DropdownLink from "@/Components/Global/DropdownLink.vue";
+import CPFCNPJFormat from "@/Components/Global/CPFCNPJFormat.vue";
+import PhoneFormat from "@/Components/Global/PhoneFormat.vue";
+import EmptyTable from "@/Components/Global/EmptyTable.vue";
 
 export default {
     components: {
         Link,
         DateFormat,
+        EmptyTable,
         Dropdown,
+        DateFormat,
         DropdownLink,
         FlashMessages,
         MoneyFormat,
         Pagination,
+        CPFCNPJFormat,
+        PhoneFormat,
     },
     props: {
         items: Object,
-        filters: Object,
     },
     data() {
-        return {
-            params: {
-                search: this.filters.search,
-            },
-        };
+        return {};
     },
     methods: {
         booleanFormat(val) {
@@ -139,23 +161,13 @@ export default {
             }
         },
         destroy(id) {
-            this.$inertia.delete(route("lotacao.destroy", id));
+            this.$inertia.delete(route("ocorrencia.destroy", id));
         },
         edit(id) {
             this.$emit("edit", id);
         },
     },
 
-    watch: {
-        params: {
-            handler: function () {
-                this.$inertia.get(this.route("lotacao.index"), this.params, {
-                    replace: true,
-                    preserveState: true,
-                });
-            },
-            deep: true,
-        },
-    },
+    watch: {},
 };
 </script>

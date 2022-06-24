@@ -1,57 +1,71 @@
 <template>
     <FlashMessages />
-    <div class="mb-4 max-w-xs">
-        <h4 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Filtros
-        </h4>
-        <input
-            type="search"
-            v-model="params.search"
-            aria-label="Lotação"
-            placeholder="Lotação..."
-            class="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-    </div>
 
     <div class="bg-white rounded-md shadow">
-        <table class="w-full whitespace-nowrap">
+        <div v-if="!items.data.length">
+            <EmptyTable />
+        </div>
+        <table class="w-full whitespace-nowrap" v-else>
             <thead>
                 <tr class="text-left font-bold">
-                    <th class="px-6 pt-6 pb-4">Lotacao</th>
-                    <th class="px-6 pt-6 pb-4">Empresa</th>
-                    <th class="px-6 pt-6 pb-4">Feriado</th>
-                    <th class="px-6 pt-6 pb-4">Ativo</th>
+                    <th class="px-6 pt-6 pb-4">
+                        Nome <br />
+                        RG
+                    </th>
+                    <th class="px-6 pt-6 pb-4">CPF</th>
+                    <th class="px-6 pt-6 pb-4">Data de Nascimento</th>
+                    <th class="px-6 pt-6 pb-4">Parentesco</th>
+                    <th class="px-6 pt-6 pb-4">Nome da Mãe</th>
+                    <th class="px-6 pt-6 pb-4">Desc. Faixa Etária</th>
                 </tr>
             </thead>
             <tbody>
                 <tr
                     class="bg-white border-b"
                     v-for="item in items.data"
-                    :key="item.id_lotacao"
+                    :key="item.id_dependentes"
                 >
                     <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.lotacao }}
+                        {{ item.nome }} <br />
+                        {{ item.rg }}
                     </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <span v-if="item.empresa">{{
-                            item.empresa.razao_social
-                        }}</span>
-                    </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <span v-if="item.feriado">{{
-                            item.feriado.nome_grupo
-                        }}</span>
-                    </td>
+
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
-                        v-html="booleanFormat(item.ativo)"
-                    ></td>
+                    >
+                        <CPFCNPJFormat :value="item.cpf" />
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        <DateFormat :value="item.data_nascimento" />
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        <span v-if="item.grau_parentesco">{{
+                            item.grau_parentesco.nome
+                        }}</span>
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        {{ item.nome_mae }}
+                    </td>
+
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        <span v-if="item.faixa_etaria">{{
+                            item.faixa_etaria.tipo_plano
+                        }}</span>
+                    </td>
+
                     <td
                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                     >
@@ -81,12 +95,17 @@
                             <template #content>
                                 <DropdownLink
                                     :href="
-                                        route('lotacao.edit', item.id_lotacao)
+                                        route(
+                                            'dependente.edit',
+                                            item.id_dependentes
+                                        )
                                     "
                                 >
                                     Editar
                                 </DropdownLink>
-                                <DropdownLink @click="destroy(item.id_lotacao)">
+                                <DropdownLink
+                                    @click="destroy(item.id_dependentes)"
+                                >
                                     Deletar
                                 </DropdownLink>
                             </template>
@@ -97,7 +116,7 @@
         </table>
     </div>
 
-    <pagination class="mt-6" :links="items.links" />
+    <Pagination class="mt-6" :links="items.links" />
 </template>
 
 <script>
@@ -108,27 +127,29 @@ import MoneyFormat from "@/Components/Global/MoneyFormat.vue";
 import Pagination from "@/Components/Global/Pagination";
 import Dropdown from "@/Components/Global/Dropdown.vue";
 import DropdownLink from "@/Components/Global/DropdownLink.vue";
+import CPFCNPJFormat from "@/Components/Global/CPFCNPJFormat.vue";
+import PhoneFormat from "@/Components/Global/PhoneFormat.vue";
+import EmptyTable from "@/Components/Global/EmptyTable.vue";
 
 export default {
     components: {
         Link,
         DateFormat,
+        EmptyTable,
         Dropdown,
+        DateFormat,
         DropdownLink,
         FlashMessages,
         MoneyFormat,
         Pagination,
+        CPFCNPJFormat,
+        PhoneFormat,
     },
     props: {
         items: Object,
-        filters: Object,
     },
     data() {
-        return {
-            params: {
-                search: this.filters.search,
-            },
-        };
+        return {};
     },
     methods: {
         booleanFormat(val) {
@@ -139,23 +160,13 @@ export default {
             }
         },
         destroy(id) {
-            this.$inertia.delete(route("lotacao.destroy", id));
+            this.$inertia.delete(route("dependente.destroy", id));
         },
         edit(id) {
             this.$emit("edit", id);
         },
     },
 
-    watch: {
-        params: {
-            handler: function () {
-                this.$inertia.get(this.route("lotacao.index"), this.params, {
-                    replace: true,
-                    preserveState: true,
-                });
-            },
-            deep: true,
-        },
-    },
+    watch: {},
 };
 </script>
