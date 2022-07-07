@@ -1,7 +1,7 @@
 <template>
   <Head title="Ocorrências" />
 
-  <BreezeAuthenticatedLayout>
+  <AuthenticatedLayout>
     <template #header>
       <div class="flex justify-between">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -22,11 +22,11 @@
         <List :items="items"></List>
       </div>
     </div>
-  </BreezeAuthenticatedLayout>
+  </AuthenticatedLayout>
 </template>
 
 <script>
-import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import List from "@/Components/Ocorrencia/List.vue";
 import Modal from "@/Components/Global/Modal.vue";
 import LinkButton from "@/Components/Global/LinkButton.vue";
@@ -35,7 +35,7 @@ import { Head } from "@inertiajs/inertia-vue3";
 
 export default {
   components: {
-    BreezeAuthenticatedLayout,
+    AuthenticatedLayout,
     LinkButton,
     List,
     Modal,

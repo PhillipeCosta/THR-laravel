@@ -1,98 +1,85 @@
 <template>
-    <div class="bg-gray-100">
-        <div class="flex items-center container mx-auto h-screen">
-            <div
-                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
-            >
-                <h2
-                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
-                >
-                    Cadastrar Empresa Benefício
-                </h2>
-                <form @submit.prevent="submit">
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <ThrLabel value="Fornecedor" />
-                            <Select
-                                class="mt-1 block w-full"
-                                v-model="form.id_fornecedor"
-                                required
-                                :options="selectFornecedor"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel value="Lotacao" />
-                            <Select
-                                class="mt-1 block w-full"
-                                v-model="form.id_lotacao"
-                                required
-                                :options="selectLotacao"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <ThrLabel value="Porcentagem funcionário" />
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                                >
-                                    <span class="text-gray-500 sm:text-sm">
-                                        %
-                                    </span>
-                                </div>
-                                <currency-input
-                                    id="percentual_valor_dependente"
-                                    class="mt-1 block w-full pl-7 pr-12"
-                                    v-model="form.percentual_valor_funcionario"
-                                    required
-                                    :options="moneyCurrencyOptions"
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <ThrLabel value="Porcentagem dependente" />
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                                >
-                                    <span class="text-gray-500 sm:text-sm">
-                                        %
-                                    </span>
-                                </div>
-                                <currency-input
-                                    id="percentual_valor_dependente"
-                                    class="mt-1 block w-full pl-7 pr-12"
-                                    v-model="form.percentual_valor_dependente"
-                                    required
-                                    :options="moneyCurrencyOptions"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <LinkButton
-                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
-                            :href="route('empresa-beneficio.index')"
-                        >
-                            Voltar
-                        </LinkButton>
-                        <ThrButton
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                        >
-                            Cadastrar
-                        </ThrButton>
-                    </div>
-                </form>
+    <FormLayout title="Cadastrar Empresa Benefício">
+        <form @submit.prevent="submit">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <ThrLabel value="Fornecedor" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_fornecedor"
+                        required
+                        :options="selectFornecedor"
+                    />
+                </div>
+                <div>
+                    <ThrLabel value="Lotacao" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_lotacao"
+                        required
+                        :options="selectLotacao"
+                    />
+                </div>
             </div>
-        </div>
-    </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <ThrLabel value="Porcentagem funcionário" />
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                        >
+                            <span class="text-gray-500 sm:text-sm"> % </span>
+                        </div>
+                        <currency-input
+                            id="percentual_valor_dependente"
+                            class="mt-1 block w-full pl-7 pr-12"
+                            v-model="form.percentual_valor_funcionario"
+                            required
+                            :options="moneyCurrencyOptions"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <ThrLabel value="Porcentagem dependente" />
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                        >
+                            <span class="text-gray-500 sm:text-sm"> % </span>
+                        </div>
+                        <currency-input
+                            id="percentual_valor_dependente"
+                            class="mt-1 block w-full pl-7 pr-12"
+                            v-model="form.percentual_valor_dependente"
+                            required
+                            :options="moneyCurrencyOptions"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <LinkButton
+                    class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
+                    :href="route('empresa-beneficio.index')"
+                >
+                    Voltar
+                </LinkButton>
+                <ThrButton
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Cadastrar
+                </ThrButton>
+            </div>
+        </form>
+    </FormLayout>
 </template>
 
 <script>
+import FormLayout from "@/Layouts/Form.vue";
+
 import ThrButton from "@/Components/Global/Button.vue";
 import ThrInput from "@/Components/Global/Input.vue";
 import Switch from "@/Components/Global/Switch.vue";
@@ -103,6 +90,7 @@ import CurrencyInput from "@/Components/Global/CurrencyInput";
 
 export default {
     components: {
+        FormLayout,
         Switch,
         LinkButton,
         CurrencyInput,

@@ -1,113 +1,98 @@
 <template>
-    <div class="bg-gray-100">
-        <div class="flex items-center container mx-auto h-screen">
-            <div
-                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
-            >
-                <h2
-                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
-                >
-                    Cadastrar Faixa Etária
-                </h2>
-                <form @submit.prevent="submit">
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="tipo_plano" value="Tipo do plano" />
-                            <ThrInput
-                                id="tipo_plano"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.tipo_plano"
-                                required
-                                autofocus
-                            />
-                        </div>
+    <FormLayout title="Cadastrar Faixa Etária">
+        <form @submit.prevent="submit">
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="tipo_plano" value="Tipo do plano" />
+                    <ThrInput
+                        id="tipo_plano"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.tipo_plano"
+                        required
+                        autofocus
+                    />
+                </div>
 
-                        <div>
-                            <ThrLabel
-                                for="faixa_idade"
-                                value="Faixa de idade"
-                            />
-                            <ThrInput
-                                id="faixa_idade"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.faixa_idade"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel value="Fornecedor" />
-                            <Select
-                                class="mt-1 block w-full"
-                                v-model="form.id_fornecedor"
-                                required
-                                :options="selectFornecedor"
-                            />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel
-                                for="valor_funcionario"
-                                value="Valor funcionário"
-                            />
-                            <currency-input
-                                id="valor_funcionario"
-                                class="mt-1 block w-full"
-                                v-model="form.valor_funcionario"
-                                required
-                                :options="moneyCurrencyOptions"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="valor_dependente"
-                                value="Valor dependente"
-                            />
-                            <currency-input
-                                id="valor_dependente"
-                                class="mt-1 block w-full"
-                                v-model="form.valor_dependente"
-                                required
-                                :options="moneyCurrencyOptions"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="vigencia" value="Vigência" />
-                            <ThrInput
-                                id="vigencia"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.vigencia"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <LinkButton
-                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
-                            :href="route('faixa-etaria.index')"
-                        >
-                            Voltar
-                        </LinkButton>
-                        <ThrButton
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                        >
-                            Cadastrar
-                        </ThrButton>
-                    </div>
-                </form>
+                <div>
+                    <ThrLabel for="faixa_idade" value="Faixa de idade" />
+                    <ThrInput
+                        id="faixa_idade"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.faixa_idade"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel value="Fornecedor" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_fornecedor"
+                        required
+                        :options="selectFornecedor"
+                    />
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel
+                        for="valor_funcionario"
+                        value="Valor funcionário"
+                    />
+                    <currency-input
+                        id="valor_funcionario"
+                        class="mt-1 block w-full"
+                        v-model="form.valor_funcionario"
+                        required
+                        :options="moneyCurrencyOptions"
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="valor_dependente" value="Valor dependente" />
+                    <currency-input
+                        id="valor_dependente"
+                        class="mt-1 block w-full"
+                        v-model="form.valor_dependente"
+                        required
+                        :options="moneyCurrencyOptions"
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="vigencia" value="Vigência" />
+                    <ThrInput
+                        id="vigencia"
+                        type="date"
+                        class="mt-1 block w-full"
+                        v-model="form.vigencia"
+                        required
+                        autofocus
+                    />
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <LinkButton
+                    class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
+                    :href="route('faixa-etaria.index')"
+                >
+                    Voltar
+                </LinkButton>
+                <ThrButton
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Cadastrar
+                </ThrButton>
+            </div>
+        </form>
+    </FormLayout>
 </template>
 
 <script>
+import FormLayout from "@/Layouts/Form.vue";
+
 import ThrButton from "@/Components/Global/Button.vue";
 import ThrInput from "@/Components/Global/Input.vue";
 import Switch from "@/Components/Global/Switch.vue";
@@ -118,6 +103,7 @@ import CurrencyInput from "@/Components/Global/CurrencyInput";
 
 export default {
     components: {
+        FormLayout,
         Switch,
         LinkButton,
         CurrencyInput,

@@ -9,304 +9,15 @@
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
                                 <Link :href="route('home')">
-                                    <BreezeApplicationLogo
-                                        class="block h-9 w-auto"
-                                    />
+                                    <ApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div
-                                class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
-                            >
-                                <BreezeNavLink
-                                    :href="route('home')"
-                                    :active="route().current('home')"
-                                >
-                                    Home
-                                </BreezeNavLink>
-
-                                <BreezeNavLink
-                                    :href="route('fornecedor.index')"
-                                    :active="
-                                        route().current('fornecedor.index')
-                                    "
-                                >
-                                    Fornecedor
-                                </BreezeNavLink>
-
-                                <BreezeNavLink
-                                    :href="route('funcionario.index')"
-                                    :active="
-                                        route().current('funcionario.index')
-                                    "
-                                >
-                                    Funcionario
-                                </BreezeNavLink>
-
-                                <BreezeNavLink
-                                    :href="route('empresa.index')"
-                                    :active="route().current('empresa.index')"
-                                >
-                                    Empresas
-                                </BreezeNavLink>
-
-                                <div
-                                    class="hidden sm:flex sm:items-center sm:ml-6"
-                                >
-                                    <BreezeDropdown align="right" width="48">
-                                        <template #trigger>
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
-                                            >
-                                                Faixas
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </template>
-
-                                        <template #content>
-                                            <BreezeDropdownLink
-                                                :href="
-                                                    route('faixa-etaria.index')
-                                                "
-                                                :active="
-                                                    route().current(
-                                                        'faixa-etaria.index'
-                                                    )
-                                                "
-                                            >
-                                                Faixa Etária
-                                            </BreezeDropdownLink>
-                                            <BreezeDropdownLink
-                                                :href="
-                                                    route(
-                                                        'faixa-salarial.index'
-                                                    )
-                                                "
-                                                :active="
-                                                    route().current(
-                                                        'faixa-salarial.index'
-                                                    )
-                                                "
-                                            >
-                                                Faixa Salarial
-                                            </BreezeDropdownLink>
-                                        </template>
-                                    </BreezeDropdown>
-                                </div>
-
-                                <div
-                                    class="hidden sm:flex sm:items-center sm:ml-6"
-                                >
-                                    <BreezeDropdown align="right" width="48">
-                                        <template #trigger>
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
-                                            >
-                                                Benefícios
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </template>
-
-                                        <template #content>
-                                            <BreezeDropdownLink
-                                                :href="
-                                                    route(
-                                                        'empresa-beneficio.index'
-                                                    )
-                                                "
-                                                :active="
-                                                    route().current(
-                                                        'empresa-beneficio.index'
-                                                    )
-                                                "
-                                            >
-                                                Empresa Benefícios
-                                            </BreezeDropdownLink>
-
-                                            <BreezeDropdownLink
-                                                :href="
-                                                    route(
-                                                        'funcionario-beneficio.index'
-                                                    )
-                                                "
-                                                :active="
-                                                    route().current(
-                                                        'funcionario-beneficio.index'
-                                                    )
-                                                "
-                                            >
-                                                Funcionário Benefícios
-                                            </BreezeDropdownLink>
-
-                                            <BreezeDropdownLink
-                                                :href="
-                                                    route(
-                                                        'compras-beneficios.index'
-                                                    )
-                                                "
-                                                :active="
-                                                    route().current(
-                                                        'compras-beneficios.index'
-                                                    )
-                                                "
-                                            >
-                                                Compra Benefícios
-                                            </BreezeDropdownLink>
-                                        </template>
-                                    </BreezeDropdown>
-                                </div>
-
-                                <div
-                                    class="hidden sm:flex sm:items-center sm:ml-6"
-                                >
-                                    <BreezeDropdown align="right" width="48">
-                                        <template #trigger>
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
-                                            >
-                                                Atributos
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </template>
-
-                                        <template #content>
-                                            <BreezeDropdownLink
-                                                :href="
-                                                    route('dependente.index')
-                                                "
-                                                :active="
-                                                    route().current(
-                                                        'dependente.index'
-                                                    )
-                                                "
-                                            >
-                                                Dependentes
-                                            </BreezeDropdownLink>
-                                            <BreezeDropdownLink
-                                                :href="route('feriado.index')"
-                                                :active="
-                                                    route().current(
-                                                        'feriado.index'
-                                                    )
-                                                "
-                                            >
-                                                Feriados
-                                            </BreezeDropdownLink>
-                                            <BreezeDropdownLink
-                                                :href="route('lotacao.index')"
-                                                :active="
-                                                    route().current(
-                                                        'lotacao.index'
-                                                    )
-                                                "
-                                            >
-                                                Lotação
-                                            </BreezeDropdownLink>
-                                            <BreezeDropdownLink
-                                                :href="route('jornada.index')"
-                                                :active="
-                                                    route().current(
-                                                        'jornada.index'
-                                                    )
-                                                "
-                                            >
-                                                Jornadas
-                                            </BreezeDropdownLink>
-                                            <BreezeDropdownLink
-                                                :href="
-                                                    route('ocorrencia.index')
-                                                "
-                                                :active="
-                                                    route().current(
-                                                        'ocorrencia.index'
-                                                    )
-                                                "
-                                            >
-                                                Ocorrência
-                                            </BreezeDropdownLink>
-                                        </template>
-                                    </BreezeDropdown>
-                                </div>
-                            </div>
+                            <Nav></Nav>
                         </div>
-
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
-                                <BreezeDropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {{ $page.props.auth.user.name }}
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <BreezeDropdownLink
-                                            :href="route('logout')"
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Sair
-                                        </BreezeDropdownLink>
-                                    </template>
-                                </BreezeDropdown>
-                            </div>
-                        </div>
-
+                        <NavLogin></NavLogin>
+                        
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
                             <button
@@ -359,12 +70,12 @@
                     class="sm:hidden"
                 >
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink
+                        <ResponsiveNavLink
                             :href="route('home')"
                             :active="route().current('home')"
                         >
                             Home
-                        </BreezeResponsiveNavLink>
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -379,13 +90,13 @@
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <BreezeResponsiveNavLink
+                            <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
                                 Log Out
-                            </BreezeResponsiveNavLink>
+                            </ResponsiveNavLink>
                         </div>
                     </div>
                 </div>
@@ -407,21 +118,26 @@
 </template>
 
 <script>
-import BreezeApplicationLogo from "@/Components/Global/ApplicationLogo.vue";
-import BreezeDropdown from "@/Components/Global/Dropdown.vue";
-import BreezeDropdownLink from "@/Components/Global/DropdownLink.vue";
-import BreezeNavLink from "@/Components/Global/NavLink.vue";
-import BreezeResponsiveNavLink from "@/Components/Global/ResponsiveNavLink.vue";
+import ApplicationLogo from "@/Components/Global/ApplicationLogo.vue";
+import Dropdown from "@/Components/Global/Dropdown.vue";
+import DropdownLink from "@/Components/Global/DropdownLink.vue";
+import NavLink from "@/Components/Global/NavLink.vue";
+import ResponsiveNavLink from "@/Components/Global/ResponsiveNavLink.vue";
+import Nav from "@/Components/Navbar/Nav.vue";
+import NavLogin from "@/Components/Navbar/NavLogin.vue";
+
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
-        BreezeApplicationLogo,
-        BreezeDropdown,
-        BreezeDropdownLink,
-        BreezeNavLink,
-        BreezeResponsiveNavLink,
+        ApplicationLogo,
+        Dropdown,
+        DropdownLink,
+        NavLink,
+        ResponsiveNavLink,
         Link,
+        Nav,
+        NavLogin
     },
 
     data() {

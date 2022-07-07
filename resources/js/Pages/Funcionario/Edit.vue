@@ -1,184 +1,163 @@
 <template>
-    <div class="bg-gray-100">
-        <div class="flex items-center container mx-auto h-screen">
-            <div
-                class="rounded overflow-hidden flex-grow shadow-lg p-10 bg-white"
-            >
-                <h2
-                    class="font-semibold text-xl text-gray-800 leading-tight mb-3"
-                >
-                    Editar Funcionário
-                </h2>
-                <form @submit.prevent="submit">
-                    <div class="grid grid-cols-4 gap-4 mb-4">
-                        <div class="col-span-3">
-                            <ThrLabel for="nome" value="Nome" />
-                            <ThrInput
-                                id="nome"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.nome"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="cpf" value="CPF" />
-                            <ThrInput
-                                id="cpf"
-                                type="text"
-                                v-maska="'###.###.###-##'"
-                                @maska="
-                                    form.cpf =
-                                        $event.target.dataset.maskRawValue
-                                "
-                                class="mt-1 block w-full"
-                                v-model="maskedValues.cpf"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="rg" value="RG" />
-                            <ThrInput
-                                id="rg"
-                                type="Number"
-                                class="mt-1 block w-full"
-                                v-model="form.rg"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="pis" value="PIS" />
-                            <ThrInput
-                                id="pis"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.pis"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="cargo" value="Cargo" />
-                            <ThrInput
-                                id="cargo"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.cargo"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
+    <FormLayout title="Editar Funcionário">
+        <form @submit.prevent="submit">
+            <div class="grid grid-cols-4 gap-4 mb-4">
+                <div class="col-span-3">
+                    <ThrLabel for="nome" value="Nome" />
+                    <ThrInput
+                        id="nome"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.nome"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="cpf" value="CPF" />
+                    <ThrInput
+                        id="cpf"
+                        type="text"
+                        v-maska="'###.###.###-##'"
+                        @maska="form.cpf = $event.target.dataset.maskRawValue"
+                        class="mt-1 block w-full"
+                        v-model="maskedValues.cpf"
+                        required
+                        autofocus
+                    />
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="rg" value="RG" />
+                    <ThrInput
+                        id="rg"
+                        type="Number"
+                        class="mt-1 block w-full"
+                        v-model="form.rg"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="pis" value="PIS" />
+                    <ThrInput
+                        id="pis"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.pis"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="cargo" value="Cargo" />
+                    <ThrInput
+                        id="cargo"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.cargo"
+                        required
+                        autofocus
+                    />
+                </div>
+            </div>
 
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="matricula" value="Matrícula" />
-                            <ThrInput
-                                id="matricula"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.matricula"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="centro_custo"
-                                value="Centro de custo"
-                            />
-                            <ThrInput
-                                id="centro_custo"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.centro_custo"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="numero_centro_custo"
-                                value="Nº Centro de custo"
-                            />
-                            <ThrInput
-                                id="numero_centro_custo"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.numero_centro_custo"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="matricula" value="Matrícula" />
+                    <ThrInput
+                        id="matricula"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.matricula"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="centro_custo" value="Centro de custo" />
+                    <ThrInput
+                        id="centro_custo"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.centro_custo"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel
+                        for="numero_centro_custo"
+                        value="Nº Centro de custo"
+                    />
+                    <ThrInput
+                        id="numero_centro_custo"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.numero_centro_custo"
+                        required
+                        autofocus
+                    />
+                </div>
+            </div>
 
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="data_admissao" value="Admissão" />
-                            <ThrInput
-                                id="data_admissao"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.data_admissao"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel for="data_demissao" value="Demissão" />
-                            <ThrInput
-                                id="data_demissao"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.data_demissao"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="data_adesao_plano"
-                                value="Adesão plano"
-                            />
-                            <ThrInput
-                                id="data_adesao_plano"
-                                type="date"
-                                class="mt-1 block w-full"
-                                v-model="form.data_adesao_plano"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="data_admissao" value="Admissão" />
+                    <ThrInput
+                        id="data_admissao"
+                        type="date"
+                        class="mt-1 block w-full"
+                        v-model="form.data_admissao"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="data_demissao" value="Demissão" />
+                    <ThrInput
+                        id="data_demissao"
+                        type="date"
+                        class="mt-1 block w-full"
+                        v-model="form.data_demissao"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="data_adesao_plano" value="Adesão plano" />
+                    <ThrInput
+                        id="data_adesao_plano"
+                        type="date"
+                        class="mt-1 block w-full"
+                        v-model="form.data_adesao_plano"
+                        required
+                        autofocus
+                    />
+                </div>
+            </div>
 
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="id_lotacao" value="Lotação" />
-                            <Select
-                                class="mt-1 block w-full"
-                                v-model="form.id_lotacao"
-                                required
-                                :options="selectLotacao"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="id_faixa_salarial"
-                                value="Faixa salarial"
-                            />
-                            <Select
-                                class="mt-1 block w-full"
-                                v-model="form.id_faixa_salarial"
-                                required
-                                :options="selectFaixaSalarial"
-                            />
-                        </div>
-                        <!--<div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="id_lotacao" value="Lotação" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_lotacao"
+                        required
+                        :options="selectLotacao"
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="id_faixa_salarial" value="Faixa salarial" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_faixa_salarial"
+                        required
+                        :options="selectFaixaSalarial"
+                    />
+                </div>
+                <!--<div>
                             <ThrLabel
                                 for="id_desconto_faixa_etaria"
                                 value="Faixa etária"
@@ -189,98 +168,92 @@
                                 :options="selectFaixaEtaria"
                             />
                         </div>-->
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <ThrLabel for="salario" value="Salario" />
-                            <currency-input
-                                id="salario"
-                                class="mt-1 block w-full"
-                                v-model="form.salario"
-                                required
-                                :options="moneyCurrencyOptions"
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="total_desconto_va"
-                                value="Desc. VA"
-                            />
-                            <ThrInput
-                                id="total_desconto_va"
-                                type="Number"
-                                class="mt-1 block w-full"
-                                v-model="form.total_desconto_va"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div>
-                            <ThrLabel
-                                for="total_desconto_vr"
-                                value="Desc. VR"
-                            />
-                            <ThrInput
-                                id="total_desconto_vr"
-                                type="Number"
-                                class="mt-1 block w-full"
-                                v-model="form.total_desconto_vr"
-                                required
-                                autofocus
-                            />
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-5 gap-4 mb-4">
-                        <div class="col-span-2">
-                            <ThrLabel for="numero_cartao" value="Nº cartão" />
-                            <ThrInput
-                                id="numero_cartao"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.numero_cartao"
-                                required
-                                autofocus
-                            />
-                        </div>
-                        <div class="col-span-2">
-                            <ThrLabel for="id_jornada" value="Jornada" />
-                            <Select
-                                class="mt-1 block w-full"
-                                v-model="form.id_jornada"
-                                required
-                                :options="selectJornada"
-                            />
-                        </div>
-
-                        <div>
-                            <ThrLabel value="Status" />
-                            <Switch v-model:checked="form.ativo" />
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <LinkButton
-                            class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
-                            :href="route('funcionario.index')"
-                        >
-                            Voltar
-                        </LinkButton>
-                        <ThrButton
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                        >
-                            Alterar
-                        </ThrButton>
-                    </div>
-                </form>
             </div>
-        </div>
-    </div>
+
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="salario" value="Salario" />
+                    <currency-input
+                        id="salario"
+                        class="mt-1 block w-full"
+                        v-model="form.salario"
+                        required
+                        :options="moneyCurrencyOptions"
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="total_desconto_va" value="Desc. VA" />
+                    <ThrInput
+                        id="total_desconto_va"
+                        type="Number"
+                        class="mt-1 block w-full"
+                        v-model="form.total_desconto_va"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="total_desconto_vr" value="Desc. VR" />
+                    <ThrInput
+                        id="total_desconto_vr"
+                        type="Number"
+                        class="mt-1 block w-full"
+                        v-model="form.total_desconto_vr"
+                        required
+                        autofocus
+                    />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-5 gap-4 mb-4">
+                <div class="col-span-2">
+                    <ThrLabel for="numero_cartao" value="Nº cartão" />
+                    <ThrInput
+                        id="numero_cartao"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.numero_cartao"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div class="col-span-2">
+                    <ThrLabel for="id_jornada" value="Jornada" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_jornada"
+                        required
+                        :options="selectJornada"
+                    />
+                </div>
+
+                <div>
+                    <ThrLabel value="Status" />
+                    <Switch v-model:checked="form.ativo" />
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <LinkButton
+                    class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
+                    :href="route('funcionario.index')"
+                >
+                    Voltar
+                </LinkButton>
+                <ThrButton
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Alterar
+                </ThrButton>
+            </div>
+        </form>
+    </FormLayout>
 </template>
 
 <script>
+import FormLayout from "@/Layouts/Form.vue";
+
 import ThrButton from "@/Components/Global/Button.vue";
 import ThrInput from "@/Components/Global/Input.vue";
 import ThrLabel from "@/Components/Global/Label.vue";
@@ -291,6 +264,7 @@ import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
+        FormLayout,
         LinkButton,
         ThrButton,
         ThrInput,
