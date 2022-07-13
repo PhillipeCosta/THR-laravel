@@ -72,14 +72,12 @@
 
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <ThrLabel for="tipo_beneficio" value="Tipo Benefício" />
-                    <ThrInput
-                        id="tipo_beneficio"
-                        type="text"
+                    <ThrLabel for="id_tipo_beneficio" value="Tipo Benefício" />
+                    <Select
                         class="mt-1 block w-full"
-                        v-model="form.tipo_beneficio"
+                        v-model="form.id_tipo_beneficio"
                         required
-                        autofocus
+                        :options="selectBeneficio"
                     />
                 </div>
                 <div>
@@ -238,11 +236,10 @@ export default {
                 bairro: "",
                 cidade: "",
                 estado: "",
-                tipo_fornecedor: "",
                 ans: "",
                 telefone: "",
                 inscricao_estadual: "",
-                tipo_beneficio: "",
+                id_tipo_beneficio: "",
                 pat: "",
             }),
         };
@@ -256,6 +253,15 @@ export default {
                 const obj = {
                     value: item,
                     label: item,
+                };
+                return obj;
+            });
+        },
+        selectBeneficio() {
+            return this.beneficio.map((item) => {
+                const obj = {
+                    value: item.id_tipo_beneficio,
+                    label: item.tipo,
                 };
                 return obj;
             });

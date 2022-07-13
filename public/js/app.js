@@ -22255,6 +22255,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       bairro: props.item.bairro,
       cidade: props.item.cidade,
       estado: props.item.estado,
+      complemento: props.item.complemento,
       tipo: props.item.tipo,
       codigo_empresa_folha: props.item.codigo_empresa_folha,
       telefone: props.item.telefone,
@@ -22280,7 +22281,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     tipos: function tipos() {
       return [{
         value: 1,
-        label: "Pessoa"
+        label: "Cliente"
       }, {
         value: 2,
         label: "Empresa"
@@ -22422,6 +22423,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         bairro: "",
         cidade: "",
         estado: "",
+        complemento: "",
         tipo: "",
         codigo_empresa_folha: "",
         telefone: "",
@@ -22448,7 +22450,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     tipos: function tipos() {
       return [{
         value: 1,
-        label: "Pessoa"
+        label: "Cliente"
       }, {
         value: 2,
         label: "Empresa"
@@ -23141,15 +23143,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       bairro: props.item.bairro,
       cidade: props.item.cidade,
       estado: props.item.estado,
-      tipo_fornecedor: props.item.tipo_fornecedor,
       ans: props.item.ans,
       telefone: props.item.telefone,
       inscricao_estadual: props.item.inscricao_estadual,
-      tipo_beneficio: props.item.tipo_beneficio,
+      id_tipo_beneficio: props.item.id_tipo_beneficio,
       pat: props.item.pat
     });
     return {
       form: form
+    };
+  },
+  data: function data() {
+    return {
+      isSaude: false,
+      isOdonto: false
     };
   },
   computed: {
@@ -23158,6 +23165,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var obj = {
           value: item,
           label: item
+        };
+        return obj;
+      });
+    },
+    selectBeneficio: function selectBeneficio() {
+      return this.beneficio.map(function (item) {
+        var obj = {
+          value: item.id_tipo_beneficio,
+          label: item.tipo
         };
         return obj;
       });
@@ -23171,15 +23187,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   props: {
-    item: Object
+    item: Object,
+    beneficio: Array
+  },
+  mounted: function mounted() {
+    this.beneficioRules(this.item.id_tipo_beneficio);
   },
   methods: {
+    changeBeneficio: function changeBeneficio(event) {
+      this.beneficioRules(event.target.value);
+    },
+    beneficioRules: function beneficioRules(value) {
+      var type = this.beneficio.find(function (_ref) {
+        var id_tipo_beneficio = _ref.id_tipo_beneficio;
+        return id_tipo_beneficio === value;
+      });
+
+      if (type.tipo === "Plano de Saúde") {
+        this.isSaude = true;
+        this.isOdonto = false;
+      } else if (type.tipo === "Plano Odontologico") {
+        this.isSaude = false;
+        this.isOdonto = true;
+      } else {
+        this.isSaude = false;
+        this.isOdonto = false;
+      }
+    },
     submit: function submit() {
       this.form.put(this.route("fornecedor.update", this.item.id_fornecedor));
     },
     searchCEP: function searchCEP(cep) {
       var that = this;
-      console.log(cep);
 
       if (cep.length == 8) {
         fetch("https://viacep.com.br/ws/" + cep + "/json/", {
@@ -23299,11 +23338,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         bairro: "",
         cidade: "",
         estado: "",
-        tipo_fornecedor: "",
         ans: "",
         telefone: "",
         inscricao_estadual: "",
-        tipo_beneficio: "",
+        id_tipo_beneficio: "",
         pat: ""
       })
     };
@@ -23317,6 +23355,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var obj = {
           value: item,
           label: item
+        };
+        return obj;
+      });
+    },
+    selectBeneficio: function selectBeneficio() {
+      return this.beneficio.map(function (item) {
+        var obj = {
+          value: item.id_tipo_beneficio,
+          label: item.tipo
         };
         return obj;
       });
@@ -25061,11 +25108,15 @@ var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_15 = {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_16 = {
   "class": "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
 };
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Opções "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
@@ -25081,9 +25132,9 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Editar ");
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Editar ");
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Deletar ");
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Deletar ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_FlashMessages = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("FlashMessages");
@@ -25126,21 +25177,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.endereco) + " ", 1
     /* TEXT */
-    ), _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.bairro) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.cidade) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.estado), 1
+    ), _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.bairro) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.cidade) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.estado) + " ", 1
     /* TEXT */
-    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+    ), _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.complemento), 1
+    /* TEXT */
+    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
       align: "right",
       width: "48"
     }, {
       trigger: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [_hoisted_16];
+        return [_hoisted_17];
       }),
       content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
         return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DropdownLink, {
           href: _ctx.route('empresa.edit', item.id_pessoa)
         }, {
           "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-            return [_hoisted_17];
+            return [_hoisted_18];
           }),
           _: 2
           /* DYNAMIC */
@@ -25153,7 +25206,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }
         }, {
           "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-            return [_hoisted_18];
+            return [_hoisted_19];
           }),
           _: 2
           /* DYNAMIC */
@@ -30428,7 +30481,7 @@ var _hoisted_6 = {
   "class": "col-span-3"
 };
 var _hoisted_7 = {
-  "class": "grid grid-cols-3 gap-4 mb-4"
+  "class": "grid grid-cols-4 gap-4 mb-4"
 };
 var _hoisted_8 = {
   "class": "text-center mt-4"
@@ -30458,7 +30511,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-        onSubmit: _cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+        onSubmit: _cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
@@ -30694,7 +30747,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         options: $options.ufs
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
+      , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+        "for": "complemento",
+        value: "Complemento"
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
+        id: "complemento",
+        type: "text",
+        "class": "mt-1 block w-full",
+        modelValue: $setup.form.complemento,
+        "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
+          return $setup.form.complemento = $event;
+        }),
+        required: "",
+        autofocus: ""
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
         "class": "hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3",
         href: _ctx.route('empresa.index')
       }, {
@@ -30839,7 +30907,7 @@ var _hoisted_6 = {
   "class": "col-span-3"
 };
 var _hoisted_7 = {
-  "class": "grid grid-cols-3 gap-4 mb-4"
+  "class": "grid grid-cols-4 gap-4 mb-4"
 };
 var _hoisted_8 = {
   "class": "text-center mt-4"
@@ -30869,7 +30937,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-        onSubmit: _cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+        onSubmit: _cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
@@ -31105,7 +31173,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         options: $options.ufs
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
+      , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+        "for": "complemento",
+        value: "Complemento"
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
+        id: "complemento",
+        type: "text",
+        "class": "mt-1 block w-full",
+        modelValue: $data.form.complemento,
+        "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
+          return $data.form.complemento = $event;
+        }),
+        required: "",
+        autofocus: ""
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
         "class": "hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3",
         href: _ctx.route('empresa.index')
       }, {
@@ -32413,21 +32496,29 @@ var _hoisted_3 = {
   "class": "grid grid-cols-3 gap-4 mb-4"
 };
 var _hoisted_4 = {
-  "class": "grid grid-cols-5 gap-4 mb-4"
+  key: 0,
+  "class": "col-span-2"
 };
 var _hoisted_5 = {
-  "class": "col-span-3"
+  key: 1,
+  "class": "col-span-2"
 };
 var _hoisted_6 = {
-  "class": "grid grid-cols-3 gap-4 mb-4"
+  "class": "grid grid-cols-5 gap-4 mb-4"
 };
 var _hoisted_7 = {
+  "class": "col-span-3"
+};
+var _hoisted_8 = {
+  "class": "grid grid-cols-3 gap-4 mb-4"
+};
+var _hoisted_9 = {
   "class": "text-center mt-4"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Voltar ");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Voltar ");
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Atualizar ");
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Atualizar ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ThrLabel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ThrLabel");
@@ -32534,21 +32625,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8
       /* PROPS */
       , ["modelValue"]), [[_directive_maska, ['(##) #####-####', '(##) ####-####']]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
-        "for": "tipo_beneficio",
+        "for": "id_tipo_beneficio",
         value: "Tipo Benefício"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
-        id: "tipo_beneficio",
-        type: "text",
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
         "class": "mt-1 block w-full",
-        modelValue: $setup.form.tipo_beneficio,
+        modelValue: $setup.form.id_tipo_beneficio,
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
-          return $setup.form.tipo_beneficio = $event;
+          return $setup.form.id_tipo_beneficio = $event;
         }),
         required: "",
-        autofocus: ""
+        options: $options.selectBeneficio,
+        onChange: $options.changeBeneficio
       }, null, 8
       /* PROPS */
-      , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+      , ["modelValue", "options", "onChange"])]), $data.isSaude ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
         "for": "pat",
         value: "Programa de alimentação do trabalhador"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -32563,7 +32653,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         autofocus: ""
       }, null, 8
       /* PROPS */
-      , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+      , ["modelValue"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.isOdonto ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
         "for": "ans",
         value: "ANS"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -32578,7 +32668,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         autofocus: ""
       }, null, 8
       /* PROPS */
-      , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+      , ["modelValue"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
         "for": "cep",
         value: "CEP"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -32599,7 +32689,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), [[_directive_maska, '##.###-###']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+      , ["modelValue"]), [[_directive_maska, '##.###-###']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
         "for": "endereco",
         value: "Endereço"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -32629,7 +32719,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         autofocus: ""
       }, null, 8
       /* PROPS */
-      , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+      , ["modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
         "for": "bairro",
         value: "Bairro"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
@@ -32672,12 +32762,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         options: $options.ufs
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
+      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkButton, {
         "class": "hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3",
         href: _ctx.route('fornecedor.index')
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_8];
+          return [_hoisted_10];
         }),
         _: 1
         /* STABLE */
@@ -32691,7 +32781,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         disabled: $setup.form.processing
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_9];
+          return [_hoisted_11];
         }),
         _: 1
         /* STABLE */
@@ -32929,21 +33019,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8
       /* PROPS */
       , ["modelValue"]), [[_directive_maska, ['(##) #####-####', '(##) ####-####']]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
-        "for": "tipo_beneficio",
+        "for": "id_tipo_beneficio",
         value: "Tipo Benefício"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {
-        id: "tipo_beneficio",
-        type: "text",
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
         "class": "mt-1 block w-full",
-        modelValue: $data.form.tipo_beneficio,
+        modelValue: $data.form.id_tipo_beneficio,
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
-          return $data.form.tipo_beneficio = $event;
+          return $data.form.id_tipo_beneficio = $event;
         }),
         required: "",
-        autofocus: ""
+        options: $options.selectBeneficio
       }, null, 8
       /* PROPS */
-      , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
+      , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrLabel, {
         "for": "pat",
         value: "Programa de alimentação do trabalhador"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ThrInput, {

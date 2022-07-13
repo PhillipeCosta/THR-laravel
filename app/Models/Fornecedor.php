@@ -28,12 +28,12 @@ class Fornecedor extends Model
         'telefone',
         'nome_pessoa_registro',
         'inscricao_estadual',
-        'tipo_beneficio',
+        'id_tipo_beneficio',
         'pat'
     ];
-/*
+
     public function beneficio()
     {
-        //return $this->hasOne(Lotacao::class, 'tipo_beneficio', 'id_tipo_beneficio');
-    }*/
+        return $this->hasOne(TipoBeneficio::class, 'id_tipo_beneficio', 'id_tipo_beneficio');
+    }
 }

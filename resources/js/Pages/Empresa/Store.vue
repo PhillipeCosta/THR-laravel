@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-4 gap-4 mb-4">
                 <div>
                     <ThrLabel for="bairro" value="Bairro" />
                     <ThrInput
@@ -185,6 +185,17 @@
                         v-model="form.estado"
                         required
                         :options="ufs"
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="complemento" value="Complemento" />
+                    <ThrInput
+                        id="complemento"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.complemento"
+                        required
+                        autofocus
                     />
                 </div>
             </div>
@@ -245,6 +256,7 @@ export default {
                 bairro: "",
                 cidade: "",
                 estado: "",
+                complemento: "",
                 tipo: "",
                 codigo_empresa_folha: "",
                 telefone: "",
@@ -272,7 +284,7 @@ export default {
             return [
                 {
                     value: 1,
-                    label: "Pessoa",
+                    label: "Cliente",
                 },
                 {
                     value: 2,

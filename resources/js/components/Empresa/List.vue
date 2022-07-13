@@ -70,7 +70,8 @@
                         {{ item.cep }} <br />
                         {{ item.endereco }} <br />
                         {{ item.bairro }} - {{ item.cidade }} -
-                        {{ item.estado }}
+                        {{ item.estado }} <br>
+                        {{ item.complemento }}
                     </td>
 
                     <td

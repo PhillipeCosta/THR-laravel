@@ -72,17 +72,16 @@
 
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <ThrLabel for="tipo_beneficio" value="Tipo Benefício" />
-                    <ThrInput
-                        id="tipo_beneficio"
-                        type="text"
+                    <ThrLabel for="id_tipo_beneficio" value="Tipo Benefício" />
+                    <Select
                         class="mt-1 block w-full"
-                        v-model="form.tipo_beneficio"
+                        v-model="form.id_tipo_beneficio"
                         required
-                        autofocus
+                        :options="selectBeneficio"
+                        @change="changeBeneficio"
                     />
                 </div>
-                <div>
+                <div v-if="isSaude" class="col-span-2">
                     <ThrLabel
                         for="pat"
                         value="Programa de alimentação do trabalhador"
@@ -96,7 +95,7 @@
                         autofocus
                     />
                 </div>
-                <div>
+                <div v-if="isOdonto" class="col-span-2">
                     <ThrLabel for="ans" value="ANS" />
                     <ThrInput
                         id="ans"
@@ -232,15 +231,20 @@ export default {
             bairro: props.item.bairro,
             cidade: props.item.cidade,
             estado: props.item.estado,
-            tipo_fornecedor: props.item.tipo_fornecedor,
             ans: props.item.ans,
             telefone: props.item.telefone,
             inscricao_estadual: props.item.inscricao_estadual,
-            tipo_beneficio: props.item.tipo_beneficio,
+            id_tipo_beneficio: props.item.id_tipo_beneficio,
             pat: props.item.pat,
         });
 
         return { form };
+    },
+    data() {
+        return {
+            isSaude: false,
+            isOdonto: false,
+        };
     },
     computed: {
         ufs() {
@@ -248,6 +252,15 @@ export default {
                 const obj = {
                     value: item,
                     label: item,
+                };
+                return obj;
+            });
+        },
+        selectBeneficio() {
+            return this.beneficio.map((item) => {
+                const obj = {
+                    value: item.id_tipo_beneficio,
+                    label: item.tipo,
                 };
                 return obj;
             });
@@ -262,16 +275,39 @@ export default {
     },
     props: {
         item: Object,
+        beneficio: Array,
+    },
+    mounted() {
+        this.beneficioRules(this.item.id_tipo_beneficio);
     },
     methods: {
+        changeBeneficio(event) {
+            this.beneficioRules(event.target.value);
+        },
+        beneficioRules(value) {
+            const type = this.beneficio.find(
+                ({ id_tipo_beneficio }) => id_tipo_beneficio === value
+            );
+
+            if (type.tipo === "Plano de Saúde") {
+                this.isSaude = true;
+                this.isOdonto = false;
+            } else if (type.tipo === "Plano Odontologico") {
+                this.isSaude = false;
+                this.isOdonto = true;
+            } else {
+                this.isSaude = false;
+                this.isOdonto = false;
+            }
+        },
         submit() {
             this.form.put(
                 this.route("fornecedor.update", this.item.id_fornecedor)
             );
         },
+
         searchCEP(cep) {
             const that = this;
-            console.log(cep);
             if (cep.length == 8) {
                 fetch("https://viacep.com.br/ws/" + cep + "/json/", {
                     method: "GET",

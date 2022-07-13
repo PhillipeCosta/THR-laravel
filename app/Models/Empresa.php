@@ -23,6 +23,7 @@ class Empresa extends Model
         'cep',
         'cidade',
         'estado',
+        'complemento',
         'codigo_empresa_folha',
         'inscricao_estadual',
         'cnae',

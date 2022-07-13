@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Fornecedor, TipoBeneficio};
 use App\Http\Requests\{StoreRequest, UpdateRequest};
-use Illuminate\Support\Facades\{Redirect,Request};
+use Illuminate\Support\Facades\{Redirect, Request};
 use Inertia\Inertia;
 
 class FornecedorController extends Controller
@@ -18,6 +18,7 @@ class FornecedorController extends Controller
     {
         return Inertia::render('Fornecedor/Index', [
             'items' => Fornecedor::orderBy('razao_social')
+                ->with('beneficio')
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -31,7 +32,7 @@ class FornecedorController extends Controller
     public function create()
     {
         return Inertia::render('Fornecedor/Store', [
-            //'beneficio' => TipoBeneficio::get(),
+            'beneficio' => TipoBeneficio::get(),
         ]);
     }
 
@@ -68,7 +69,7 @@ class FornecedorController extends Controller
     {
         return Inertia::render('Fornecedor/Edit', [
             'item' => $fornecedor,
-            //'beneficio' => TipoBeneficio::get(),
+            'beneficio' => TipoBeneficio::get(),
         ]);
     }
 
