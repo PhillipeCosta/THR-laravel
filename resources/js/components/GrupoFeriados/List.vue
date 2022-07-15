@@ -8,50 +8,20 @@
         <table class="w-full whitespace-nowrap" v-else>
             <thead>
                 <tr class="text-left font-bold">
-                    <th class="px-6 pt-6 pb-4">Faixa de Idade</th>
-                    <th class="px-6 pt-6 pb-4">Fornecedor</th>
-                    <th class="px-6 pt-6 pb-4">Valores</th>
-                    <th class="px-6 pt-6 pb-4">Data Cadastro</th>
-                    <th class="px-6 pt-6 pb-4">Data Fim Contrato</th>
-                    <th class="px-6 pt-6 pb-4"></th>
+                    <th class="px-6 pt-6 pb-4">Nome do Grupo</th>
                 </tr>
             </thead>
             <tbody>
                 <tr
                     class="bg-white border-b"
                     v-for="item in items.data"
-                    :key="item.id_desconto_faixa_etaria"
+                    :key="item.id_grupo_feriados"
                 >
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        {{ item.faixa_idade }}
-                    </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <span v-if="item.fornecedor">{{
-                            item.fornecedor.razao_social
-                        }}</span>
-                    </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        Valor Funcionário: <MoneyFormat :value="item.valor_funcionario" /> <br />
-                        Valor Dependente: <MoneyFormat :value="item.valor_dependente" /> <br />
-                        Valor Empresa: <MoneyFormat :value="item.valor_empresa_compra" />
+                        {{ item.nome }}
                     </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <DateFormat :value="item.data_cadastro" />
-                    </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <DateFormat :value="item.data_fim_contrato" />
-                    </td>
-
                     <td
                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                     >
@@ -81,19 +51,12 @@
                             <template #content>
                                 <DropdownLink
                                     :href="
-                                        route(
-                                            'faixa-etaria.edit',
-                                            item.id_desconto_faixa_etaria
-                                        )
+                                        route('grupo-feriado.edit', item.id_grupo_feriados)
                                     "
                                 >
                                     Editar
                                 </DropdownLink>
-                                <DropdownLink
-                                    @click="
-                                        destroy(item.id_desconto_faixa_etaria)
-                                    "
-                                >
+                                <DropdownLink @click="destroy(item.id_grupo_feriados)">
                                     Deletar
                                 </DropdownLink>
                             </template>
@@ -111,7 +74,6 @@
 import { Link } from "@inertiajs/inertia-vue3";
 import DateFormat from "@/Components/Global/DateFormat.vue";
 import FlashMessages from "@/Components/Global/FlashMessages";
-import MoneyFormat from "@/Components/Global/MoneyFormat.vue";
 import Pagination from "@/Components/Global/Pagination";
 import Dropdown from "@/Components/Global/Dropdown.vue";
 import DropdownLink from "@/Components/Global/DropdownLink.vue";
@@ -125,9 +87,8 @@ export default {
         DateFormat,
         DropdownLink,
         FlashMessages,
-        MoneyFormat,
         Pagination,
-        EmptyTable,
+        EmptyTable
     },
     props: {
         items: Object,
@@ -137,11 +98,13 @@ export default {
     },
     methods: {
         destroy(id) {
-            this.$inertia.delete(route("faixa-etaria.destroy", id));
+            this.$inertia.delete(route("grupo-feriado.destroy", id));
         },
         edit(id) {
             this.$emit("edit", id);
         },
     },
+
+    watch: {},
 };
 </script>

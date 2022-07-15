@@ -285,19 +285,21 @@ export default {
             this.beneficioRules(event.target.value);
         },
         beneficioRules(value) {
-            const type = this.beneficio.find(
-                ({ id_tipo_beneficio }) => id_tipo_beneficio === value
-            );
+            if (value) {
+                const type = this.beneficio.find(
+                    ({ id_tipo_beneficio }) => id_tipo_beneficio === value
+                );
 
-            if (type.tipo === "Plano de Saúde") {
-                this.isSaude = true;
-                this.isOdonto = false;
-            } else if (type.tipo === "Plano Odontologico") {
-                this.isSaude = false;
-                this.isOdonto = true;
-            } else {
-                this.isSaude = false;
-                this.isOdonto = false;
+                if (type.tipo === "Plano de Saúde") {
+                    this.isSaude = true;
+                    this.isOdonto = false;
+                } else if (type.tipo === "Plano Odontologico") {
+                    this.isSaude = false;
+                    this.isOdonto = true;
+                } else {
+                    this.isSaude = false;
+                    this.isOdonto = false;
+                }
             }
         },
         submit() {

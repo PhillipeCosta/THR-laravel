@@ -3,14 +3,22 @@
         <form @submit.prevent="submit">
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <ThrLabel for="tipo_plano" value="Tipo do plano" />
-                    <ThrInput
-                        id="tipo_plano"
-                        type="text"
+                    <ThrLabel value="Fornecedor" />
+                    <Select
                         class="mt-1 block w-full"
-                        v-model="form.tipo_plano"
+                        v-model="form.id_fornecedor"
                         required
-                        autofocus
+                        :options="selectFornecedor"
+                    />
+                </div>
+                <div>
+                    <ThrLabel
+                        for="id_tipo_beneficio"
+                        value="Tipo do benefício"
+                    />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_tipo_beneficio"
                     />
                 </div>
 
@@ -23,15 +31,6 @@
                         v-model="form.faixa_idade"
                         required
                         autofocus
-                    />
-                </div>
-                <div>
-                    <ThrLabel value="Fornecedor" />
-                    <Select
-                        class="mt-1 block w-full"
-                        v-model="form.id_fornecedor"
-                        required
-                        :options="selectFornecedor"
                     />
                 </div>
             </div>
@@ -60,12 +59,38 @@
                     />
                 </div>
                 <div>
-                    <ThrLabel for="vigencia" value="Vigência" />
+                    <ThrLabel for="valor_empresa_compra" value="Valor empresa compra" />
+                    <currency-input
+                        id="valor_empresa_compra"
+                        class="mt-1 block w-full"
+                        v-model="form.valor_empresa_compra"
+                        required
+                        :options="moneyCurrencyOptions"
+                    />
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="data_cadastro" value="Data cadastro" />
                     <ThrInput
-                        id="vigencia"
+                        id="data_cadastro"
                         type="date"
                         class="mt-1 block w-full"
-                        v-model="form.vigencia"
+                        v-model="form.data_cadastro"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel
+                        for="data_fim_contrato"
+                        value="Data fim contrato"
+                    />
+                    <ThrInput
+                        id="data_fim_contrato"
+                        type="date"
+                        class="mt-1 block w-full"
+                        v-model="form.data_fim_contrato"
                         required
                         autofocus
                     />
@@ -130,12 +155,14 @@ export default {
                 useGrouping: true,
             },
             form: this.$inertia.form({
-                tipo_plano: "",
+                id_tipo_beneficio: "",
                 faixa_idade: "",
                 id_fornecedor: "",
-                valor_dependente: "",
-                valor_funcionario: "",
-                vigencia: "",
+                valor_dependente: 0,
+                valor_funcionario: 0,
+                valor_empresa_compra: 0,
+                data_cadastro: "",
+                data_fim_contrato: "",
             }),
         };
     },

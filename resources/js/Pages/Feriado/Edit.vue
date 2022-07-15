@@ -3,14 +3,12 @@
         <form @submit.prevent="submit">
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <ThrLabel for="nome_grupo" value="Nome do Grupo" />
-                    <ThrInput
-                        id="nome_grupo"
-                        type="text"
+                    <ThrLabel for="id_grupo_feriados" value="Nome do Grupo" />
+                    <Select
                         class="mt-1 block w-full"
-                        v-model="form.nome_grupo"
+                        v-model="form.id_grupo_feriados"
                         required
-                        autofocus
+                        :options="selectGrupoFeriados"
                     />
                 </div>
                 <div>
@@ -61,10 +59,12 @@ import ThrButton from "@/Components/Global/Button.vue";
 import ThrInput from "@/Components/Global/Input.vue";
 import ThrLabel from "@/Components/Global/Label.vue";
 import LinkButton from "@/Components/Global/LinkButton.vue";
+import Select from "@/Components/Global/Select.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
+        Select,
         FormLayout,
         LinkButton,
         ThrButton,
@@ -75,7 +75,7 @@ export default {
     setup(props) {
         console.log(props.item);
         const form = useForm({
-            nome_grupo: props.item.nome_grupo,
+            id_grupo_feriados: props.item.id_grupo_feriados,
             descricao: props.item.descricao,
             data_feriado: new Date(props.item.data_feriado)
                 .toISOString()
@@ -86,6 +86,18 @@ export default {
     },
     props: {
         item: Object,
+        grupo_feriados: Array
+    },
+    computed: {
+        selectGrupoFeriados() {
+            return this.grupo_feriados.map((item) => {
+                const obj = {
+                    value: item.id_grupo_feriados,
+                    label: item.nome,
+                };
+                return obj;
+            });
+        },
     },
     methods: {
         submit() {

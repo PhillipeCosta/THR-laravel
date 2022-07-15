@@ -78,9 +78,10 @@
                         v-model="form.id_tipo_beneficio"
                         required
                         :options="selectBeneficio"
+                        @change="changeBeneficio"
                     />
                 </div>
-                <div>
+                <div v-if="isSaude" class="col-span-2">
                     <ThrLabel
                         for="pat"
                         value="Programa de alimentação do trabalhador"
@@ -94,7 +95,7 @@
                         autofocus
                     />
                 </div>
-                <div>
+                <div v-if="isOdonto" class="col-span-2">
                     <ThrLabel for="ans" value="ANS" />
                     <ThrInput
                         id="ans"
@@ -221,6 +222,8 @@ export default {
 
     data() {
         return {
+            isSaude: false,
+            isOdonto: false,
             maskedValues: {
                 cep: "",
                 telefone: "",
@@ -270,6 +273,26 @@ export default {
     methods: {
         submit() {
             this.form.post(this.route("fornecedor.store"));
+        },
+        changeBeneficio(event) {
+            this.beneficioRules(event.target.value);
+        },
+        beneficioRules(value) {
+            if (value) {
+                const type = this.beneficio.find(
+                    ({ id_tipo_beneficio }) => id_tipo_beneficio === value
+                );
+                if (type.tipo === "Plano de Saúde") {
+                    this.isSaude = true;
+                    this.isOdonto = false;
+                } else if (type.tipo === "Plano Odontologico") {
+                    this.isSaude = false;
+                    this.isOdonto = true;
+                } else {
+                    this.isSaude = false;
+                    this.isOdonto = false;
+                }
+            }
         },
         searchCEP(cep) {
             if (cep.length == 8) {

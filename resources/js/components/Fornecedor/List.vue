@@ -51,7 +51,9 @@
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.tipo_fornecedor }}
+                        <span v-if="item.beneficio">{{
+                            item.beneficio.tipo
+                        }}</span>
                     </td>
 
                     <td
@@ -146,7 +148,7 @@ export default {
         Pagination,
         CPFCNPJFormat,
         PhoneFormat,
-        EmptyTable
+        EmptyTable,
     },
     props: {
         items: Object,

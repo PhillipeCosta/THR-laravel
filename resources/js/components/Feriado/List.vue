@@ -22,7 +22,9 @@
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.nome_grupo }}
+                        <span v-if="item.grupo_feriados">{{
+                            item.grupo_feriados.nome
+                        }}</span>
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
@@ -100,7 +102,7 @@ export default {
         DropdownLink,
         FlashMessages,
         Pagination,
-        EmptyTable
+        EmptyTable,
     },
     props: {
         items: Object,

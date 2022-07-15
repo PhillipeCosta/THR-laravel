@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Feriado, GrupoFeriados};
+use App\Models\GrupoFeriados;
 use App\Http\Requests\{StoreRequest, UpdateRequest};
 use Illuminate\Support\Facades\{Redirect, Request};
 use Inertia\Inertia;
 
-class FeriadoController extends Controller
+class GrupoFeriadosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,8 @@ class FeriadoController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Feriado/Index', [
-            'items' => Feriado::latest()
-                ->with('grupo_feriados')
+        return Inertia::render('GrupoFeriados/Index', [
+            'items' => GrupoFeriados::latest()
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -31,9 +30,7 @@ class FeriadoController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Feriado/Store', [
-            'grupo_feriados' => GrupoFeriados::get()
-        ]);
+        return Inertia::render('GrupoFeriados/Store');
     }
 
     /**
@@ -44,17 +41,17 @@ class FeriadoController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        Feriado::create($request->all());
-        return Redirect::route('feriado.index')->with('success', 'Feriado criado com sucesso!');
+        GrupoFeriados::create($request->all());
+        return Redirect::route('grupo-feriado.index')->with('success', 'Grupo de feriados criado com sucesso!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Feriado  $feriado
+     * @param  \App\Models\GrupoFeriados  $grupo_feriado
      * @return \Illuminate\Http\Response
      */
-    public function show(Feriado $feriado)
+    public function show(GrupoFeriados $grupo_feriado)
     {
         //
     }
@@ -62,14 +59,13 @@ class FeriadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Feriado  $feriado
+     * @param  \App\Models\GrupoFeriados  $grupo_feriado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Feriado $feriado)
+    public function edit(GrupoFeriados $grupo_feriado)
     {
-        return Inertia::render('Feriado/Edit', [
-            'item' => $feriado,
-            'grupo_feriados' => GrupoFeriados::get()
+        return Inertia::render('GrupoFeriados/Edit', [
+            'item' => $grupo_feriado
         ]);
     }
 
@@ -77,24 +73,24 @@ class FeriadoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateRequest  $request
-     * @param  \App\Models\Feriado  $feriado
+     * @param  \App\Models\GrupoFeriados  $grupo_feriado
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Feriado $feriado)
+    public function update(UpdateRequest $request, GrupoFeriados $grupo_feriado)
     {
-        $feriado->update($request->all());
-        return Redirect::route('feriado.index')->with('success', 'Feriado alterado com sucesso!');
+        $grupo_feriado->update($request->all());
+        return Redirect::route('grupo-feriado.index')->with('success', 'Grupo de feriados alterado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Feriado  $feriado
+     * @param  \App\Models\GrupoFeriados  $grupo_feriado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Feriado $feriado)
+    public function destroy(GrupoFeriados $grupo_feriado)
     {
-        $feriado->delete();
-        return Redirect::route('feriado.index')->with('success', 'Feriado deletado com sucesso!');
+        $grupo_feriado->delete();
+        return Redirect::route('grupo-feriado.index')->with('success', 'Grupo de feriados deletado com sucesso!');
     }
 }

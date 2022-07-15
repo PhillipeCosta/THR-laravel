@@ -6,6 +6,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\GrupoFeriados;
 
 class Feriado extends Model
 {
@@ -14,9 +15,14 @@ class Feriado extends Model
     protected $table = 'feriado';
     protected $primaryKey  = 'id_feriado';
     protected $fillable = [
-        'nome_grupo',
         'descricao',
         'data_feriado',
-        'nome_pessoa_registro'
+        'nome_pessoa_registro',
+        'id_grupo_feriados'
     ];
+
+    public function grupo_feriados()
+    {
+        return $this->hasOne(GrupoFeriados::class, 'id_grupo_feriados', 'id_grupo_feriados');
+    }
 }

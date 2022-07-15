@@ -51,6 +51,12 @@
                     >
                         Feriados
                     </DropdownLink>
+                    <DropdownLink
+                        :href="route('grupo-feriado.index')"
+                        :active="route().current('grupo-feriado.index')"
+                    >
+                        Grupo de feriados
+                    </DropdownLink>
                 </template>
             </Dropdown>
         </div>

@@ -17,10 +17,12 @@ class FaixaEtaria extends Model
     protected $fillable = [
         'id_fornecedor',
         'faixa_idade',
-        'tipo_plano',
-        'vigencia',
-        'valor_dependente',
+        'id_tipo_beneficio',
         'valor_funcionario',
+        'valor_dependente',
+        'valor_empresa_compra',
+        'data_cadastro',
+        'data_fim_contrato',
         'nome_pessoa_registro'
     ];
 
