@@ -6,7 +6,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use App\Models\{Empresa, Feriado};
+use App\Models\{Empresa, GrupoFeriados};
 
 class Lotacao extends Model
 {
@@ -35,8 +35,8 @@ class Lotacao extends Model
         return $this->hasOne(Empresa::class, 'id_pessoa', 'id_pessoa');
     }
 
-    public function feriado()
+    public function grupo_feriado()
     {
-        return $this->hasOne(Feriado::class, 'id_feriado', 'id_feriado');
+        return $this->hasOne(GrupoFeriados::class, 'id_grupo_feriados', 'id_feriado');
     }
 }

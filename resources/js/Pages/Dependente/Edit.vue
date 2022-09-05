@@ -1,6 +1,17 @@
 <template>
     <FormLayout title="Editar Dependente">
         <form @submit.prevent="submit">
+            <div class="grid grid-cols-1 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="id_funcionario" value="Funcionário" />
+                    <v-select
+                        :reduce="(sel) => sel.value"
+                        :options="selectFuncionario"
+                        v-model="form.id_funcionario"
+                        required
+                    ></v-select>
+                </div>
+            </div>
             <div class="grid grid-cols-4 gap-4 mb-4">
                 <div class="col-span-2">
                     <ThrLabel for="nome" value="Nome" />
@@ -38,7 +49,7 @@
                     />
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-4 gap-4 mb-4">
                 <div>
                     <ThrLabel
                         for="data_nascimento"
@@ -73,9 +84,6 @@
                         :options="grauParentesco"
                     />
                 </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
                     <ThrLabel
                         for="id_desconto_faixa_etaria"
@@ -84,22 +92,7 @@
                     <Select
                         class="mt-1 block w-full"
                         v-model="form.id_desconto_faixa_etaria"
-                        required
-                        :options="faixaEtaria"
-                    />
-                </div>
-                <div>
-                    <ThrLabel
-                        for="matricula_funcionario"
-                        value="Matrícula Funcionário"
-                    />
-                    <ThrInput
-                        id="matricula_funcionario"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.matricula_funcionario"
-                        required
-                        autofocus
+                        :options="selectfaixaEtaria"
                     />
                 </div>
             </div>
@@ -154,7 +147,6 @@ export default {
     },
 
     setup(props) {
-        console.log(props.item);
         const form = useForm({
             matricula_funcionario: props.item.matricula_funcionario,
             nome: props.item.nome,
@@ -165,16 +157,26 @@ export default {
             nome_mae: props.item.nome_mae,
             id_desconto_faixa_etaria: props.item.id_desconto_faixa_etaria,
             id_parentesco: props.item.id_parentesco,
+            id_funcionario: props.item.id_funcionario,
         });
 
         return { form };
     },
     computed: {
+        selectFuncionario() {
+            return this.funcionario.map((item) => {
+                const obj = {
+                    value: item.id_funcionario,
+                    label: item.nome,
+                };
+                return obj;
+            });
+        },
         faixaEtaria() {
             return this.faixa_etaria.map((item) => {
                 const obj = {
                     value: item.id_desconto_faixa_etaria,
-                    label: item.tipo_plano,
+                    label: item.faixa_idade,
                 };
                 return obj;
             });

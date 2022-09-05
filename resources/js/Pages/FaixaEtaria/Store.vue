@@ -19,6 +19,8 @@
                     <Select
                         class="mt-1 block w-full"
                         v-model="form.id_tipo_beneficio"
+                        :options="selectBeneficio"
+                        required
                     />
                 </div>
 
@@ -59,7 +61,10 @@
                     />
                 </div>
                 <div>
-                    <ThrLabel for="valor_empresa_compra" value="Valor empresa compra" />
+                    <ThrLabel
+                        for="valor_empresa_compra"
+                        value="Valor empresa compra"
+                    />
                     <currency-input
                         id="valor_empresa_compra"
                         class="mt-1 block w-full"
@@ -77,6 +82,7 @@
                         type="date"
                         class="mt-1 block w-full"
                         v-model="form.data_cadastro"
+                        @change="setEndContract"
                         required
                         autofocus
                     />
@@ -168,6 +174,7 @@ export default {
     },
     props: {
         fornecedores: Array,
+        beneficio: Array,
     },
     computed: {
         selectFornecedor() {
@@ -179,10 +186,28 @@ export default {
                 return obj;
             });
         },
+        selectBeneficio() {
+            return this.beneficio.map((item) => {
+                const obj = {
+                    value: item.id_tipo_beneficio,
+                    label: item.tipo,
+                };
+                return obj;
+            });
+        },
     },
     methods: {
         submit() {
             this.form.post(this.route("faixa-etaria.store"));
+        },
+        setEndContract(e) {
+            const date = new Date(this.form.data_cadastro);
+            if (date) {
+                date.setFullYear(date.getFullYear() + 1);
+                this.form.data_fim_contrato = new Date(date)
+                    .toISOString()
+                    .substring(0, 10);
+            }
         },
     },
 };

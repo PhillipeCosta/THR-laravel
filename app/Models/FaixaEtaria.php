@@ -6,7 +6,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Fornecedor;
+use App\Models\{Fornecedor, TipoBeneficio};
 
 class FaixaEtaria extends Model
 {
@@ -29,5 +29,10 @@ class FaixaEtaria extends Model
     public function fornecedor()
     {
         return $this->hasOne(Fornecedor::class, 'id_fornecedor', 'id_fornecedor');
+    }
+
+    public function beneficio()
+    {
+        return $this->hasOne(TipoBeneficio::class, 'id_tipo_beneficio', 'id_tipo_beneficio');
     }
 }

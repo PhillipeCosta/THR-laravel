@@ -58,6 +58,26 @@
                     </div>
                 </div>
             </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <ThrLabel value="Cliente" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_cliente"
+                        required
+                        :options="selectCliente"
+                    />
+                </div>
+                <div>
+                    <ThrLabel value="Tipo Benefício" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_tipo_beneficio"
+                        required
+                        :options="selectTipoBeneficio"
+                    />
+                </div>
+            </div>
             <div class="text-center mt-4">
                 <LinkButton
                     class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
@@ -107,11 +127,31 @@ export default {
             percentual_valor_funcionario:
                 props.item.percentual_valor_funcionario,
             percentual_valor_dependente: props.item.percentual_valor_dependente,
+            id_cliente: props.item.id_cliente,
+            id_tipo_beneficio: props.item.id_tipo_beneficio,
         });
 
         return { form };
     },
     computed: {
+        selectTipoBeneficio() {
+            return this.tipo_beneficio.map((item) => {
+                const obj = {
+                    value: item.id_tipo_beneficio,
+                    label: item.tipo,
+                };
+                return obj;
+            });
+        },
+        selectCliente() {
+            return this.empresa.map((item) => {
+                const obj = {
+                    value: item.id_pessoa,
+                    label: item.razao_social,
+                };
+                return obj;
+            });
+        },
         selectFornecedor() {
             return this.fornecedores.map((item) => {
                 const obj = {
@@ -157,6 +197,8 @@ export default {
         item: Object,
         fornecedores: Array,
         lotacao: Array,
+        empresa: Array,
+        tipo_beneficio: Array,
     },
     methods: {
         submit() {

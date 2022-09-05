@@ -1,6 +1,21 @@
 <template>
     <FormLayout title="Cadastrar Dependente">
         <form @submit.prevent="submit">
+            <div class="grid grid-cols-1 gap-4 mb-4">
+                <div>
+                    <ThrLabel
+                        for="id_funcionario"
+                        value="Funcionário"
+                        class="mb-2"
+                    />
+                    <v-select
+                        :reduce="(sel) => sel.value"
+                        :options="selectFuncionario"
+                        v-model="form.id_funcionario"
+                        required
+                    ></v-select>
+                </div>
+            </div>
             <div class="grid grid-cols-4 gap-4 mb-4">
                 <div class="col-span-2">
                     <ThrLabel for="nome" value="Nome" />
@@ -38,7 +53,7 @@
                     />
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-4 gap-4 mb-4">
                 <div>
                     <ThrLabel
                         for="data_nascimento"
@@ -73,9 +88,6 @@
                         :options="grauParentesco"
                     />
                 </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
                     <ThrLabel
                         for="id_desconto_faixa_etaria"
@@ -84,25 +96,11 @@
                     <Select
                         class="mt-1 block w-full"
                         v-model="form.id_desconto_faixa_etaria"
-                        required
-                        :options="faixaEtaria"
-                    />
-                </div>
-                <div>
-                    <ThrLabel
-                        for="matricula_funcionario"
-                        value="Matrícula Funcionário"
-                    />
-                    <ThrInput
-                        id="matricula_funcionario"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.matricula_funcionario"
-                        required
-                        autofocus
+                        :options="selectfaixaEtaria"
                     />
                 </div>
             </div>
+
             <div class="text-center mt-4">
                 <LinkButton
                     class="hover:bg-gray-700 active:bg-gray-900 bg-gray-800 mr-3"
@@ -156,19 +154,31 @@ export default {
                 nome_mae: "",
                 id_desconto_faixa_etaria: "",
                 id_parentesco: "",
+                nome_funcionario: "",
+                id_funcionario: "",
             }),
         };
     },
     props: {
         faixa_etaria: Array,
         grau_parentesco: Array,
+        funcionario: Array,
     },
     computed: {
-        faixaEtaria() {
+        selectFuncionario() {
+            return this.funcionario.map((item) => {
+                const obj = {
+                    value: item.id_funcionario,
+                    label: item.nome,
+                };
+                return obj;
+            });
+        },
+        selectfaixaEtaria() {
             return this.faixa_etaria.map((item) => {
                 const obj = {
                     value: item.id_desconto_faixa_etaria,
-                    label: item.tipo_plano,
+                    label: item.faixa_idade,
                 };
                 return obj;
             });

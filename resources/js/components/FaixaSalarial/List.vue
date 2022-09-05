@@ -8,12 +8,12 @@
         <table class="w-full whitespace-nowrap" v-else>
             <thead>
                 <tr class="text-left font-bold">
-                    <th class="px-6 pt-6 pb-4">Início</th>
-                    <th class="px-6 pt-6 pb-4">Fim</th>
+                    <th class="px-6 pt-6 pb-4">Período</th>
                     <th class="px-6 pt-6 pb-4">Salario</th>
                     <th class="px-6 pt-6 pb-4">Descontos</th>
                     <th class="px-6 pt-6 pb-4">Lotação</th>
                     <th class="px-6 pt-6 pb-4">Benefícios</th>
+                    <th class="px-6 pt-6 pb-4">Cliente</th>
                     <th class="px-6 pt-6 pb-4">Ativo</th>
                 </tr>
             </thead>
@@ -26,34 +26,43 @@
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                     >
-                        <DateFormat :value="item.inicio" />
-                    </td>
-                    <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                    >
-                        <DateFormat :value="item.fim" />
+                        Início: <DateFormat :value="item.inicio" /> <br />
+                        Fim: <DateFormat :value="item.fim" />
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        <MoneyFormat :value="item.salario" />
+                        Salario Início:
+                        <MoneyFormat :value="item.salario_ini" /> <br />
+                        Salario Fim: <MoneyFormat :value="item.salario_fim" />
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        VR: <MoneyFormat :value="item.valor_desc_vr" /> <br>
-                        VT: <MoneyFormat :value="item.valor_desc_vt" /> <br>
+                        VR: <MoneyFormat :value="item.valor_desc_vr" /> <br />
+                        VT: <MoneyFormat :value="item.valor_desc_vt" /> <br />
                         VA: <MoneyFormat :value="item.valor_desc_va" />
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.lotacao.lotacao }}
+                        <span v-if="item.lotacao">
+                            {{ item.lotacao.lotacao }}
+                        </span>
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        {{ item.compra_beneficio.tipo_beneficio }}
+                        <span v-if="item.compra_beneficio">
+                            {{ item.compra_beneficio.tipo_beneficio }}
+                        </span>
+                    </td>
+                    <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                    >
+                        <span v-if="item.cliente">
+                            {{ item.cliente.razao_social }}
+                        </span>
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"

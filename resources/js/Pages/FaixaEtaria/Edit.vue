@@ -19,6 +19,8 @@
                     <Select
                         class="mt-1 block w-full"
                         v-model="form.id_tipo_beneficio"
+                        :options="selectBeneficio"
+                        required
                     />
                 </div>
 
@@ -149,8 +151,12 @@ export default {
             valor_dependente: props.item.valor_dependente,
             valor_funcionario: props.item.valor_funcionario,
             valor_empresa_compra: props.item.valor_empresa_compra,
-            data_cadastro: props.item.data_cadastro,
-            data_fim_contrato: props.item.data_fim_contrato,
+            data_cadastro: new Date(props.item.data_cadastro)
+                .toISOString()
+                .substring(0, 10),
+            data_fim_contrato: new Date(props.item.data_fim_contrato)
+                .toISOString()
+                .substring(0, 10),
         });
 
         return { form };
@@ -161,6 +167,15 @@ export default {
                 const obj = {
                     value: item.id_fornecedor,
                     label: item.razao_social,
+                };
+                return obj;
+            });
+        },
+        selectBeneficio() {
+            return this.beneficio.map((item) => {
+                const obj = {
+                    value: item.id_tipo_beneficio,
+                    label: item.tipo,
                 };
                 return obj;
             });
@@ -187,6 +202,7 @@ export default {
     props: {
         item: Object,
         fornecedores: Array,
+        beneficio: Array,
     },
     methods: {
         submit() {

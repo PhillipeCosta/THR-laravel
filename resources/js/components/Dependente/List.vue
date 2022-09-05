@@ -17,6 +17,7 @@
                     <th class="px-6 pt-6 pb-4">Parentesco</th>
                     <th class="px-6 pt-6 pb-4">Nome da Mãe</th>
                     <th class="px-6 pt-6 pb-4">Desc. Faixa Etária</th>
+                    <th class="px-6 pt-6 pb-4">Funcionário</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,7 +66,14 @@
                             item.faixa_etaria.tipo_plano
                         }}</span>
                     </td>
-
+                    <td
+                        class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
+                    >
+                        <span v-if="item.funcionario">
+                            {{ item.funcionario.nome }} -
+                            {{ item.funcionario.matricula }}
+                        </span>
+                    </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                     >

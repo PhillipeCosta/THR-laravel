@@ -72,11 +72,12 @@
 
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <ThrLabel for="id_tipo_beneficio" value="Tipo Benefício" />
+                    <ThrLabel for="tipos_beneficio" value="Tipo Benefício" />
                     <Select
                         class="mt-1 block w-full"
-                        v-model="form.id_tipo_beneficio"
+                        v-model="form.tipos_beneficio"
                         required
+                        multiple
                         :options="selectBeneficio"
                         @change="changeBeneficio"
                     />
@@ -234,7 +235,7 @@ export default {
             ans: props.item.ans,
             telefone: props.item.telefone,
             inscricao_estadual: props.item.inscricao_estadual,
-            id_tipo_beneficio: props.item.id_tipo_beneficio,
+            tipos_beneficio: props.item.tipos_beneficio,
             pat: props.item.pat,
         });
 

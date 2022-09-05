@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Dependente, FaixaEtaria, GrauParentesco};
+use App\Models\{Dependente, FaixaEtaria, GrauParentesco, Funcionario};
 use App\Http\Requests\{StoreRequest, UpdateRequest};
 use Illuminate\Support\Facades\{Redirect, Request};
 use Inertia\Inertia;
@@ -20,6 +20,7 @@ class DependenteController extends Controller
             'items' => Dependente::latest()
                 ->with('faixa_etaria')
                 ->with('grau_parentesco')
+                ->with('funcionario')
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -34,7 +35,8 @@ class DependenteController extends Controller
     {
         return Inertia::render('Dependente/Store', [
             'faixa_etaria' => FaixaEtaria::get(),
-            'grau_parentesco' => GrauParentesco::get()
+            'grau_parentesco' => GrauParentesco::get(),
+            'funcionario' => Funcionario::get()
         ]);
     }
 
@@ -72,7 +74,8 @@ class DependenteController extends Controller
         return Inertia::render('Dependente/Edit', [
             'item' => $dependente,
             'faixa_etaria' => FaixaEtaria::get(),
-            'grau_parentesco' => GrauParentesco::get()
+            'grau_parentesco' => GrauParentesco::get(),
+            'funcionario' => Funcionario::get()
         ]);
     }
 

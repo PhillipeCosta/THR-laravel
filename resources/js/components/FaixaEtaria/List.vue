@@ -9,7 +9,7 @@
             <thead>
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Faixa de Idade</th>
-                    <th class="px-6 pt-6 pb-4">Fornecedor</th>
+                    <th class="px-6 pt-6 pb-4">Fornecedor / Benefício</th>
                     <th class="px-6 pt-6 pb-4">Valores</th>
                     <th class="px-6 pt-6 pb-4">Data Cadastro</th>
                     <th class="px-6 pt-6 pb-4">Data Fim Contrato</th>
@@ -32,14 +32,20 @@
                     >
                         <span v-if="item.fornecedor">{{
                             item.fornecedor.razao_social
+                        }}</span> <br>
+                        <span v-if="item.beneficio">{{
+                            item.beneficio.tipo
                         }}</span>
                     </td>
                     <td
                         class="text-sm text-gray-500 px-6 py-4 whitespace-nowrap"
                     >
-                        Valor Funcionário: <MoneyFormat :value="item.valor_funcionario" /> <br />
-                        Valor Dependente: <MoneyFormat :value="item.valor_dependente" /> <br />
-                        Valor Empresa: <MoneyFormat :value="item.valor_empresa_compra" />
+                        Valor Funcionário:
+                        <MoneyFormat :value="item.valor_funcionario" /> <br />
+                        Valor Dependente:
+                        <MoneyFormat :value="item.valor_dependente" /> <br />
+                        Valor Empresa:
+                        <MoneyFormat :value="item.valor_empresa_compra" />
                     </td>
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"

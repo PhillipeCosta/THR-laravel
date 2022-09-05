@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{FaixaEtaria, Fornecedor};
+use App\Models\{FaixaEtaria, Fornecedor, TipoBeneficio};
 use App\Http\Requests\{StoreRequest, UpdateRequest};
 use Illuminate\Support\Facades\{Redirect,Request};
 use Inertia\Inertia;
@@ -19,6 +19,7 @@ class FaixaEtariaController extends Controller
         return Inertia::render('FaixaEtaria/Index', [
             'items' => FaixaEtaria::orderBy('faixa_idade')
                 ->with('fornecedor')
+                ->with('beneficio')
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -33,6 +34,7 @@ class FaixaEtariaController extends Controller
     {
         return Inertia::render('FaixaEtaria/Store', [
             'fornecedores' => Fornecedor::get(),
+            'beneficio' => TipoBeneficio::get(),
         ]);
     }
 
@@ -70,6 +72,7 @@ class FaixaEtariaController extends Controller
         return Inertia::render('FaixaEtaria/Edit', [
             'item' => $faixa_etaria,
             'fornecedores' => Fornecedor::get(),
+            'beneficio' => TipoBeneficio::get(),
         ]);
     }
 

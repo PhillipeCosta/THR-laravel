@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\{StoreRequest, UpdateRequest};
-use App\Models\{Lotacao, Empresa, Feriado};
+use App\Models\{Lotacao, Empresa, GrupoFeriados};
 use Inertia\Inertia;
 
 
@@ -22,7 +22,7 @@ class LotacaoController extends Controller
             'filters' => Request::all('search'),
             'items' => Lotacao::orderBy('lotacao')
                 ->with('empresa')
-                ->with('feriado')
+                ->with('grupo_feriado')
                 ->filter(Request::only('search'))
                 ->paginate(10)
                 ->withQueryString()
@@ -38,7 +38,7 @@ class LotacaoController extends Controller
     {
         return Inertia::render('Lotacao/Store', [
             'empresas' => Empresa::orderBy('razao_social')->get(),
-            'feriados' => Feriado::orderBy('nome_grupo')->get(),
+            'grupo_feriados' => GrupoFeriados::get(),
         ]);
     }
 
@@ -76,7 +76,7 @@ class LotacaoController extends Controller
         return Inertia::render('Lotacao/Edit', [
             'item' => $lotacao,
             'empresas' => Empresa::orderBy('razao_social')->get(),
-            'feriados' => Feriado::orderBy('nome_grupo')->get(),
+            'grupo_feriados' => GrupoFeriados::get(),
         ]);
     }
 

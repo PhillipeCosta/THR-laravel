@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{FaixaSalarial, CompraBeneficio, Lotacao};
+use App\Models\{FaixaSalarial, CompraBeneficio, Lotacao, Empresa};
 use App\Http\Requests\{StoreRequest, UpdateRequest};
 use Illuminate\Support\Facades\{Redirect, Request};
 use Inertia\Inertia;
@@ -20,6 +20,7 @@ class FaixaSalarialController extends Controller
             'items' => FaixaSalarial::orderBy('inicio')
                 ->with('compra_beneficio')
                 ->with('lotacao')
+                ->with('cliente')
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -35,6 +36,7 @@ class FaixaSalarialController extends Controller
         return Inertia::render('FaixaSalarial/Store', [
             'lotacao' => Lotacao::get(),
             'compra_beneficio' => CompraBeneficio::get(),
+            'empresa' => Empresa::get()
         ]);
     }
 
@@ -73,6 +75,7 @@ class FaixaSalarialController extends Controller
             'item' => $faixaSalarial,
             'lotacao' => Lotacao::get(),
             'compra_beneficio' => CompraBeneficio::get(),
+            'empresa' => Empresa::get()
         ]);
     }
 

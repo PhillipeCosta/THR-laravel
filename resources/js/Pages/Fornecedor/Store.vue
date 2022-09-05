@@ -72,16 +72,17 @@
 
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <ThrLabel for="id_tipo_beneficio" value="Tipo Benefício" />
+                    <ThrLabel for="tipos_beneficio" value="Tipo Benefício" />
                     <Select
                         class="mt-1 block w-full"
-                        v-model="form.id_tipo_beneficio"
+                        v-model="form.tipos_beneficio"
                         required
+                        multiple
                         :options="selectBeneficio"
                         @change="changeBeneficio"
                     />
                 </div>
-                <div v-if="isSaude" class="col-span-2">
+                <div v-if="isTrans" class="col-span-2">
                     <ThrLabel
                         for="pat"
                         value="Programa de alimentação do trabalhador"
@@ -95,7 +96,7 @@
                         autofocus
                     />
                 </div>
-                <div v-if="isOdonto" class="col-span-2">
+                <div v-if="isSaude" class="col-span-2">
                     <ThrLabel for="ans" value="ANS" />
                     <ThrInput
                         id="ans"
@@ -223,7 +224,7 @@ export default {
     data() {
         return {
             isSaude: false,
-            isOdonto: false,
+            isTrans: false,
             maskedValues: {
                 cep: "",
                 telefone: "",
@@ -242,7 +243,7 @@ export default {
                 ans: "",
                 telefone: "",
                 inscricao_estadual: "",
-                id_tipo_beneficio: "",
+                tipos_beneficio: [],
                 pat: "",
             }),
         };
@@ -284,13 +285,13 @@ export default {
                 );
                 if (type.tipo === "Plano de Saúde") {
                     this.isSaude = true;
-                    this.isOdonto = false;
-                } else if (type.tipo === "Plano Odontologico") {
+                    this.isTrans = false;
+                } else if (type.tipo === "Transporte") {
                     this.isSaude = false;
-                    this.isOdonto = true;
+                    this.isTrans = true;
                 } else {
                     this.isSaude = false;
-                    this.isOdonto = false;
+                    this.isTrans = false;
                 }
             }
         },

@@ -12,6 +12,8 @@
                     <th class="px-6 pt-6 pb-4">Fornecedor</th>
                     <th class="px-6 pt-6 pb-4">Porcentagem funcionário</th>
                     <th class="px-6 pt-6 pb-4">Porcentagem dependente</th>
+                    <th class="px-6 pt-6 pb-4">Cliente</th>
+                    <th class="px-6 pt-6 pb-4">Benefício</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +49,20 @@
                         <PerceintFormat
                             :value="item.percentual_valor_dependente"
                         />
+                    </td>
+                    <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                    >
+                        <span v-if="item.cliente">{{
+                            item.cliente.razao_social
+                        }}</span>
+                    </td>
+                    <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                    >
+                        <span v-if="item.tipo_beneficio">{{
+                            item.tipo_beneficio.tipo
+                        }}</span>
                     </td>
 
                     <td

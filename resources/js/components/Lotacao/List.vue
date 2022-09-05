@@ -44,8 +44,8 @@
                     <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                     >
-                        <span v-if="item.feriado">{{
-                            item.feriado.nome_grupo
+                        <span v-if="item.grupo_feriado">{{
+                            item.grupo_feriado.nome
                         }}</span>
                     </td>
                     <td

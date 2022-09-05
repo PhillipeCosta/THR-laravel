@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{EmpresaBeneficio, Fornecedor, Lotacao};
+use App\Models\{EmpresaBeneficio, Fornecedor, Lotacao, Empresa, TipoBeneficio};
 use App\Http\Requests\{StoreRequest, UpdateRequest};
-use Illuminate\Support\Facades\{Redirect,Request};
+use Illuminate\Support\Facades\{Redirect, Request};
 use Inertia\Inertia;
 
 class EmpresaBeneficioController extends Controller
@@ -20,6 +20,8 @@ class EmpresaBeneficioController extends Controller
             'items' => EmpresaBeneficio::orderBy('percentual_valor_funcionario')
                 ->with('fornecedor')
                 ->with('lotacao')
+                ->with('cliente')
+                ->with('tipo_beneficio')
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -34,7 +36,9 @@ class EmpresaBeneficioController extends Controller
     {
         return Inertia::render('EmpresaBeneficio/Store', [
             'fornecedores' => Fornecedor::orderBy('razao_social')->get(),
-            'lotacao' => Lotacao::orderBy('lotacao')->get()
+            'lotacao' => Lotacao::orderBy('lotacao')->get(),
+            'empresa' => Empresa::get(),
+            'tipo_beneficio' => TipoBeneficio::get()
         ]);
     }
 
@@ -72,7 +76,9 @@ class EmpresaBeneficioController extends Controller
         return Inertia::render('EmpresaBeneficio/Edit', [
             'item' => $empresa_beneficio,
             'fornecedores' => Fornecedor::orderBy('razao_social')->get(),
-            'lotacao' => Lotacao::orderBy('lotacao')->get()
+            'lotacao' => Lotacao::orderBy('lotacao')->get(),
+            'empresa' => Empresa::get(),
+            'tipo_beneficio' => TipoBeneficio::get()
         ]);
     }
 

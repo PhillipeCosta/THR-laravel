@@ -28,7 +28,7 @@
                         class="mt-1 block w-full"
                         v-model="form.id_feriado"
                         required
-                        :options="selectFeriado"
+                        :options="selectGrupoFeriados"
                     />
                 </div>
                 <div>
@@ -87,7 +87,7 @@ export default {
     },
     props: {
         empresas: Array,
-        feriados: Array,
+        grupo_feriados: Array,
     },
     computed: {
         selectEmpresa() {
@@ -99,11 +99,11 @@ export default {
                 return obj;
             });
         },
-        selectFeriado() {
-            return this.feriados.map((item) => {
+        selectGrupoFeriados() {
+            return this.grupo_feriados.map((item) => {
                 const obj = {
-                    value: item.id_feriado,
-                    label: item.nome_grupo,
+                    value: item.id_grupo_feriados,
+                    label: item.nome,
                 };
                 return obj;
             });

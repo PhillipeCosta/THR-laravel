@@ -1,41 +1,28 @@
 <template>
     <FormLayout title="Editar Faixa Salarial">
         <form @submit.prevent="submit">
-            <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                    <ThrLabel for="salario" value="Salario" />
+                    <ThrLabel for="salario_ini" value="Salario Início" />
                     <currency-input
-                        id="salario"
+                        id="salario_ini"
                         class="mt-1 block w-full"
-                        v-model="form.salario"
+                        v-model="form.salario_ini"
                         required
                         :options="moneyCurrencyOptions"
                     />
                 </div>
                 <div>
-                    <ThrLabel for="inicio" value="Início" />
-                    <ThrInput
-                        id="inicio"
-                        type="date"
+                    <ThrLabel for="salario_fim" value="Salario Fim" />
+                    <currency-input
+                        id="salario_fim"
                         class="mt-1 block w-full"
-                        v-model="form.inicio"
+                        v-model="form.salario_fim"
                         required
-                        autofocus
-                    />
-                </div>
-                <div>
-                    <ThrLabel for="fim" value="Fim" />
-                    <ThrInput
-                        id="fim"
-                        type="date"
-                        class="mt-1 block w-full"
-                        v-model="form.fim"
-                        required
-                        autofocus
+                        :options="moneyCurrencyOptions"
                     />
                 </div>
             </div>
-
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
                     <ThrLabel for="valor_desc_vr" value="Valor Desc. VR" />
@@ -68,7 +55,7 @@
                     />
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-3 gap-4 mb-4">
                 <div>
                     <ThrLabel value="Benefício" />
                     <Select
@@ -85,6 +72,39 @@
                         v-model="form.id_lotacao"
                         required
                         :options="selectLotacao"
+                    />
+                </div>
+                <div>
+                    <ThrLabel value="Cliente" />
+                    <Select
+                        class="mt-1 block w-full"
+                        v-model="form.id_cliente"
+                        required
+                        :options="selectEmpresa"
+                    />
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <ThrLabel for="inicio" value="Início" />
+                    <ThrInput
+                        id="inicio"
+                        type="date"
+                        class="mt-1 block w-full"
+                        v-model="form.inicio"
+                        required
+                        autofocus
+                    />
+                </div>
+                <div>
+                    <ThrLabel for="fim" value="Fim" />
+                    <ThrInput
+                        id="fim"
+                        type="date"
+                        class="mt-1 block w-full"
+                        v-model="form.fim"
+                        required
+                        autofocus
                     />
                 </div>
                 <div>
@@ -141,7 +161,9 @@ export default {
             valor_desc_va: props.item.valor_desc_va,
             id_compra_beneficio: props.item.id_compra_beneficio,
             id_lotacao: props.item.id_lotacao,
-            salario: props.item.salario,
+            salario_ini: props.item.salario_ini,
+            salario_fim: props.item.salario_fim,
+            id_cliente: props.item.id_cliente,
             inicio: new Date(props.item.inicio).toISOString().substring(0, 10),
             fim: new Date(props.item.fim).toISOString().substring(0, 10),
             ativo: props.item.ativo == 1 ? true : false,
@@ -150,6 +172,15 @@ export default {
         return { form };
     },
     computed: {
+        selectEmpresa() {
+            return this.empresa.map((item) => {
+                const obj = {
+                    value: item.id_pessoa,
+                    label: item.razao_social,
+                };
+                return obj;
+            });
+        },
         selectLotacao() {
             return this.lotacao.map((item) => {
                 const obj = {
@@ -191,6 +222,7 @@ export default {
         item: Object,
         lotacao: Array,
         compra_beneficio: Array,
+        empresa: Array,
     },
     methods: {
         submit() {
